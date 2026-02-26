@@ -48,7 +48,7 @@ Add the marketplace, then install the plugin:
 
 ```
 /plugin marketplace add lklimek/claudash
-/plugin install dash-platform@lklimek-claudash
+/plugin install dash-platform@claudash
 ```
 
 Alternatively, install from a local clone:
