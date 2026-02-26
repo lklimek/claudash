@@ -8,77 +8,53 @@ Regenerate `lexicon/*.md` keyword lookup tables from local clones of Dash Platfo
 
 ## Step 1: Clone repos
 
-Clone all source repos into `.repos/` (already gitignored). Use shallow clones for speed. Skip if already cloned — just `git pull` instead.
-
 ```bash
-mkdir -p .repos
-cd .repos
-for repo in dashpay/platform dashpay/dash-evo-tool PastaPastaPasta/yappr PastaPastaPasta/dash-bridge dashpay/evo-sdk-website; do
-  dir=$(basename "$repo")
-  if [ -d "$dir" ]; then
-    git -C "$dir" pull --ff-only
-  else
-    git clone --depth 1 "https://github.com/$repo.git" "$dir"
-  fi
-done
+bash scripts/clone-repos.sh
 ```
 
-Record commit SHAs for headers:
+Clones/updates all source repos into `.repos/` (gitignored). Note commit SHAs from output for lexicon headers.
+
+All content at `dashpay.github.io/platform` is generated from `dashpay/platform` — read source directly, no WebFetch needed.
+
+## Step 2: Generate `lexicon/rust.md`
+
+Rust lexicon is generated deterministically from rustdoc JSON — no agent needed.
+
 ```bash
-for dir in platform dash-evo-tool yappr dash-bridge evo-sdk-website; do
-  echo "$dir@$(git -C .repos/$dir rev-parse --short HEAD)"
-done
+bash scripts/gen-rustdoc-json.sh
 ```
 
-Note: All content at `dashpay.github.io/platform` (book, Rust API docs, gRPC docs) is generated from `dashpay/platform` repo. No need to WebFetch those separately — read the source directly from `.repos/platform/`.
+Note the `DOC_DIR=...` line from output, then:
 
-## Step 2: Spawn agents
+```bash
+python3 scripts/gen-rust-lexicon.py "$DOC_DIR" --patterns lexicon/rust-patterns.md > lexicon/rust.md
+```
 
-Spawn 4 agents in parallel using the Task tool (`subagent_type: "general-purpose"`), one per lexicon file. Each agent reads source files locally from `.repos/` — no `gh api` or WebFetch needed.
+Requires `cargo +nightly` (only for this step). The `rust-patterns.md` file is hand-maintained — update it when SDK patterns change.
 
-**Critical instruction for each agent**: Be exhaustive. Read every source file in the assigned packages. Extract every public type, function, trait, struct, enum, const, service, RPC, and example. Aim for 50+ entries per section minimum. Coverage matters more than speed. Do not stop after skimming a few files — walk every directory, read every file.
+## Step 3: Spawn agents for remaining lexicons
+
+Spawn 3 agents in parallel (`subagent_type: "general-purpose"`). Each reads source files locally from `.repos/`.
+
+**Critical**: Be exhaustive. Read every source file in assigned packages. Extract every public type, function, trait, struct, enum, const, service, RPC, example. Aim for 50+ entries per section. Coverage > speed.
 
 ### Agent 1: `lexicon/contract.md`
 
-**Local paths**:
-- `.repos/platform/packages/rs-dpp/` — all `.rs` files: contract types, document types, state transitions, validation
-- `.repos/platform/packages/wasm-dpp/` — all `.rs` files: WASM bindings for contracts and documents
-- `.repos/platform/packages/js-dash-sdk/` — contract/document methods in `src/SDK/Client/Platform/methods/`
-- `.repos/yappr/contracts/` — all `.json` contract files (real-world examples)
-- `.repos/dash-bridge/` — TypeScript types related to contracts
+**Paths**: `.repos/platform/packages/rs-dpp/` (contract types, document types, validation), `.repos/platform/packages/wasm-dpp/` (WASM bindings), `.repos/platform/packages/js-dash-sdk/src/SDK/Client/Platform/methods/`, `.repos/yappr/contracts/` (contract examples), `.repos/dash-bridge/` (TS types).
 
-**Extract**: Every public struct/enum/trait related to data contracts, document types, state transitions, validation rules, JSON Schema patterns, token configuration, group actions. Every contract JSON example.
+**Extract**: Every public type related to data contracts, document types, state transitions, validation, JSON Schema, token config, group actions. Every contract JSON example.
 
-### Agent 2: `lexicon/rust.md`
+### Agent 2: `lexicon/js.md`
 
-**Local paths**:
-- `.repos/platform/packages/dash-sdk/` — all `.rs` files: SDK entrypoint, builders, Fetch/FetchMany/Put traits, queries, errors
-- `.repos/platform/packages/rs-dpp/` — all `.rs` files: core types (Identity, DataContract, Document, Identifier, etc.)
-- `.repos/platform/packages/rs-dapi-client/` — all `.rs` files: DAPI client, transport, connection pool, request settings
-- `.repos/dash-evo-tool/src/` — all `.rs` files: real-world SDK usage examples
+**Paths**: `.repos/platform/packages/js-evo-sdk/`, `.repos/platform/packages/js-dash-sdk/`, `.repos/platform/packages/wasm-dpp/`, `.repos/platform/packages/wasm-dpp2/`, `.repos/platform/packages/wasm-sdk/`, `.repos/yappr/` (TS files), `.repos/dash-bridge/` (TS files), `.repos/evo-sdk-website/`.
 
-**Extract**: Every public struct, enum, trait, function, impl block, builder, error type. Every test that demonstrates SDK usage. Every pattern from dash-evo-tool.
+**Extract**: Every exported class, function, type, interface, facade method. Usage patterns from example apps. WASM init patterns.
 
-### Agent 3: `lexicon/js.md`
+### Agent 3: `lexicon/grpc.md`
 
-**Local paths**:
-- `.repos/platform/packages/js-evo-sdk/` — all `.ts` files: EvoSDK class, all facades, wallet functions
-- `.repos/platform/packages/js-dash-sdk/` — all `.ts`/`.js` files: legacy Client, Platform methods
-- `.repos/platform/packages/wasm-dpp/` — WASM JS bindings
-- `.repos/platform/packages/wasm-dpp2/` — newer WASM bindings
-- `.repos/platform/packages/wasm-sdk/` — WASM SDK
-- `.repos/yappr/` — `.ts` files: real-world EvoSDK usage
-- `.repos/dash-bridge/` — `.ts` files: identity, DPNS, crypto usage
-- `.repos/evo-sdk-website/` — API definitions, test examples
+**Paths**: `.repos/platform/packages/dapi-grpc/protos/` (all `.proto` files).
 
-**Extract**: Every exported class, function, type, interface, facade method. Every usage pattern from example apps. Wallet utility functions. WASM initialization patterns.
-
-### Agent 4: `lexicon/grpc.md`
-
-**Local paths**:
-- `.repos/platform/packages/dapi-grpc/protos/` — all `.proto` files: Platform, Core, Drive services
-
-**Extract**: Every service, every RPC, every message type, every enum, every field annotation pattern. This is a single package — be completely exhaustive. Every RPC should have a row.
+**Extract**: Every service, RPC, message type, enum, field. Single package — be completely exhaustive. Every RPC must have a row.
 
 ## Agent Prompt Template
 
@@ -86,15 +62,13 @@ Include in each agent's prompt:
 
 > Working directory: {plugin_root}
 >
-> You have local clones in `.repos/`. Read source files directly — do not use
-> `gh api` or WebFetch. Walk every file in your assigned paths using Glob and
-> Read. Extract every public API surface element.
+> Local clones are in `.repos/`. Read source files directly — no `gh api` or
+> WebFetch. Walk every file in assigned paths using Glob and Read.
 >
-> Be exhaustive. Aim for 50+ rows per section minimum. Read every file, not
-> just top-level modules. Coverage matters more than speed.
+> Be exhaustive. 50+ rows per section minimum. Read every file, not just
+> top-level modules.
 >
-> Write the result to `{output_file}` using the format and link prefixes below.
-> Use commit SHAs from Step 1 in the header comment.
+> Write result to `{output_file}` using the format and link prefixes below.
 
 ## Output Format
 
@@ -121,8 +95,6 @@ Include in each agent's prompt:
 ```
 
 ## Link Prefixes
-
-Used in Src/Docs/Example columns. Agents should use these when writing table entries.
 
 | Pre | Expands to |
 |-----|-----------|

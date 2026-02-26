@@ -18,19 +18,12 @@ dpp = { git = "https://github.com/dashpay/platform", branch = "master" }
 
 ## Lexicon
 
-`lexicon/` contains keyword lookup tables for Dash Platform APIs. To answer questions:
-1. Grep the relevant `lexicon/*.md` file for keywords matching the user's query
-2. Find the `Src` or `Docs` column link in matching rows
-3. Expand the link prefix (see table below) to a full URL and WebFetch it for details
+`lexicon/` has keyword lookup tables (auto-generated, 1000+ entries for Rust). To answer questions:
+1. Grep `lexicon/rust.md` (or `grpc.md`, `contract.md`) for keywords
+2. Find the `Src` link in the matching row
+3. Expand the link prefix to a full URL → WebFetch for details
 
-| File | Content |
-|------|---------|
-| `lexicon/contract.md` | data contract types, JSON Schema, DPP, document types |
-| `lexicon/rust.md` | Rust SDK types, functions, patterns |
-| `lexicon/js.md` | JS SDK types, functions, patterns |
-| `lexicon/grpc.md` | gRPC services, messages, endpoints |
-
-Primary: `lexicon/rust.md`, `lexicon/grpc.md`. Link prefixes:
+Primary: `lexicon/rust.md` (2700+ entries: Types, Functions, Patterns, Examples — includes dapi-grpc Rust bindings). Also: `lexicon/grpc.md` for proto definitions. Link prefixes:
 
 | Pre | URL |
 |-----|-----|
