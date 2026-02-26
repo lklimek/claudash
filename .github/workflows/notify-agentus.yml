@@ -1,4 +1,4 @@
-name: Notify Agentus
+name: Notify Agentes
 
 on:
   push:
@@ -11,8 +11,8 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger agentus workflow
+      - name: Trigger agentes workflow
         run: |
-          gh workflow run --repo lklimek/agentus plugin-updated.yml
+          gh workflow run --repo lklimek/agentes plugin-updated.yml
         env:
-          GH_TOKEN: ${{ secrets.AGENTUS_PAT }}
+          GH_TOKEN: ${{ secrets.AGENTES_PAT }}
