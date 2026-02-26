@@ -4,47 +4,36 @@ description: "Crawl Dash Platform repos and rendered docs to generate keyword in
 user-invocable: true
 ---
 
-# Update Index
-
-Crawl Dash Platform sources and generate condensed keyword index files in `index/`.
+Crawl Dash Platform sources → generate `index/*.md` keyword tables.
 
 ## Sources
 
-### Git Repos (via `gh api`)
+**Repos** (via `gh api`):
 
-| Repo | Packages / Focus |
-|------|-----------------|
+| Repo | Focus |
+|------|-------|
 | `dashpay/platform` | `dash-sdk`, `dpp`, `rs-dapi-client`, `dapi-grpc`, `wasm-sdk`, `wasm-dpp`, `wasm-dpp2`, `js-dash-sdk`, `js-evo-sdk` |
-| `dashpay/dash-evo-tool` | Rust usage example |
-| `PastaPastaPasta/yappr` | JS usage example |
-| `PastaPastaPasta/dash-bridge` | JS usage example |
-| `dashpay/evo-sdk-website` | JS usage example |
+| `dashpay/dash-evo-tool` | Rust example |
+| `PastaPastaPasta/yappr` | JS example |
+| `PastaPastaPasta/dash-bridge` | JS example |
+| `dashpay/evo-sdk-website` | JS example |
 
-### Rendered Docs (via WebFetch)
+**Docs** (via WebFetch): `https://dashpay.github.io/platform/` (book, `/api/rust/dash_sdk/`, `/api/grpc/`)
 
-- Platform book: `https://dashpay.github.io/platform/`
-- Rust API: `https://dashpay.github.io/platform/api/rust/dash_sdk/index.html`
-- gRPC API: `https://dashpay.github.io/platform/api/grpc/index.html`
+## Extract
 
-## What to Extract
+Public APIs, types, functions, test patterns, examples, error types, gRPC definitions.
 
-- Public APIs, types, structs, traits, functions
-- Test patterns and examples
-- Error types and handling patterns
-- gRPC service definitions and message types
-
-## Output Files
+## Output
 
 | File | Content |
 |------|---------|
-| `index/contract.md` | Data contract types, JSON Schema, DPP, document types |
-| `index/rust.md` | Rust SDK types, functions, patterns, examples |
-| `index/js.md` | JS SDK types, functions, patterns, examples |
+| `index/contract.md` | Data contracts, JSON Schema, DPP, document types |
+| `index/rust.md` | Rust SDK types, functions, patterns |
+| `index/js.md` | JS SDK types, functions, patterns |
 | `index/grpc.md` | gRPC services, messages, endpoints |
 
 ## Index Format
-
-Each file uses condensed keyword tables with abbreviated link prefixes:
 
 ```markdown
 # <Stack> Index
@@ -68,12 +57,10 @@ Each file uses condensed keyword tables with abbreviated link prefixes:
 |---------|-------------|------|
 ```
 
-### Link Prefix Conventions
+## Link Prefixes
 
-These save tokens vs full URLs. Other skills expand them when web-fetching.
-
-| Prefix | Expands to |
-|--------|-----------|
+| Pre | Expands to |
+|-----|-----------|
 | `P:` | `https://github.com/dashpay/platform/blob/master/packages/` |
 | `R:` | `https://dashpay.github.io/platform/api/rust/` |
 | `G:` | `https://dashpay.github.io/platform/api/grpc/` |
@@ -85,10 +72,9 @@ These save tokens vs full URLs. Other skills expand them when web-fetching.
 
 ## Procedure
 
-1. Get latest commit SHAs: `gh api repos/{owner}/{repo}/commits?per_page=1`
-2. List repo files: `gh api repos/{owner}/{repo}/git/trees/master?recursive=1`
-3. Identify relevant source files (`.rs`, `.js`, `.ts`, `.proto`, `.json`)
-4. Read key files via `gh api` (public API surfaces, tests, examples)
-5. WebFetch rendered doc pages and extract API signatures
-6. Build keyword tables categorized by Types, Functions, Patterns, Examples
-7. Write results to `index/*.md` with date and source commit SHAs in header
+1. Get commit SHAs: `gh api repos/{owner}/{repo}/commits?per_page=1`
+2. List files: `gh api repos/{owner}/{repo}/git/trees/master?recursive=1`
+3. Filter: `.rs`, `.js`, `.ts`, `.proto`, `.json`
+4. Read key files via `gh api` (public APIs, tests, examples)
+5. WebFetch rendered docs → extract API signatures
+6. Build keyword tables → write `index/*.md` with date + commit SHAs

@@ -3,30 +3,22 @@ name: dash-platform-js
 description: "JavaScript/TypeScript development with dash npm package, js-dash-sdk, wasm-dpp2, @dashevo/wasm-dpp, dapi-client. Use when writing JS/TS code that interacts with Dash Platform, browser apps, or Node.js services."
 ---
 
-# Dash Platform JavaScript SDK
+Assist with JS/TS development on Dash Platform using `dash` npm package and `@dashevo/wasm-dpp`.
 
-Assist with JavaScript/TypeScript development on Dash Platform using the `dash` npm package, `@dashevo/wasm-dpp`, and related libraries.
+## Setup
 
-## Triggers
-
-Activate when the user works with: `dash` npm package, `js-dash-sdk`, `js-evo-sdk`, `wasm-dpp2`, `@dashevo/wasm-dpp`, `dapi-client`, JavaScript/TypeScript + Dash Platform.
-
-## Project Setup
-
-When building or working in the `dashpay/platform` repo, run the environment setup first:
+In `dashpay/platform` repo: `bash scripts/setup-ai-agent-environment.sh`
 
 ```bash
-bash scripts/setup-ai-agent-environment.sh
+npm install dash
 ```
 
-This configures the build environment, installs dependencies, and prepares the workspace for development.
+## Reference
 
-## Reference Index
+Grep `index/js.md` and `index/grpc.md` for lookups. Expand prefixes → WebFetch full content.
 
-Read `index/js.md` and `index/grpc.md` for type/function/pattern lookups. Expand link prefixes to full URLs before web-fetching:
-
-| Prefix | Expands to |
-|--------|-----------|
+| Pre | URL |
+|-----|-----|
 | `P:` | `https://github.com/dashpay/platform/blob/master/packages/` |
 | `G:` | `https://dashpay.github.io/platform/api/grpc/` |
 | `B:` | `https://dashpay.github.io/platform/` |
@@ -34,123 +26,60 @@ Read `index/js.md` and `index/grpc.md` for type/function/pattern lookups. Expand
 | `D:` | `https://github.com/PastaPastaPasta/dash-bridge/blob/master/` |
 | `E:` | `https://github.com/dashpay/evo-sdk-website/blob/master/` |
 
-When the index references a source or doc link, use WebFetch to retrieve the full content before answering.
-
-## Knowledge
-
-### SDK Setup
-
-```bash
-npm install dash
-```
-
-### Client Initialization
+## Client Init
 
 ```javascript
-const Dash = require('dash');
-
-const client = new Dash.Client({
+const client = new (require('dash')).Client({
   network: 'testnet',
-  wallet: {
-    mnemonic: 'your twelve word mnemonic phrase here...',
-  },
+  wallet: { mnemonic: '...' },
 });
-
 await client.connect();
 ```
 
-### Identity Operations
+## Operations
 
 ```javascript
-// Create identity
+// Identity
 const identity = await client.platform.identities.register();
+await client.platform.identities.get(identityId);
 
-// Retrieve identity
-const identity = await client.platform.identities.get(identityId);
-```
-
-### Data Contract Operations
-
-```javascript
-// Register a contract
-const contractDocuments = {
-  note: {
-    type: 'object',
-    properties: {
-      message: { type: 'string', maxLength: 256 },
-    },
-    additionalProperties: false,
-  },
-};
-
-const contract = await client.platform.contracts.create(contractDocuments, identity);
+// Contract
+const contract = await client.platform.contracts.create({
+  note: { type: 'object', properties: { message: { type: 'string', maxLength: 256 } }, additionalProperties: false }
+}, identity);
 await client.platform.contracts.publish(contract, identity);
-```
 
-### Document Operations
-
-```javascript
-// Create document
-const document = await client.platform.documents.create(
-  'contractId.note',
-  identity,
-  { message: 'Hello Dash Platform' }
-);
-await client.platform.documents.broadcast({ create: [document] }, identity);
-
-// Query documents
-const documents = await client.platform.documents.get('contractId.note', {
-  where: [['$ownerId', '==', identity.getId()]],
-  orderBy: [['$createdAt', 'desc']],
+// Document
+const doc = await client.platform.documents.create('contractId.note', identity, { message: 'Hello' });
+await client.platform.documents.broadcast({ create: [doc] }, identity);
+const docs = await client.platform.documents.get('contractId.note', {
+  where: [['$ownerId', '==', identity.getId()]], orderBy: [['$createdAt', 'desc']]
 });
-```
 
-### DPNS Name Registration
-
-```javascript
-await client.platform.names.register(
-  'alice.dash',
-  { dashUniqueIdentityId: identity.getId() },
-  identity
-);
-
+// DPNS
+await client.platform.names.register('alice.dash', { dashUniqueIdentityId: identity.getId() }, identity);
 const name = await client.platform.names.resolve('alice.dash');
 ```
 
-### WASM-DPP (Browser Usage)
-
-For browser environments, use `@dashevo/wasm-dpp`:
+## WASM-DPP (Browser)
 
 ```javascript
 import { DashPlatformProtocol } from '@dashevo/wasm-dpp';
-
 const dpp = new DashPlatformProtocol();
-// Use for client-side validation, state transition creation
 ```
 
-The `wasm-dpp` package provides:
-- Data contract validation
-- Document validation
-- State transition creation and signing
-- Identity key management
+Provides: contract/document validation, state transition creation/signing, identity key management.
 
-### Security Caveats
+## Security
 
-**Important**: The pure JS SDK does NOT perform client-side proof verification like the Rust SDK does. For security-critical applications:
-- Use the WASM SDK (`wasm-sdk`) which includes proof verification
-- Or validate responses server-side using the Rust SDK
-- Never trust unverified responses in high-value transactions
+**Pure JS SDK has NO client-side proof verification.** For security-critical apps use `wasm-sdk` (has proofs) or validate server-side with Rust SDK.
 
-### Real-World Examples
+## Wallet
 
-- **yappr** (`PastaPastaPasta/yappr`) — Social app demonstrating document CRUD
-- **dash-bridge** (`PastaPastaPasta/dash-bridge`) — Bridge application
-- **evo-sdk-website** (`dashpay/evo-sdk-website`) — SDK documentation site with examples
+Built-in: HD derivation from mnemonic, UTXO management, tx creation/broadcasting, balance queries.
 
-### Wallet Integration
+## Examples
 
-The JS SDK includes wallet functionality:
-- HD wallet derivation from mnemonic
-- UTXO management
-- Transaction creation and broadcasting
-- Balance queries
+- `PastaPastaPasta/yappr` — social app, document CRUD
+- `PastaPastaPasta/dash-bridge` — bridge application
+- `dashpay/evo-sdk-website` — SDK docs with examples

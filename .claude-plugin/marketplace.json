@@ -9,11 +9,6 @@
       "description": "Skills for Dash Platform developers",
       "version": "0.1.0",
       "license": "GPL-3.0"
-    },
-    {
-      "name": "claudius",
-      "source": { "source": "github", "repo": "lklimek/claudius" },
-      "description": "Claudius the Magnificent — opinionated dev lifecycle agents and skills"
     }
   ]
 }

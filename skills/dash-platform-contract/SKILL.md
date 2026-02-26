@@ -3,82 +3,54 @@ name: dash-platform-contract
 description: "Dash Platform data contracts, JSON Schema, DPP, document types, DPNS, indexing strategies, contract versioning. Use when designing or debugging data contracts."
 ---
 
-# Dash Platform Data Contracts
+Assist with Dash Platform data contract design, creation, and management.
 
-Assist with designing, creating, and managing Dash Platform data contracts.
+## Setup
 
-## Triggers
+In `dashpay/platform` repo: `bash scripts/setup-ai-agent-environment.sh`
 
-Activate when the user works with: data contracts, JSON Schema, DPP, document types, DPNS, contract versioning, document indexing.
+## Reference
 
-## Project Setup
+Grep `index/contract.md` for lookups. Expand prefixes → WebFetch full content.
 
-When building or working in the `dashpay/platform` repo, run the environment setup first:
-
-```bash
-bash scripts/setup-ai-agent-environment.sh
-```
-
-This configures the build environment, installs dependencies, and prepares the workspace for development.
-
-## Reference Index
-
-Read `index/contract.md` for type/function/pattern lookups. Expand link prefixes to full URLs before web-fetching:
-
-| Prefix | Expands to |
-|--------|-----------|
+| Pre | URL |
+|-----|-----|
 | `P:` | `https://github.com/dashpay/platform/blob/master/packages/` |
 | `R:` | `https://dashpay.github.io/platform/api/rust/` |
 | `B:` | `https://dashpay.github.io/platform/` |
 
-When the index references a source or doc link, use WebFetch to retrieve the full content before answering.
+## Contract Structure
 
-## Knowledge
+- Defines document types via JSON Schema; unique ID from owner identity + entropy
+- Contains ≥1 document types with indexes for querying
+- Versionable (owner can update; old versions remain queryable)
 
-### Contract Structure
+## Document Types
 
-A data contract defines document types using JSON Schema. Each contract:
-- Has a unique ID derived from the owner's identity and entropy
-- Contains one or more document types
-- Specifies indexes for efficient querying
-- Can be versioned (contract updates)
-
-### Document Types
-
-Each document type in a contract defines:
-- `type: "object"` with `properties` (JSON Schema)
-- `indices` — array of index definitions for Platform queries
-- `required` — required properties
+Each type defines:
+- `type: "object"` + `properties` (JSON Schema)
+- `indices` — index definitions for Platform queries
+- `required` — required fields
 - Optional: `additionalProperties: false`, `$comment`, `transient`, `documentsKeepHistoryContractDefault`
 
-### Index Design
+## Index Design
 
-Indexes enable efficient queries on Platform. Rules:
-- Each index has a `name` and `properties` array
-- Properties specify `name` and sort order (`asc`/`desc`)
-- `unique: true` enforces uniqueness
-- First property in a compound index is the range scan key
-- Maximum 10 indexes per document type
-- System properties available: `$ownerId`, `$createdAt`, `$updatedAt`
+- `name` + `properties` array (each: `name` + `asc`/`desc`)
+- `unique: true` for uniqueness constraints
+- First property = range scan key in compound indexes
+- Max 10 per document type
+- System props: `$ownerId`, `$createdAt`, `$updatedAt`
 
-### DPNS (Dash Platform Name Service)
+## DPNS
 
-DPNS maps human-readable names to identities:
-- `domain` document type with `label`, `normalizedLabel`, `normalizedParentDomainName`, `records`
-- `preorder` document type for commit-reveal registration
-- Names are normalized (lowercase) for uniqueness
+Maps names → identities:
+- `domain` type: `label`, `normalizedLabel`, `normalizedParentDomainName`, `records`
+- `preorder` type: commit-reveal registration
+- Normalized (lowercase) for uniqueness
 
-### Security Considerations
+## Security
 
-- Validate all contract schemas before submission
-- Use `additionalProperties: false` to prevent data injection
-- Consider document size limits and storage costs
-- Index design affects query performance and cost
-- Contract updates must be backward-compatible
-
-### Versioning
-
-- Contracts can be updated by the owner identity
-- Updates create new versions; old versions remain queryable
-- Adding properties is safe; removing/renaming is breaking
-- Index changes may require migration strategies
+- Always set `additionalProperties: false`
+- Validate schemas before submission
+- Consider size limits and storage costs
+- Contract updates must be backward-compatible (add props OK, remove/rename breaks)
