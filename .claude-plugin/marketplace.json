@@ -1,12 +1,14 @@
 {
   "name": "claudash",
-  "description": "Plugin marketplace for Dash Platform developers — SDK skills and documentation indexing",
+  "metadata": {
+    "description": "Plugin marketplace for Dash Platform developers — SDK skills and API lexicon"
+  },
   "owner": { "name": "lklimek" },
   "plugins": [
     {
       "name": "dash-platform",
       "source": "./",
-      "description": "Skills for Dash Platform developers",
+      "description": "Skills for Dash Platform developers — data contracts, Rust SDK, JS SDK, and API lexicon",
       "version": "0.1.0",
       "license": "GPL-3.0"
     }

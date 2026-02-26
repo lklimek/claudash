@@ -5,74 +5,57 @@
 ## Types
 | Keyword | Description | Src | Docs |
 |---------|-------------|-----|------|
-| `DataContract` | Top-level contract object: $format_version, $schema, version, ownerId, documents, tokens, groups | `P:rs-dpp/schema/meta_schemas/document/v0/document-meta.json` | `B:` |
-| `DocumentType` | Document type definition within a contract: properties, indices, required fields, additionalProperties | `P:wasm-dpp/src/data_contract/data_contract.rs` | `B:` |
-| `DocumentIndex` | Index definition: name, properties [{field: order}], unique flag | `Y:contracts/yappr-social-contract.json` | `B:` |
-| `DataContractCreateTransition` | State transition to register a new data contract | `P:wasm-dpp/src/data_contract/state_transition/data_contract_create_transition/mod.rs` | `B:` |
-| `DataContractUpdateTransition` | State transition to update an existing data contract | `P:wasm-dpp/src/data_contract/state_transition/data_contract_update_transition/mod.rs` | `B:` |
-| `ExtendedDocument` | Document with full contract context (owner, contract, type) | `P:wasm-dpp/src/document/extended_document.rs` | `B:` |
-| `DocumentCreateTransition` | Transition to create a new document | `P:wasm-dpp/src/document/state_transition/batch_transition/document_transition/document_create_transition.rs` | `B:` |
-| `DocumentReplaceTransition` | Transition to replace/update an existing document | `P:wasm-dpp/src/document/state_transition/batch_transition/document_transition/document_replace_transition.rs` | `B:` |
-| `DocumentDeleteTransition` | Transition to delete a document | `P:wasm-dpp/src/document/state_transition/batch_transition/document_transition/document_delete_transition.rs` | `B:` |
-| `BatchTransition` | Batch of document and token transitions submitted atomically | `P:wasm-dpp/src/document/state_transition/batch_transition/mod.rs` | `B:` |
-| `TokenConfiguration` | Token configuration within a data contract (mint rules, distribution, etc.) | `T:src/backend_task/contract.rs` | `B:` |
-| `TokenConfigurationConvention` | Token convention metadata (name, symbol, decimals) | `T:src/backend_task/contract.rs` | `B:` |
-| `GroupAction` | Action requiring multi-sig group approval | `T:src/backend_task/contract.rs` | `B:` |
-| `GroupActionStatus` | Status of a group action (pending, approved, etc.) | `T:src/backend_task/contract.rs` | `B:` |
-| `DashPlatformProtocol` | DPP instance for creating/validating contracts and documents (wasm-dpp) | `P:js-dash-sdk/src/SDK/Client/Platform/Platform.ts` | `B:` |
-| `Identifier` | 32-byte contract/document/identity identifier | `P:rs-dpp/src/` | `B:` |
-| `Value` | Platform value type used in document properties and where clauses | `T:src/backend_task/contract.rs` | `B:` |
+| `DataContract` | Top-level container: id, version, owner_id, document_types, config, tokens | [P:rs-dpp/src/data_contract/](P:rs-dpp/src/data_contract/) | [B:](B:) |
+| `DataContractV0Getters` | Trait: id, version, owner_id, document_types, config, has_document_type_for_name | [P:rs-dpp/src/data_contract/accessors/v0/mod.rs](P:rs-dpp/src/data_contract/accessors/v0/mod.rs) | |
+| `DataContractV0Setters` | Trait: set_id, set_version, set_owner_id, set_config, increment_version | [P:rs-dpp/src/data_contract/accessors/v0/mod.rs](P:rs-dpp/src/data_contract/accessors/v0/mod.rs) | |
+| `DataContractConfig` | Contract config: keeps_history, readonly, documents_keep_history_contract_default | [P:rs-dpp/src/data_contract/config/](P:rs-dpp/src/data_contract/config/) | |
+| `DocumentType` | Schema for a document kind within a contract: properties, indices, required fields | [P:rs-dpp/src/data_contract/](P:rs-dpp/src/data_contract/) | |
+| `DocumentTypeRef` | Borrowed reference to a DocumentType within a contract | [P:rs-dpp/src/data_contract/accessors/v0/mod.rs](P:rs-dpp/src/data_contract/accessors/v0/mod.rs) | |
+| `DocumentName` | String alias for the name of a document type within a contract | [P:rs-dpp/src/data_contract/](P:rs-dpp/src/data_contract/) | |
+| `Identifier` | 32-byte unique ID used for contracts, identities, documents | [P:rs-dpp/](P:rs-dpp/) | |
+| `TokenConfiguration` | Token settings: supply, distribution rules, marketplace rules, change control | [P:rs-dpp/src/data_contract/associated_token/token_configuration/](P:rs-dpp/src/data_contract/associated_token/token_configuration/) | |
+| `TokenDistributionRules` | Rules governing token distribution: pre-programmed and perpetual | [P:rs-dpp/src/data_contract/associated_token/token_distribution_rules/](P:rs-dpp/src/data_contract/associated_token/token_distribution_rules/) | |
+| `TokenPerpetualDistribution` | Ongoing distribution config: function, recipients, moments | [P:rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/](P:rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/) | |
+| `TokenPreProgrammedDistribution` | Fixed schedule distribution at specific epochs/heights | [P:rs-dpp/src/data_contract/associated_token/token_pre_programmed_distribution/](P:rs-dpp/src/data_contract/associated_token/token_pre_programmed_distribution/) | |
+| `TokenMarketplaceRules` | Marketplace trading rules for tokens | [P:rs-dpp/src/data_contract/associated_token/token_marketplace_rules/](P:rs-dpp/src/data_contract/associated_token/token_marketplace_rules/) | |
+| `TokenConfigurationConvention` | Naming conventions and localizations for tokens | [P:rs-dpp/src/data_contract/associated_token/token_configuration_convention/](P:rs-dpp/src/data_contract/associated_token/token_configuration_convention/) | |
+| `TokenKeepsHistoryRules` | Rules for whether token events are historically tracked | [P:rs-dpp/src/data_contract/associated_token/token_keeps_history_rules/](P:rs-dpp/src/data_contract/associated_token/token_keeps_history_rules/) | |
+| `ChangeControlRules` | Rules governing who can modify contract parameters | [P:rs-dpp/src/data_contract/change_control_rules/](P:rs-dpp/src/data_contract/change_control_rules/) | |
+| `AuthorizedActionTakers` | Enum: who is authorized to take actions (owner, group, no-one) | [P:rs-dpp/src/data_contract/change_control_rules/authorized_action_takers.rs](P:rs-dpp/src/data_contract/change_control_rules/authorized_action_takers.rs) | |
+| `TokenConfigurationItem` | Individual config field that can be updated on a token | [P:rs-dpp/src/data_contract/associated_token/token_configuration_item.rs](P:rs-dpp/src/data_contract/associated_token/token_configuration_item.rs) | |
 
 ## Functions
 | Keyword | Description | Src | Docs |
 |---------|-------------|-----|------|
-| `sdk.contracts.fetch(id)` | Fetch contract by ID (JS EvoSDK) | `P:js-evo-sdk/src/contracts/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.contracts.publish(opts)` | Publish new contract (JS EvoSDK) | `P:js-evo-sdk/src/contracts/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.contracts.update(opts)` | Update contract (JS EvoSDK) | `P:js-evo-sdk/src/contracts/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.contracts.getHistory(query)` | Get contract version history (JS EvoSDK) | `P:js-evo-sdk/src/contracts/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.documents.query(query)` | Query documents from contract (JS EvoSDK) | `P:js-evo-sdk/src/documents/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.documents.create(opts)` | Create document in contract (JS EvoSDK) | `P:js-evo-sdk/src/documents/facade.ts` | `E:public/api-definitions.json` |
-| `DataContract::fetch` | Fetch contract by ID (Rust SDK) | `T:src/backend_task/contract.rs` | `R:dash_sdk/` |
-| `DataContract::fetch_many` | Fetch multiple contracts (Rust SDK) | `T:src/backend_task/contract.rs` | `R:dash_sdk/` |
-| `Document::fetch` | Fetch single document via DocumentQuery (Rust SDK) | `T:src/backend_task/document.rs` | `R:dash_sdk/` |
-| `Document::fetch_many` | Fetch multiple documents (Rust SDK) | `T:src/backend_task/document.rs` | `R:dash_sdk/` |
-| `generateDocumentId` | Generate deterministic document ID from contract, type, owner, entropy | `P:wasm-dpp/src/document/generate_document_id.rs` | `B:` |
-| `platform.contracts.create` | Create contract object (Legacy JS SDK) | `P:js-dash-sdk/src/SDK/Client/Platform/methods/contracts/create.ts` | `B:` |
-| `platform.contracts.publish` | Register contract on platform (Legacy JS SDK) | `P:js-dash-sdk/src/SDK/Client/Platform/methods/contracts/publish.ts` | `B:` |
-| `platform.contracts.get` | Fetch contract (Legacy JS SDK) | `P:js-dash-sdk/src/SDK/Client/Platform/methods/contracts/get.ts` | `B:` |
-| `platform.contracts.history` | Get contract history (Legacy JS SDK) | `P:js-dash-sdk/src/SDK/Client/Platform/methods/contracts/history.ts` | `B:` |
-| `platform.documents.create` | Create document object (Legacy JS SDK) | `P:js-dash-sdk/src/SDK/Client/Platform/methods/documents/create.ts` | `B:` |
-| `platform.documents.broadcast` | Broadcast document to platform (Legacy JS SDK) | `P:js-dash-sdk/src/SDK/Client/Platform/methods/documents/broadcast.ts` | `B:` |
-| `platform.documents.get` | Query documents (Legacy JS SDK) | `P:js-dash-sdk/src/SDK/Client/Platform/methods/documents/get.ts` | `B:` |
+| `document_type_for_name()` | Get a DocumentTypeRef by name from a contract | [P:rs-dpp/src/data_contract/accessors/v0/mod.rs](P:rs-dpp/src/data_contract/accessors/v0/mod.rs) | |
+| `document_types()` | Get all document types as BTreeMap<DocumentName, DocumentType> | [P:rs-dpp/src/data_contract/accessors/v0/mod.rs](P:rs-dpp/src/data_contract/accessors/v0/mod.rs) | |
+| `document_types_with_contested_indexes()` | Get document types that have contested indices | [P:rs-dpp/src/data_contract/accessors/v0/mod.rs](P:rs-dpp/src/data_contract/accessors/v0/mod.rs) | |
+| `apply_token_configuration_item()` | Apply a single config update to a token | [P:rs-dpp/src/data_contract/associated_token/token_configuration/methods/](P:rs-dpp/src/data_contract/associated_token/token_configuration/methods/) | |
+| `validate_token_configuration_update()` | Validate a proposed token config change | [P:rs-dpp/src/data_contract/associated_token/token_configuration/methods/](P:rs-dpp/src/data_contract/associated_token/token_configuration/methods/) | |
+| `validate_token_configuration_groups_exist()` | Verify all referenced groups exist in the contract | [P:rs-dpp/src/data_contract/associated_token/token_configuration/methods/](P:rs-dpp/src/data_contract/associated_token/token_configuration/methods/) | |
 
 ## Patterns
 | Keyword | Description | Example |
 |---------|-------------|---------|
-| `contract-schema` | Contract JSON schema with $format_version, $schema, version, ownerId, documents map | See `Y:contracts/yappr-social-contract.json` |
-| `document-type-def` | Define document type: type, properties (with position), indices, required, additionalProperties:false | See `Y:contracts/yappr-social-contract.json` |
-| `unique-index` | Create unique index on document type: `{ name: "...", properties: [{field: "asc"}], unique: true }` | `{ name: "owner", properties: [{"$ownerId": "asc"}], unique: true }` |
-| `compound-index` | Compound index on multiple fields: `{ properties: [{field1: "asc"}, {field2: "desc"}] }` | `{ name: "languageTimeline", properties: [{"language": "asc"}, {"$createdAt": "desc"}] }` |
-| `identifier-property` | Binary identifier property: `{ type: "array", byteArray: true, minItems: 32, maxItems: 32, contentMediaType: "application/x.dash.dpp.identifier" }` | See `Y:contracts/yappr-social-contract.json` |
-| `system-fields` | System fields available in documents: $ownerId, $id, $createdAt, $updatedAt, $revision | Usable in indices and where clauses |
-| `where-clause` | Document query filter: `where: [["$ownerId", "==", identityId]]` (JS) or `WhereClause { field, operator, value }` (Rust) | See `Y:lib/dash-platform-client.ts`, `T:src/backend_task/contract.rs` |
-| `token-in-contract` | Contracts can define tokens with configuration, distribution rules, and group-based governance | See `T:src/backend_task/contract.rs` |
-| `batch-transition` | Multiple document/token transitions can be batched in a single state transition | See `P:wasm-dpp/src/document/state_transition/batch_transition/mod.rs` |
+| `DataContractCreateTransition` | State transition to register a new data contract on Platform | [P:rs-dpp/src/state_transition/state_transitions/contract/data_contract_create_transition/](P:rs-dpp/src/state_transition/state_transitions/contract/data_contract_create_transition/) |
+| `DataContractUpdateTransition` | State transition to update an existing data contract | [P:rs-dpp/src/state_transition/state_transitions/contract/data_contract_update_transition/](P:rs-dpp/src/state_transition/state_transitions/contract/data_contract_update_transition/) |
+| `BatchTransition` | Combined state transition containing multiple document/token operations | [P:rs-dpp/src/state_transition/state_transitions/](P:rs-dpp/src/state_transition/state_transitions/) |
+| `JSON Schema validation` | Contracts use draft2020-12 JSON Schema for document property validation | [P:rs-dpp/schema/meta_schemas/](P:rs-dpp/schema/meta_schemas/) |
+| `document-meta.json` | Meta-schema defining valid document type schemas within a contract | [P:rs-dpp/schema/meta_schemas/document/v0/document-meta.json](P:rs-dpp/schema/meta_schemas/document/v0/document-meta.json) |
+| `Contested indexes` | Document types can define contested indexes requiring voting for allocation | [P:rs-dpp/src/data_contract/accessors/v0/mod.rs](P:rs-dpp/src/data_contract/accessors/v0/mod.rs) |
+| `Address funding` | Address-based funding: asset lock, withdrawal, transfer transitions | [P:rs-dpp/src/state_transition/state_transitions/address_funds/](P:rs-dpp/src/state_transition/state_transitions/address_funds/) |
 
 ## Examples
 | Keyword | Description | File |
 |---------|-------------|------|
-| `yappr-social-contract` | Full social media contract: profile, avatar, post, reply, like, follow, bookmark, hashtag, mention, DM, storefront | `Y:contracts/yappr-social-contract.json` |
-| `yappr-profile-contract` | Standalone profile contract schema | `Y:contracts/yappr-profile-contract.json` |
-| `yappr-dm-contract` | Direct message contract schema | `Y:contracts/yappr-dm-contract.json` |
-| `yappr-storefront-contract` | Storefront/marketplace contract schema | `Y:contracts/yappr-storefront-contract.json` |
-| `yappr-hashtag-contract` | Hashtag tracking contract schema | `Y:contracts/yappr-hashtag-contract.json` |
-| `yappr-block-contract` | User blocking contract schema | `Y:contracts/yappr-block-contract.json` |
-| `yappr-encrypted-backup` | Encrypted key backup contract schema | `Y:contracts/encrypted-key-backup-contract.json` |
-| `dpns-contract` | Dash Platform Naming Service system contract | `P:js-dash-sdk/src/SDK/Client/Client.ts` (imports dpnsContractId) |
-| `dashpay-contract` | DashPay contact/profile system contract | `P:js-dash-sdk/src/SDK/Client/Client.ts` (imports dashpayContractId) |
-| `document-meta-schema` | JSON Schema meta-schema for document validation (draft 2020-12 based) | `P:rs-dpp/schema/meta_schemas/document/v0/document-meta.json` |
-| `contract-fetch-rust` | Fetch and inspect contracts in Rust with DataContract::fetch_many | `T:src/backend_task/contract.rs` |
-| `contract-register-rust` | Register a new data contract from Rust SDK | `T:src/backend_task/register_contract.rs` |
-| `contract-update-rust` | Update a data contract from Rust SDK | `T:src/backend_task/update_data_contract.rs` |
-| `document-operations-rust` | Full CRUD on documents: create, replace, delete, transfer, purchase, set price | `T:src/backend_task/document.rs` |
-| `query-documents-js` | Query documents with where clauses and pagination in JS | `Y:lib/dash-platform-client.ts` |
+| `yappr-social-contract` | Social media contract: profile, post, like, repost, follow, bookmark, list, block, mute, DM, notification | [Y:contracts/yappr-social-contract.json](Y:contracts/yappr-social-contract.json) |
+| `yappr-profile-contract` | User profile contract | [Y:contracts/yappr-profile-contract.json](Y:contracts/yappr-profile-contract.json) |
+| `yappr-dm-contract` | Direct messaging contract | [Y:contracts/yappr-dm-contract.json](Y:contracts/yappr-dm-contract.json) |
+| `yappr-storefront-contract` | E-commerce storefront contract | [Y:contracts/yappr-storefront-contract.json](Y:contracts/yappr-storefront-contract.json) |
+| `yappr-hashtag-contract` | Hashtag indexing contract | [Y:contracts/yappr-hashtag-contract.json](Y:contracts/yappr-hashtag-contract.json) |
+| `yappr-mention-contract` | Mention tracking contract | [Y:contracts/yappr-mention-contract.json](Y:contracts/yappr-mention-contract.json) |
+| `yappr-block-contract` | User blocking contract | [Y:contracts/yappr-block-contract.json](Y:contracts/yappr-block-contract.json) |
+| `encrypted-key-backup-contract` | Encrypted key backup storage contract | [Y:contracts/encrypted-key-backup-contract.json](Y:contracts/encrypted-key-backup-contract.json) |
+| `dash-bridge` | Pure-JS Dash bridge: identity, DPNS, transactions, cryptographic primitives | [D:src/](D:src/) |
+| `dp1.schema.json` | Example data contract schema fixture | [P:js-dash-sdk/tests/fixtures/dp1.schema.json](P:js-dash-sdk/tests/fixtures/dp1.schema.json) |
+| `ratePlatform.schema.json` | Example rating contract schema | [P:js-dash-sdk/tests/fixtures/ratePlatform.schema.json](P:js-dash-sdk/tests/fixtures/ratePlatform.schema.json) |

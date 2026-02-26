@@ -5,126 +5,80 @@
 ## Types
 | Keyword | Description | Src | Docs |
 |---------|-------------|-----|------|
-| `EvoSDK` | New JS SDK entry point (wasm-based); facades: addresses, documents, identities, contracts, tokens, dpns, epoch, protocol, stateTransitions, system, group, voting | `P:js-evo-sdk/src/sdk.ts` | `E:public/api-definitions.json` |
-| `EvoSDKOptions` | Options: network ('testnet'\|'mainnet'\|'local'), trusted, addresses[], ConnectionOptions | `P:js-evo-sdk/src/sdk.ts` | `E:public/api-definitions.json` |
-| `ConnectionOptions` | version, proofs, logs (EnvFilter string), settings: { connectTimeoutMs, timeoutMs, retries, banFailedAddress } | `P:js-evo-sdk/src/sdk.ts` | `E:public/api-definitions.json` |
-| `Client` | Legacy JS SDK client (js-dash-sdk); wraps wallet, platform, DAPI client | `P:js-dash-sdk/src/SDK/Client/Client.ts` | `B:` |
-| `ClientOpts` | Legacy client options: apps, wallet, dapiAddresses, seeds, network, timeout, retries | `P:js-dash-sdk/src/SDK/Client/Client.ts` | `B:` |
-| `Platform` | Legacy JS SDK platform interface: documents, contracts, names, identities | `P:js-dash-sdk/src/SDK/Client/Platform/Platform.ts` | `B:` |
-| `AddressesFacade` | EvoSDK facade: get, getMany, transfer, topUpIdentity, withdraw, fundFromAssetLock, createIdentity, transferFromIdentity | `P:js-evo-sdk/src/addresses/facade.ts` | `E:public/api-definitions.json` |
-| `DocumentsFacade` | EvoSDK facade: query, get, create, replace, delete, transfer, purchase, setPrice | `P:js-evo-sdk/src/documents/facade.ts` | `E:public/api-definitions.json` |
-| `IdentitiesFacade` | EvoSDK facade: fetch, getKeys, nonce, contractNonce, balance, balances, balanceAndRevision, byPublicKeyHash, tokenBalances, create, topUp, creditTransfer, creditWithdrawal, update | `P:js-evo-sdk/src/identities/facade.ts` | `E:public/api-definitions.json` |
-| `ContractsFacade` | EvoSDK facade: fetch, getHistory, getMany, publish, update | `P:js-evo-sdk/src/contracts/facade.ts` | `E:public/api-definitions.json` |
-| `TokensFacade` | EvoSDK facade: calculateId, priceByContract, totalSupply, statuses, balances, mint, burn, transfer, freeze, unfreeze, destroyFrozen, emergencyAction, setPrice, directPurchase, claim, configUpdate | `P:js-evo-sdk/src/tokens/facade.ts` | `E:public/api-definitions.json` |
-| `DpnsFacade` | EvoSDK facade: convertToHomographSafe, isValidUsername, isContestedUsername, isNameAvailable, resolveName, registerName, usernames, username | `P:js-evo-sdk/src/dpns/facade.ts` | `E:public/api-definitions.json` |
-| `EpochFacade` | EvoSDK facade: epochsInfo, finalizedInfos, current, evonodesProposedBlocksByIds, evonodesProposedBlocksByRange | `P:js-evo-sdk/src/epoch/facade.ts` | `E:public/api-definitions.json` |
-| `ProtocolFacade` | EvoSDK facade: versionUpgradeState, versionUpgradeVoteStatus | `P:js-evo-sdk/src/protocol/facade.ts` | `E:public/api-definitions.json` |
-| `SystemFacade` | EvoSDK facade: status, currentQuorumsInfo, totalCreditsInPlatform, prefundedSpecializedBalance, pathElements | `P:js-evo-sdk/src/system/facade.ts` | `E:public/api-definitions.json` |
-| `GroupFacade` | EvoSDK facade: info, infos, members, identityGroups, actions, actionSigners, groupsDataContracts, contestedResources, contestedResourceVotersForIdentity | `P:js-evo-sdk/src/group/facade.ts` | `E:public/api-definitions.json` |
-| `VotingFacade` | EvoSDK facade: contestedResourceVoteState, contestedResourceIdentityVotes, votePollsByEndDate, masternodeVote | `P:js-evo-sdk/src/voting/facade.ts` | `E:public/api-definitions.json` |
-| `StateTransitionsFacade` | EvoSDK facade: broadcastStateTransition, waitForResponse, broadcastAndWait, waitForStateTransitionResult | `P:js-evo-sdk/src/state-transitions/facade.ts` | `E:public/api-definitions.json` |
-| `IdentifierLike` | Union type accepted as ID input (string, Uint8Array, Identifier) | `P:js-evo-sdk/src/wasm.ts` | `E:public/api-definitions.json` |
-| `ProofMetadataResponseTyped<T>` | Response wrapper with proof info and typed data | `P:js-evo-sdk/src/wasm.ts` | `E:public/api-definitions.json` |
-| `WasmSdk` | Low-level WASM SDK wrapper (used internally by EvoSDK) | `P:js-evo-sdk/src/wasm.ts` | `E:public/api-definitions.json` |
-| `WasmSdkBuilder` | Builder: mainnet(), testnet(), local(), withAddresses(), withTrustedContext(), withVersion(), withProofs(), withLogs(), withSettings(), build() | `P:js-evo-sdk/src/sdk.ts` | `E:public/api-definitions.json` |
-| `WasmTrustedContext` | Trusted prefetch context: prefetchMainnet(), prefetchTestnet(), prefetchLocal() | `P:js-evo-sdk/src/sdk.ts` | `E:public/api-definitions.json` |
+| `EvoSDK` | Main SDK class: facades for identities, contracts, documents, tokens, DPNS, voting, groups, addresses, epochs, protocol, system | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) | [B:](B:) |
+| `EvoSDKOptions` | Constructor options: network, trusted, addresses, version, proofs, logs, settings | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) | |
+| `ConnectionOptions` | Connection config: version, proofs, logs, settings (timeoutMs, retries, etc.) | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) | |
+| `IdentitiesFacade` | Identity operations: fetch, keys, nonce, balance, create, topUp, update, creditTransfer, creditWithdrawal | [P:js-evo-sdk/src/identities/facade.ts](P:js-evo-sdk/src/identities/facade.ts) | |
+| `ContractsFacade` | Contract operations: fetch, fetchWithProof, getHistory, getMany, publish, update | [P:js-evo-sdk/src/contracts/facade.ts](P:js-evo-sdk/src/contracts/facade.ts) | |
+| `DocumentsFacade` | Document operations: query, get, create, replace, delete, transfer, purchase, setPrice | [P:js-evo-sdk/src/documents/facade.ts](P:js-evo-sdk/src/documents/facade.ts) | |
+| `TokensFacade` | Token operations: mint, burn, transfer, freeze, unfreeze, destroyFrozen, emergencyAction, setPrice, directPurchase, claim, configUpdate; queries: totalSupply, statuses, balances, contractInfo, pricing | [P:js-evo-sdk/src/tokens/facade.ts](P:js-evo-sdk/src/tokens/facade.ts) | |
+| `DpnsFacade` | DPNS operations: resolveName, registerName, usernames, isValidUsername, isContestedUsername, isNameAvailable | [P:js-evo-sdk/src/dpns/facade.ts](P:js-evo-sdk/src/dpns/facade.ts) | |
+| `VotingFacade` | Voting: contestedResourceVoteState, contestedResourceIdentityVotes, votePollsByEndDate, masternodeVote | [P:js-evo-sdk/src/voting/facade.ts](P:js-evo-sdk/src/voting/facade.ts) | |
+| `GroupFacade` | Group operations: info, infos, members, actions, actionSigners, identityGroups, contestedResources | [P:js-evo-sdk/src/group/facade.ts](P:js-evo-sdk/src/group/facade.ts) | |
+| `EpochFacade` | Epoch queries: epochsInfo, finalizedInfos, current, evonodesProposedBlocksByIds/Range | [P:js-evo-sdk/src/epoch/facade.ts](P:js-evo-sdk/src/epoch/facade.ts) | |
+| `AddressesFacade` | Platform address operations: get, getMany, transfer, withdraw, topUpIdentity, transferFromIdentity, fundFromAssetLock, createIdentity | [P:js-evo-sdk/src/addresses/facade.ts](P:js-evo-sdk/src/addresses/facade.ts) | |
+| `SystemFacade` | System queries: status, currentQuorumsInfo, totalCreditsInPlatform, prefundedSpecializedBalance, pathElements | [P:js-evo-sdk/src/system/facade.ts](P:js-evo-sdk/src/system/facade.ts) | |
+| `ProtocolFacade` | Protocol queries: versionUpgradeState, versionUpgradeVoteStatus | [P:js-evo-sdk/src/protocol/facade.ts](P:js-evo-sdk/src/protocol/facade.ts) | |
+| `WasmSdk` | Low-level WASM SDK binding that EvoSDK wraps | [P:wasm-sdk/src/sdk.rs](P:wasm-sdk/src/sdk.rs) | |
+| `WasmSdkBuilder` | Builder for WasmSdk: mainnet(), testnet(), local(), withAddresses() | [P:wasm-sdk/src/sdk.rs](P:wasm-sdk/src/sdk.rs) | |
+| `WasmTrustedContext` | Trusted context with prefetched chain state for proof verification | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) | |
+| `Client` | Legacy js-dash-sdk Client class (older API, being superseded by EvoSDK) | [P:js-dash-sdk/src/SDK/Client/Client.ts](P:js-dash-sdk/src/SDK/Client/Client.ts) | |
+| `Platform` | Legacy js-dash-sdk Platform facade: contracts, documents, identities, names | [P:js-dash-sdk/src/SDK/Client/Platform/Platform.ts](P:js-dash-sdk/src/SDK/Client/Platform/Platform.ts) | |
+| `ProofMetadataResponseTyped<T>` | Response wrapper with proof info and metadata for WithProof variants | [P:js-evo-sdk/src/](P:js-evo-sdk/src/) | |
 
 ## Functions
 | Keyword | Description | Src | Docs |
 |---------|-------------|-----|------|
-| `EvoSDK.testnet()` | Factory: create testnet SDK (not connected) | `P:js-evo-sdk/src/sdk.ts` | `E:public/api-definitions.json` |
-| `EvoSDK.mainnet()` | Factory: create mainnet SDK (not connected) | `P:js-evo-sdk/src/sdk.ts` | `E:public/api-definitions.json` |
-| `EvoSDK.local()` | Factory: create local-network SDK | `P:js-evo-sdk/src/sdk.ts` | `E:public/api-definitions.json` |
-| `EvoSDK.testnetTrusted()` | Factory: testnet with proof verification | `P:js-evo-sdk/src/sdk.ts` | `E:public/api-definitions.json` |
-| `EvoSDK.mainnetTrusted()` | Factory: mainnet with proof verification | `P:js-evo-sdk/src/sdk.ts` | `E:public/api-definitions.json` |
-| `EvoSDK.withAddresses()` | Factory: custom masternode addresses | `P:js-evo-sdk/src/sdk.ts` | `E:public/api-definitions.json` |
-| `EvoSDK.setLogLevel()` | Set log level/filter for WASM tracing | `P:js-evo-sdk/src/sdk.ts` | `E:public/api-definitions.json` |
-| `EvoSDK.getLatestVersionNumber()` | Get latest supported protocol version | `P:js-evo-sdk/src/sdk.ts` | `E:public/api-definitions.json` |
-| `sdk.connect()` | Connect to the network (idempotent) | `P:js-evo-sdk/src/sdk.ts` | `E:public/api-definitions.json` |
-| `sdk.identities.fetch(id)` | Fetch identity by ID | `P:js-evo-sdk/src/identities/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.identities.fetchUnproved(id)` | Fetch identity without proof | `P:js-evo-sdk/src/identities/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.identities.getKeys(query)` | Get identity public keys | `P:js-evo-sdk/src/identities/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.identities.balance(id)` | Get identity credit balance | `P:js-evo-sdk/src/identities/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.identities.nonce(id)` | Get identity nonce | `P:js-evo-sdk/src/identities/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.identities.create(opts)` | Create new identity (IdentityCreateOptions) | `P:js-evo-sdk/src/identities/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.identities.topUp(opts)` | Top up identity balance (IdentityTopUpOptions) | `P:js-evo-sdk/src/identities/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.identities.creditTransfer(opts)` | Transfer credits between identities | `P:js-evo-sdk/src/identities/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.identities.creditWithdrawal(opts)` | Withdraw credits to L1 | `P:js-evo-sdk/src/identities/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.identities.update(opts)` | Update identity (add/disable keys) | `P:js-evo-sdk/src/identities/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.identities.tokenBalances(id, tokenIds)` | Get token balances for identity | `P:js-evo-sdk/src/identities/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.contracts.fetch(id)` | Fetch data contract by ID | `P:js-evo-sdk/src/contracts/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.contracts.getHistory(query)` | Fetch contract version history | `P:js-evo-sdk/src/contracts/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.contracts.getMany(ids)` | Fetch multiple contracts | `P:js-evo-sdk/src/contracts/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.contracts.publish(opts)` | Publish new data contract (ContractPublishOptions) | `P:js-evo-sdk/src/contracts/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.contracts.update(opts)` | Update existing data contract (ContractUpdateOptions) | `P:js-evo-sdk/src/contracts/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.documents.query(query)` | Query documents (DocumentsQuery) | `P:js-evo-sdk/src/documents/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.documents.get(contractId, type, docId)` | Get single document | `P:js-evo-sdk/src/documents/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.documents.create(opts)` | Create document (DocumentCreateOptions) | `P:js-evo-sdk/src/documents/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.documents.replace(opts)` | Replace document (DocumentReplaceOptions) | `P:js-evo-sdk/src/documents/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.documents.delete(opts)` | Delete document (DocumentDeleteOptions) | `P:js-evo-sdk/src/documents/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.documents.transfer(opts)` | Transfer document ownership (DocumentTransferOptions) | `P:js-evo-sdk/src/documents/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.documents.purchase(opts)` | Purchase document (DocumentPurchaseOptions) | `P:js-evo-sdk/src/documents/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.documents.setPrice(opts)` | Set document price (DocumentSetPriceOptions) | `P:js-evo-sdk/src/documents/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.tokens.calculateId(contractId, pos)` | Calculate token ID from contract and position | `P:js-evo-sdk/src/tokens/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.tokens.totalSupply(tokenId)` | Get token total supply | `P:js-evo-sdk/src/tokens/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.tokens.mint(opts)` | Mint tokens (TokenMintOptions) | `P:js-evo-sdk/src/tokens/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.tokens.burn(opts)` | Burn tokens (TokenBurnOptions) | `P:js-evo-sdk/src/tokens/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.tokens.transfer(opts)` | Transfer tokens (TokenTransferOptions) | `P:js-evo-sdk/src/tokens/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.tokens.freeze(opts)` | Freeze tokens (TokenFreezeOptions) | `P:js-evo-sdk/src/tokens/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.tokens.unfreeze(opts)` | Unfreeze tokens (TokenUnfreezeOptions) | `P:js-evo-sdk/src/tokens/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.tokens.setPrice(opts)` | Set direct purchase price (TokenSetPriceOptions) | `P:js-evo-sdk/src/tokens/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.tokens.directPurchase(opts)` | Purchase tokens directly (TokenDirectPurchaseOptions) | `P:js-evo-sdk/src/tokens/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.tokens.claim(opts)` | Claim token distributions (TokenClaimOptions) | `P:js-evo-sdk/src/tokens/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.tokens.configUpdate(opts)` | Update token config (TokenConfigUpdateOptions) | `P:js-evo-sdk/src/tokens/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.dpns.resolveName(name)` | Resolve DPNS name to identity ID | `P:js-evo-sdk/src/dpns/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.dpns.registerName(opts)` | Register DPNS name (DpnsRegisterNameOptions) | `P:js-evo-sdk/src/dpns/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.dpns.isNameAvailable(label)` | Check if DPNS name is available | `P:js-evo-sdk/src/dpns/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.dpns.isContestedUsername(label)` | Check if username triggers contested voting | `P:js-evo-sdk/src/dpns/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.dpns.username(identityId)` | Get DPNS username for an identity | `P:js-evo-sdk/src/dpns/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.epoch.current()` | Get current epoch info | `P:js-evo-sdk/src/epoch/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.epoch.epochsInfo(query)` | Get epoch information | `P:js-evo-sdk/src/epoch/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.system.status()` | Get platform node status | `P:js-evo-sdk/src/system/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.system.totalCreditsInPlatform()` | Get total credits in platform | `P:js-evo-sdk/src/system/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.voting.masternodeVote(opts)` | Cast masternode vote (MasternodeVoteOptions) | `P:js-evo-sdk/src/voting/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.group.info(contractId, pos)` | Get group info | `P:js-evo-sdk/src/group/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.addresses.transfer(opts)` | Transfer credits between platform addresses | `P:js-evo-sdk/src/addresses/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.addresses.topUpIdentity(opts)` | Top up identity from platform addresses | `P:js-evo-sdk/src/addresses/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.addresses.withdraw(opts)` | Withdraw platform address credits to Core | `P:js-evo-sdk/src/addresses/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.addresses.createIdentity(opts)` | Create identity funded from platform addresses | `P:js-evo-sdk/src/addresses/facade.ts` | `E:public/api-definitions.json` |
-| `sdk.stateTransitions.broadcastAndWait(st)` | Broadcast state transition and wait for result | `P:js-evo-sdk/src/state-transitions/facade.ts` | `E:public/api-definitions.json` |
-| `wallet.generateMnemonic(params)` | Generate BIP39 mnemonic | `P:js-evo-sdk/src/wallet/functions.ts` | `E:public/api-definitions.json` |
-| `wallet.validateMnemonic(mnemonic)` | Validate BIP39 mnemonic | `P:js-evo-sdk/src/wallet/functions.ts` | `E:public/api-definitions.json` |
-| `wallet.mnemonicToSeed(mnemonic)` | Convert mnemonic to seed bytes | `P:js-evo-sdk/src/wallet/functions.ts` | `E:public/api-definitions.json` |
-| `wallet.deriveKeyFromSeedPhrase(params)` | Derive key from seed phrase | `P:js-evo-sdk/src/wallet/functions.ts` | `E:public/api-definitions.json` |
-| `wallet.generateKeyPair(network)` | Generate random key pair | `P:js-evo-sdk/src/wallet/functions.ts` | `E:public/api-definitions.json` |
-| `wallet.keyPairFromWif(wif)` | Import key pair from WIF string | `P:js-evo-sdk/src/wallet/functions.ts` | `E:public/api-definitions.json` |
-| `wallet.signMessage(msg, wif)` | Sign message with private key | `P:js-evo-sdk/src/wallet/functions.ts` | `E:public/api-definitions.json` |
+| `EvoSDK.connect()` | Initialize WASM and connect to network (idempotent) | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) | |
+| `EvoSDK.testnet()` | Factory: create testnet SDK instance | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) | |
+| `EvoSDK.mainnet()` | Factory: create mainnet SDK instance | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) | |
+| `EvoSDK.local()` | Factory: create local network SDK instance | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) | |
+| `EvoSDK.testnetTrusted()` | Factory: testnet with trusted context (prefetched proofs) | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) | |
+| `EvoSDK.mainnetTrusted()` | Factory: mainnet with trusted context | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) | |
+| `EvoSDK.withAddresses()` | Factory: custom masternode addresses | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) | |
+| `EvoSDK.setLogLevel()` | Set WASM log level: 'off', 'error', 'warn', 'info', 'debug', 'trace', or EnvFilter string | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) | |
+| `EvoSDK.getLatestVersionNumber()` | Get latest supported protocol version number | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) | |
+| `wallet.generateMnemonic()` | Generate BIP-39 mnemonic phrase | [P:js-evo-sdk/src/wallet/functions.ts](P:js-evo-sdk/src/wallet/functions.ts) | |
+| `wallet.validateMnemonic()` | Validate a mnemonic phrase | [P:js-evo-sdk/src/wallet/functions.ts](P:js-evo-sdk/src/wallet/functions.ts) | |
+| `wallet.mnemonicToSeed()` | Convert mnemonic to seed bytes | [P:js-evo-sdk/src/wallet/functions.ts](P:js-evo-sdk/src/wallet/functions.ts) | |
+| `wallet.deriveKeyFromSeedPhrase()` | Derive identity key from seed phrase | [P:js-evo-sdk/src/wallet/functions.ts](P:js-evo-sdk/src/wallet/functions.ts) | |
+| `wallet.deriveKeyFromSeedWithPath()` | Derive key using BIP-44/DIP-9 path | [P:js-evo-sdk/src/wallet/functions.ts](P:js-evo-sdk/src/wallet/functions.ts) | |
+| `wallet.generateKeyPair()` | Generate ECDSA key pair for a network | [P:js-evo-sdk/src/wallet/functions.ts](P:js-evo-sdk/src/wallet/functions.ts) | |
+| `wallet.keyPairFromWif()` | Import key pair from WIF string | [P:js-evo-sdk/src/wallet/functions.ts](P:js-evo-sdk/src/wallet/functions.ts) | |
+| `wallet.signMessage()` | Sign a message with a private key | [P:js-evo-sdk/src/wallet/functions.ts](P:js-evo-sdk/src/wallet/functions.ts) | |
+| `wallet.pubkeyToAddress()` | Convert public key hex to Dash address | [P:js-evo-sdk/src/wallet/functions.ts](P:js-evo-sdk/src/wallet/functions.ts) | |
+| `wallet.validateAddress()` | Validate a Dash address for a network | [P:js-evo-sdk/src/wallet/functions.ts](P:js-evo-sdk/src/wallet/functions.ts) | |
+| `wallet.derivationPathBip44Mainnet()` | BIP-44 derivation path for mainnet | [P:js-evo-sdk/src/wallet/functions.ts](P:js-evo-sdk/src/wallet/functions.ts) | |
+| `wallet.derivationPathDip9Testnet()` | DIP-9 derivation path for testnet | [P:js-evo-sdk/src/wallet/functions.ts](P:js-evo-sdk/src/wallet/functions.ts) | |
+| `wallet.deriveDashpayContactKey()` | Derive DashPay contact encryption key | [P:js-evo-sdk/src/wallet/functions.ts](P:js-evo-sdk/src/wallet/functions.ts) | |
 
 ## Patterns
 | Keyword | Description | Example |
 |---------|-------------|---------|
-| `evo-sdk-init` | Create and connect EvoSDK: `const sdk = EvoSDK.testnet(); await sdk.connect();` | See `P:js-evo-sdk/src/sdk.ts` |
-| `evo-sdk-trusted` | Trusted mode with proof verification: `const sdk = EvoSDK.testnetTrusted(); await sdk.connect();` | See `Y:lib/services/evo-sdk-service.ts` |
-| `evo-sdk-custom-addrs` | Custom addresses: `const sdk = EvoSDK.withAddresses(['https://...'], 'testnet'); await sdk.connect();` | See `P:js-evo-sdk/src/sdk.ts` |
-| `withProof-pattern` | Every query method has a `*WithProof()` variant returning `ProofMetadataResponseTyped<T>` | `sdk.identities.fetchWithProof(id)` |
-| `wasm-init` | WASM must be initialized before use: `await ensureInitialized()` (automatic in EvoSDK.connect) | See `P:js-evo-sdk/src/wasm.ts` |
-| `legacy-client` | Legacy SDK: `const client = new Client({ network: 'testnet', wallet: { mnemonic } }); await client.platform.identities.register(amount);` | See `P:js-dash-sdk/src/SDK/Client/Client.ts` |
-| `document-query` | Query documents: `sdk.documents.query({ dataContractId, documentTypeName, where, limit })` | See `Y:lib/dash-platform-client.ts` |
-| `wallet-key-derivation` | Derive keys: `wallet.deriveKeyFromSeedPhrase({ mnemonic, ... })` for HD derivation (BIP44/DIP9/DIP13) | See `P:js-evo-sdk/src/wallet/functions.ts` |
+| `EvoSDK facade pattern` | `sdk.identities.fetch(id)`, `sdk.contracts.publish(opts)`, `sdk.documents.query(q)` | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) |
+| `WithProof variants` | Every query has a `*WithProof()` variant returning `ProofMetadataResponseTyped<T>` | [P:js-evo-sdk/src/identities/facade.ts](P:js-evo-sdk/src/identities/facade.ts) |
+| `Trusted mode` | `EvoSDK.testnetTrusted()` prefetches chain state for local proof verification | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) |
+| `WASM initialization` | `await sdk.connect()` initializes WASM before any Platform calls | [P:js-evo-sdk/src/sdk.ts](P:js-evo-sdk/src/sdk.ts) |
+| `IdentifierLike` | Flexible ID input: string, Uint8Array, or Identifier object | [P:js-evo-sdk/src/](P:js-evo-sdk/src/) |
+| `PlatformAddressSigner` | Signer for address-based operations: `signer.addKey(privateKey)` returns address | [P:js-evo-sdk/src/addresses/facade.ts](P:js-evo-sdk/src/addresses/facade.ts) |
+| `IdentitySigner` | Signer for identity-based state transitions | [P:js-evo-sdk/src/addresses/facade.ts](P:js-evo-sdk/src/addresses/facade.ts) |
+| `Legacy Client API` | `new Dash.Client({...})` then `client.platform.contracts.get(id)` (js-dash-sdk) | [P:js-dash-sdk/src/SDK/Client/Client.ts](P:js-dash-sdk/src/SDK/Client/Client.ts) |
+| `Wallet utilities` | Standalone `wallet.*` functions for key derivation, no SDK connection needed | [P:js-evo-sdk/src/wallet/functions.ts](P:js-evo-sdk/src/wallet/functions.ts) |
+| `Token lifecycle` | mint -> transfer -> freeze -> unfreeze -> burn -> destroyFrozen, plus setPrice/directPurchase | [P:js-evo-sdk/src/tokens/facade.ts](P:js-evo-sdk/src/tokens/facade.ts) |
 
 ## Examples
 | Keyword | Description | File |
 |---------|-------------|------|
-| `yappr-sdk-init` | Initialize EvoSDK with trusted mode in a Next.js app | `Y:lib/services/evo-sdk-service.ts` |
-| `yappr-query-posts` | Query documents from a social contract using EvoSDK | `Y:lib/dash-platform-client.ts` |
-| `yappr-create-post` | Create a document (post) on platform | `Y:lib/dash-platform-client.ts` |
-| `yappr-user-profile` | Fetch user profile document by owner ID | `Y:lib/dash-platform-client.ts` |
-| `yappr-contracts` | Social media contract schemas (profile, post, follow, like, etc.) | `Y:contracts/yappr-social-contract.json` |
-| `dash-bridge-types` | TypeScript types for identity keys, asset locks, bridge state | `D:src/types.ts` |
-| `dash-bridge-identity` | Identity creation and management with platform addresses | `D:src/platform/identity.ts` |
-| `dash-bridge-dpns` | DPNS name registration via dash-bridge | `D:src/platform/dpns.ts` |
-| `dash-bridge-crypto` | HD key derivation, signing, address generation | `D:src/crypto/keys.ts` |
-| `evo-sdk-website-queries` | Interactive API explorer with all query definitions | `E:public/api-definitions.json` |
-| `evo-sdk-website-tests` | E2E tests for SDK queries and state transitions | `E:tests/e2e/queries/query-execution.spec.js` |
-| `legacy-sdk-client` | Legacy js-dash-sdk Client initialization and usage | `P:js-dash-sdk/src/SDK/Client/Client.ts` |
-| `legacy-sdk-functional` | Legacy SDK functional test suite | `P:js-dash-sdk/tests/functional/sdk.js` |
+| `yappr` | Full social media app using EvoSDK: profiles, posts, likes, follows, DMs, store | [Y:](Y:) |
+| `yappr hooks` | React hooks using EvoSDK: use-follow, use-block, use-dpns-registration, use-avatar | [Y:hooks/](Y:hooks/) |
+| `dash-bridge` | Pure-JS Dash library: addresses, DPNS, identity, transactions, crypto, proof building | [D:src/](D:src/) |
+| `dash-bridge identity` | Identity creation and management via pure JS | [D:src/platform/identity.ts](D:src/platform/identity.ts) |
+| `dash-bridge dpns` | DPNS name resolution via pure JS | [D:src/platform/dpns.ts](D:src/platform/dpns.ts) |
+| `dash-bridge transactions` | Transaction building, serialization, sighash | [D:src/transaction/](D:src/transaction/) |
+| `dash-bridge crypto` | HD key derivation, signing, address generation | [D:src/crypto/](D:src/crypto/) |
+| `evo-sdk-website` | Interactive API explorer and documentation site for EvoSDK | [E:](E:) |
+| `evo-sdk-website e2e tests` | End-to-end tests: queries, state transitions, smoke tests | [E:tests/e2e/](E:tests/e2e/) |
+| `wasm-dpp2 bindings` | WASM bindings for DPP types: DataContract, Document, Identity, state transitions | [P:wasm-dpp2/src/](P:wasm-dpp2/src/) |
+| `wasm-sdk queries` | WASM SDK query modules: address, contract, document, epoch, group, identity, token, voting | [P:wasm-sdk/src/queries/](P:wasm-sdk/src/queries/) |
+| `wasm-sdk transitions` | WASM SDK state transitions: addresses, broadcast, contract, document, identity | [P:wasm-sdk/src/state_transitions/](P:wasm-sdk/src/state_transitions/) |
+| `legacy sdk functional test` | Legacy js-dash-sdk functional test | [P:js-dash-sdk/tests/functional/sdk.js](P:js-dash-sdk/tests/functional/sdk.js) |

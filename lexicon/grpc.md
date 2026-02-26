@@ -5,97 +5,114 @@
 ## Types
 | Keyword | Description | Src | Docs |
 |---------|-------------|-----|------|
-| `Proof` | Cryptographic proof (grovedb_proof, quorum_hash, signature, round, block_id_hash, quorum_type) | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `ResponseMetadata` | Blockchain state metadata (height, core_chain_locked_height, epoch, time_ms, protocol_version, chain_id) | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `StateTransitionBroadcastError` | Error from state transition broadcast (code, message, data) | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `KeyPurpose` | Enum: AUTHENTICATION, ENCRYPTION, DECRYPTION, TRANSFER, VOTING | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `KeyRequestType` | Request type for identity keys: all_keys, specific_keys, search_key | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `AllKeys` | Empty message requesting all keys | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `SpecificKeys` | Request specific keys by ID list | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `SearchKey` | Search keys by purpose and security level map | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `SecurityLevelMap` | Maps security levels to key request types (CURRENT_KEY_OF_KIND_REQUEST, ALL_KEYS_OF_KIND_REQUEST) | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `GetBlockchainStatusResponse` | Core chain status with Version, Time, Status enum, Chain, Network | `P:dapi-grpc/protos/core/v0/core.proto` | `G:` |
-| `GetMasternodeStatusResponse` | Masternode status: UNKNOWN, WAITING_FOR_PROTX, POSE_BANNED, REMOVED, READY, ERROR | `P:dapi-grpc/protos/core/v0/core.proto` | `G:` |
+| `Proof` | GroveDB proof: grovedb_proof, quorum_hash, signature, round, block_id_hash, quorum_type | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | [G:index.html](G:index.html) |
+| `ResponseMetadata` | Chain context: height, core_chain_locked_height, epoch, time_ms, protocol_version, chain_id | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | [G:index.html](G:index.html) |
+| `StateTransitionBroadcastError` | Broadcast error: code, message, data | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `KeyPurpose` | Enum: AUTHENTICATION, ENCRYPTION, DECRYPTION, TRANSFER, VOTING | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `KeyRequestType` | Oneof: all_keys, specific_keys, search_key | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `SecurityLevelMap` | Maps security levels to KeyKindRequestType (CURRENT_KEY or ALL_KEYS) | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `AddressInfoEntry` | Platform address info: address, balance_and_nonce | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `BalanceAndNonce` | Address state: balance (uint64), nonce (uint32) | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `AddressBalanceChange` | Balance change: address + set_balance or add_to_balance | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `CompactedAddressBalanceChange` | Compacted change: set_credits or add_to_credits_operations with block heights | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `TokenTotalSupplyEntry` | Token supply: token_id, total_aggregated_amount_in_user_accounts, total_system_amount | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `GroupInfoEntry` | Group info: members (member_id + power), group_required_power | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `GroupActionEntry` | Group action: action_id, event (token/document/contract) | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `TokenEvent` | Oneof: mint, burn, freeze, unfreeze, destroy_frozen_funds, emergency_action, token_config_update, update_price | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `GetBlockchainStatusResponse` | Core status: version, time, sync status, chain info, network info | [P:dapi-grpc/protos/core/v0/core.proto](P:dapi-grpc/protos/core/v0/core.proto) | |
+| `GetMasternodeStatusResponse` | Masternode status: status enum, pro_tx_hash, pose_penalty, sync_progress | [P:dapi-grpc/protos/core/v0/core.proto](P:dapi-grpc/protos/core/v0/core.proto) | |
+| `BloomFilter` | SPV bloom filter: v_data, n_hash_funcs, n_tweak, n_flags | [P:dapi-grpc/protos/core/v0/core.proto](P:dapi-grpc/protos/core/v0/core.proto) | |
 
 ## Functions
 | Keyword | Description | Src | Docs |
 |---------|-------------|-----|------|
-| `Platform.broadcastStateTransition` | Broadcast a serialized state transition | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getIdentity` | Fetch identity by ID | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getIdentityKeys` | Fetch identity public keys (all, specific, or search) | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getIdentitiesContractKeys` | Fetch contract-specific keys for multiple identities | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getIdentityNonce` | Get global nonce for an identity | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getIdentityContractNonce` | Get per-contract nonce for an identity | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getIdentityBalance` | Fetch credit balance for an identity | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getIdentitiesBalances` | Fetch balances for multiple identities | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getIdentityBalanceAndRevision` | Fetch balance and revision number for an identity | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getDataContract` | Fetch a data contract by ID | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getDataContractHistory` | Fetch data contract version history | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getDataContracts` | Fetch multiple data contracts by IDs | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getDocuments` | Query documents from a data contract | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getIdentityByPublicKeyHash` | Lookup identity by public key hash | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getIdentityByNonUniquePublicKeyHash` | Lookup identity by non-unique public key hash | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.waitForStateTransitionResult` | Wait for a state transition to be applied | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getConsensusParams` | Get consensus parameters | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getProtocolVersionUpgradeState` | Get protocol version upgrade state | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getProtocolVersionUpgradeVoteStatus` | Get protocol version upgrade vote status | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getEpochsInfo` | Get epoch information | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getFinalizedEpochInfos` | Get finalized epoch information | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getContestedResources` | Get contested resources for a specific index | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getContestedResourceVoteState` | Get state of a contested resource vote | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getContestedResourceVotersForIdentity` | Get voters for a contested resource identity | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getContestedResourceIdentityVotes` | Get how an identity voted on contested resources | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getVotePollsByEndDate` | Get vote polls ending soon | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getPrefundedSpecializedBalance` | Get prefunded specialized balance for identity | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getTotalCreditsInPlatform` | Get total credits in platform | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getPathElements` | Get path elements from GroveDB | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getStatus` | Get platform node status | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getCurrentQuorumsInfo` | Get current quorums information | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getIdentityTokenBalances` | Get token balances for a single identity | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getIdentitiesTokenBalances` | Get token balances for multiple identities | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getIdentityTokenInfos` | Get token info for a single identity | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getIdentitiesTokenInfos` | Get token info for multiple identities | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getTokenStatuses` | Get statuses for tokens | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getTokenDirectPurchasePrices` | Get direct purchase prices for tokens | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getTokenContractInfo` | Get token contract information | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getTokenPreProgrammedDistributions` | Get pre-programmed token distributions | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getTokenPerpetualDistributionLastClaim` | Get last claim time for perpetual distribution | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getTokenTotalSupply` | Get total supply of a token | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getGroupInfo` | Get info for a single group | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getGroupInfos` | Get info for multiple groups | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getGroupActions` | Get group actions | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getGroupActionSigners` | Get signers for a group action | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getAddressInfo` | Get info for a platform address | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getAddressesInfos` | Get info for multiple platform addresses | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getAddressesTrunkState` | Get trunk state for addresses | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getAddressesBranchState` | Get branch state for addresses | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getRecentAddressBalanceChanges` | Get recent balance changes for addresses | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Platform.getRecentCompactedAddressBalanceChanges` | Get recent compacted balance changes for addresses | `P:dapi-grpc/protos/platform/v0/platform.proto` | `G:` |
-| `Core.getBlockchainStatus` | Get blockchain sync status and chain info | `P:dapi-grpc/protos/core/v0/core.proto` | `G:` |
-| `Core.getMasternodeStatus` | Get masternode status | `P:dapi-grpc/protos/core/v0/core.proto` | `G:` |
-| `Core.getBlock` | Get a block by height or hash | `P:dapi-grpc/protos/core/v0/core.proto` | `G:` |
-| `Core.getBestBlockHeight` | Get best block height | `P:dapi-grpc/protos/core/v0/core.proto` | `G:` |
-| `Core.broadcastTransaction` | Broadcast a core transaction | `P:dapi-grpc/protos/core/v0/core.proto` | `G:` |
-| `Core.getTransaction` | Get a transaction by hash | `P:dapi-grpc/protos/core/v0/core.proto` | `G:` |
-| `Core.getEstimatedTransactionFee` | Estimate transaction fee | `P:dapi-grpc/protos/core/v0/core.proto` | `G:` |
-| `Core.subscribeToBlockHeadersWithChainLocks` | Stream block headers with chain locks | `P:dapi-grpc/protos/core/v0/core.proto` | `G:` |
-| `Core.subscribeToTransactionsWithProofs` | Stream transactions with proofs | `P:dapi-grpc/protos/core/v0/core.proto` | `G:` |
-| `Core.subscribeToMasternodeList` | Stream masternode list updates | `P:dapi-grpc/protos/core/v0/core.proto` | `G:` |
-| `DriveInternal.getProofs` | Get proofs for a state transition (internal) | `P:dapi-grpc/protos/drive/v0/drive.proto` | `G:` |
+| **Platform Service** | | | |
+| `broadcastStateTransition` | Broadcast a serialized state transition to the network | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | [G:index.html](G:index.html) |
+| `getIdentity` | Get identity by ID (with optional proof) | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getIdentityKeys` | Get identity keys: all, specific, or by search criteria | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getIdentitiesContractKeys` | Get keys for multiple identities filtered by contract/purpose | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getIdentityNonce` | Get identity nonce for state transition ordering | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getIdentityContractNonce` | Get identity nonce scoped to a specific contract | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getIdentityBalance` | Get identity credit balance | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getIdentitiesBalances` | Get balances for multiple identities | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getIdentityBalanceAndRevision` | Get identity balance and revision number | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getIdentityByPublicKeyHash` | Look up identity by unique public key hash | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getIdentityByNonUniquePublicKeyHash` | Look up identities sharing a non-unique public key hash | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getDataContract` | Get a data contract by ID | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getDataContracts` | Get multiple data contracts by IDs | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getDataContractHistory` | Get version history of a data contract | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getDocuments` | Query documents by contract, type, where, order_by, limit | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `waitForStateTransitionResult` | Wait for a broadcast state transition to be confirmed | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getConsensusParams` | Get consensus parameters at a block height | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getProtocolVersionUpgradeState` | Get current protocol version upgrade state | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getProtocolVersionUpgradeVoteStatus` | Get masternode votes on protocol version upgrades | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getEpochsInfo` | Get epoch metadata for a range of epochs | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getFinalizedEpochInfos` | Get finalized epoch data | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getEvonodesProposedEpochBlocksByIds` | Get proposed block counts by evonode IDs | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getEvonodesProposedEpochBlocksByRange` | Get proposed block counts by range pagination | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getContestedResources` | Get resources currently under contested voting | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getContestedResourceVoteState` | Get vote state for a contested resource (who is winning) | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getContestedResourceVotersForIdentity` | Get voters for a specific identity in a contested vote | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getContestedResourceIdentityVotes` | Get how an identity voted in contested resources | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getVotePollsByEndDate` | Get vote polls expiring within a date range | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getPrefundedSpecializedBalance` | Get prefunded specialized balance for an identity | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getTotalCreditsInPlatform` | Get total credits across all Platform | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getPathElements` | Get GroveDB path elements (low-level) | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getStatus` | Get Platform node status | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getCurrentQuorumsInfo` | Get current quorum information | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getIdentityTokenBalances` | Get token balances for a single identity | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getIdentitiesTokenBalances` | Get token balances for multiple identities | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getIdentityTokenInfos` | Get token info for a single identity across tokens | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getIdentitiesTokenInfos` | Get token info for multiple identities on a token | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getTokenStatuses` | Get paused/active status for tokens | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getTokenDirectPurchasePrices` | Get direct purchase prices for tokens | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getTokenContractInfo` | Get token contract info (positions, configs) | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getTokenPreProgrammedDistributions` | Get pre-programmed token distribution schedule | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getTokenPerpetualDistributionLastClaim` | Get last claim timestamp for perpetual token distribution | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getTokenTotalSupply` | Get total supply for a token (user accounts + system) | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getGroupInfo` | Get group info by contract ID and position | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getGroupInfos` | Get multiple group infos with pagination | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getGroupActions` | Get group actions (active or closed) with events | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getGroupActionSigners` | Get signers and their power for a group action | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getAddressInfo` | Get Platform address balance and nonce | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getAddressesInfos` | Get info for multiple Platform addresses | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getAddressesTrunkState` | Get addresses trunk state proof for SPV sync | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getAddressesBranchState` | Get addresses branch state merk proof at depth | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getRecentAddressBalanceChanges` | Get recent address balance changes from a start height | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| `getRecentCompactedAddressBalanceChanges` | Get compacted balance changes (block-aware credit operations) | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) | |
+| **Core Service** | | | |
+| `getBlockchainStatus` | Get blockchain sync status, version, chain info, network | [P:dapi-grpc/protos/core/v0/core.proto](P:dapi-grpc/protos/core/v0/core.proto) | |
+| `getMasternodeStatus` | Get masternode status, pose penalty, sync progress | [P:dapi-grpc/protos/core/v0/core.proto](P:dapi-grpc/protos/core/v0/core.proto) | |
+| `getBlock` | Get block by height or hash | [P:dapi-grpc/protos/core/v0/core.proto](P:dapi-grpc/protos/core/v0/core.proto) | |
+| `getBestBlockHeight` | Get current best block height | [P:dapi-grpc/protos/core/v0/core.proto](P:dapi-grpc/protos/core/v0/core.proto) | |
+| `broadcastTransaction` | Broadcast a Core L1 transaction | [P:dapi-grpc/protos/core/v0/core.proto](P:dapi-grpc/protos/core/v0/core.proto) | |
+| `getTransaction` | Get transaction by ID with confirmation info | [P:dapi-grpc/protos/core/v0/core.proto](P:dapi-grpc/protos/core/v0/core.proto) | |
+| `getEstimatedTransactionFee` | Estimate fee for confirmation in N blocks | [P:dapi-grpc/protos/core/v0/core.proto](P:dapi-grpc/protos/core/v0/core.proto) | |
+| `subscribeToBlockHeadersWithChainLocks` | Stream: block headers with ChainLock signatures | [P:dapi-grpc/protos/core/v0/core.proto](P:dapi-grpc/protos/core/v0/core.proto) | |
+| `subscribeToTransactionsWithProofs` | Stream: transactions matching bloom filter with merkle proofs | [P:dapi-grpc/protos/core/v0/core.proto](P:dapi-grpc/protos/core/v0/core.proto) | |
+| `subscribeToMasternodeList` | Stream: masternode list diffs | [P:dapi-grpc/protos/core/v0/core.proto](P:dapi-grpc/protos/core/v0/core.proto) | |
+| **Drive Internal Service** | | | |
+| `getProofs` | Internal: get proofs for a state transition (Drive only) | [P:dapi-grpc/protos/drive/v0/drive.proto](P:dapi-grpc/protos/drive/v0/drive.proto) | |
 
 ## Patterns
 | Keyword | Description | Example |
 |---------|-------------|---------|
-| `versioned-request` | All requests use `oneof version { V0 v0 = 1; }` for forward-compatible versioning | `GetIdentityRequest { oneof version { GetIdentityRequestV0 v0 = 1; } }` |
-| `prove-flag` | Most requests accept `bool prove` to return a `Proof` instead of plain data | `GetIdentityRequestV0 { bytes id = 1; bool prove = 2; }` |
-| `result-oneof` | Responses use `oneof result { <data> = 1; Proof proof = 2; }` plus `ResponseMetadata` | `GetIdentityResponseV0 { oneof result { bytes identity = 1; Proof proof = 2; } }` |
-| `jstype-annotation` | uint64 fields use `[jstype = JS_STRING]` for safe JS interop | `uint64 height = 1 [jstype = JS_STRING];` |
+| `Versioned messages` | All Platform requests/responses use `oneof version { V0 v0 = 1; }` for protocol evolution | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) |
+| `Proof or result` | Responses use `oneof result { T data = 1; Proof proof = 2; }` based on `prove` flag | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) |
+| `prove flag` | Set `prove = true` in requests to get GroveDB proof instead of direct data | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) |
+| `ResponseMetadata` | Every Platform response includes metadata: height, epoch, time_ms, protocol_version | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) |
+| `JS_STRING annotation` | uint64 fields use `jstype = JS_STRING` for JavaScript BigInt compatibility | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) |
+| `Pagination: start_at/start_after` | List endpoints use oneof `start_at`/`start_after` + `limit` for cursor pagination | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) |
+| `Streaming RPCs` | Core service uses server streaming for block headers, transactions, masternode lists | [P:dapi-grpc/protos/core/v0/core.proto](P:dapi-grpc/protos/core/v0/core.proto) |
+| `Group action events` | Group actions contain oneof event: TokenEvent, DocumentEvent, ContractEvent | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) |
+| `Address balance sync` | Trunk/branch state proofs + recent balance changes for light client sync | [P:dapi-grpc/protos/platform/v0/platform.proto](P:dapi-grpc/protos/platform/v0/platform.proto) |
 
 ## Examples
 | Keyword | Description | File |
 |---------|-------------|------|
-| `platform-rust-example` | Rust gRPC client example for Platform service | `P:dapi-grpc/clients/platform/v0/rust/platform_example.rs` |
-| `core-rust-example` | Rust gRPC client example for Core service | `P:dapi-grpc/clients/core/v0/rust/core_example.rs` |
-| `platform-node-client` | Node.js Platform Promise client | `P:dapi-grpc/clients/platform/v0/nodejs/PlatformPromiseClient.js` |
-| `core-node-client` | Node.js Core Promise client | `P:dapi-grpc/clients/core/v0/nodejs/CorePromiseClient.js` |
-| `platform-web-client` | Browser Platform Promise client | `P:dapi-grpc/clients/platform/v0/web/PlatformPromiseClient.js` |
+| `platform_example.rs` | Rust gRPC client example for Platform service | [P:dapi-grpc/clients/platform/v0/rust/platform_example.rs](P:dapi-grpc/clients/platform/v0/rust/platform_example.rs) |
+| `core_example.rs` | Rust gRPC client example for Core service | [P:dapi-grpc/clients/core/v0/rust/core_example.rs](P:dapi-grpc/clients/core/v0/rust/core_example.rs) |
+| `PlatformPromiseClient` | Node.js gRPC client for Platform service | [P:dapi-grpc/clients/platform/v0/nodejs/PlatformPromiseClient.js](P:dapi-grpc/clients/platform/v0/nodejs/PlatformPromiseClient.js) |
+| `CorePromiseClient` | Node.js gRPC client for Core service | [P:dapi-grpc/clients/core/v0/nodejs/CorePromiseClient.js](P:dapi-grpc/clients/core/v0/nodejs/CorePromiseClient.js) |
+| `Web PlatformPromiseClient` | Browser gRPC-web client for Platform | [P:dapi-grpc/clients/platform/v0/web/PlatformPromiseClient.js](P:dapi-grpc/clients/platform/v0/web/PlatformPromiseClient.js) |
+| `Web CorePromiseClient` | Browser gRPC-web client for Core | [P:dapi-grpc/clients/core/v0/web/CorePromiseClient.js](P:dapi-grpc/clients/core/v0/web/CorePromiseClient.js) |

@@ -5,92 +5,81 @@
 ## Types
 | Keyword | Description | Src | Docs |
 |---------|-------------|-----|------|
-| `DapiClient` | Main DAPI transport client; holds AddressList, RequestSettings, ConnectionPool | `P:rs-dapi-client/src/dapi_client.rs` | `R:dash_sdk/` |
-| `DapiClientError` | Error enum: Transport, NoAvailableAddresses, NoAvailableAddressesToRetry, AddressList, Mock | `P:rs-dapi-client/src/dapi_client.rs` | `R:dash_sdk/` |
-| `AddressList` | Manages list of DAPI node addresses with ban tracking | `P:rs-dapi-client/src/address_list.rs` | `R:dash_sdk/` |
-| `Address` | Single DAPI node address with status | `P:rs-dapi-client/src/address_list.rs` | `R:dash_sdk/` |
-| `AddressStatus` | Ban status of an address | `P:rs-dapi-client/src/address_list.rs` | `R:dash_sdk/` |
-| `ConnectionPool` | Pool of gRPC connections to DAPI nodes | `P:rs-dapi-client/src/connection_pool.rs` | `R:dash_sdk/` |
-| `RequestSettings` | Per-request config: connect_timeout, timeout, retries, ban_failed_address, max_decoding_message_size | `P:rs-dapi-client/src/request_settings.rs` | `R:dash_sdk/` |
-| `Sdk` | High-level SDK entry point built via SdkBuilder | `T:src/sdk_wrapper.rs` | `R:dash_sdk/` |
-| `SdkBuilder` | Builder for Sdk; chain with_version, with_network, with_context_provider, with_settings | `T:src/sdk_wrapper.rs` | `R:dash_sdk/` |
-| `Identity` | Platform identity with keys, balance, revision | `P:rs-dpp/src/` | `R:dash_sdk/` |
-| `DataContract` | Data contract with document types, tokens, groups | `P:rs-dpp/src/` | `R:dash_sdk/` |
-| `Document` | Document instance belonging to a contract document type | `P:rs-dpp/src/` | `R:dash_sdk/` |
-| `DocumentQuery` | Query for fetching documents with where/order clauses | `T:src/backend_task/document.rs` | `R:dash_sdk/` |
-| `Identifier` | 32-byte platform identifier (identity, contract, document IDs) | `P:rs-dpp/src/` | `R:dash_sdk/` |
-| `IdentityPublicKey` | Public key attached to an identity with purpose and security level | `P:rs-dpp/src/` | `R:dash_sdk/` |
-| `Credits` | Alias for fee/balance amounts in platform credits | `P:rs-dpp/src/balances/credits.rs` | `R:dash_sdk/` |
-| `AssetLockProof` | Proof of L1 asset lock (Instant or Chain variant) | `P:rs-dpp/src/asset_lock/` | `R:dash_sdk/` |
-| `ChainAssetLockProof` | Chain-based asset lock proof with core_chain_locked_height and out_point | `T:src/backend_task/identity/register_identity.rs` | `R:dash_sdk/` |
-| `PlatformAddress` | Bech32m-encoded platform address for L2 transfers | `P:rs-dpp/src/address_funds/platform_address.rs` | `R:dash_sdk/` |
-| `AddressNonce` | Nonce for platform address transactions | `T:src/backend_task/identity/register_identity.rs` | `R:dash_sdk/` |
-| `ExtendedEpochInfo` | Extended epoch information with block height and time | `P:rs-dpp/src/block/extended_block_info/` | `R:dash_sdk/` |
-| `TokenPaymentInfo` | Info for paying fees with tokens instead of credits | `T:src/backend_task/document.rs` | `R:dash_sdk/` |
-| `WhereClause` | Document query filter with field, operator, value | `T:src/backend_task/contract.rs` | `R:dash_sdk/` |
-| `WhereOperator` | Operators for WhereClause (Equal, etc.) | `T:src/backend_task/contract.rs` | `R:dash_sdk/` |
-| `IndexMap` | Ordered map returned by FetchMany queries | `T:src/backend_task/document.rs` | `R:dash_sdk/` |
-| `TransportError` | Low-level gRPC transport error | `P:rs-dapi-client/src/transport.rs` | `R:dash_sdk/` |
-| `ExecutionError` | Error wrapper for request execution | `P:rs-dapi-client/src/executor.rs` | `R:dash_sdk/` |
-| `ExecutionResponse` | Response wrapper from request execution | `P:rs-dapi-client/src/executor.rs` | `R:dash_sdk/` |
-| `IdentityCreateTransition` | State transition for creating an identity | `T:src/backend_task/identity/register_identity.rs` | `R:dash_sdk/` |
+| `Sdk` | Main entry point: holds DAPI client, context provider, internal cache. Created via `SdkBuilder` | [P:rs-sdk/src/sdk.rs](P:rs-sdk/src/sdk.rs) | [R:dash_sdk/index.html](R:dash_sdk/index.html) |
+| `SdkBuilder` | Builder for `Sdk` instances: configure network, addresses, proofs, timeouts | [P:rs-sdk/src/sdk.rs](P:rs-sdk/src/sdk.rs) | [R:dash_sdk/index.html](R:dash_sdk/index.html) |
+| `Identity` | Platform identity: public keys, balance, revision. Core DPP type | [P:rs-dpp/](P:rs-dpp/) | [R:dash_sdk/index.html](R:dash_sdk/index.html) |
+| `DataContract` | Data contract: document types, tokens, config. Core DPP type | [P:rs-dpp/src/data_contract/](P:rs-dpp/src/data_contract/) | [R:dash_sdk/index.html](R:dash_sdk/index.html) |
+| `Document` | Instance of a document type within a contract | [P:rs-dpp/](P:rs-dpp/) | [R:dash_sdk/index.html](R:dash_sdk/index.html) |
+| `Identifier` | 32-byte unique ID for contracts, identities, documents, tokens | [P:rs-dpp/](P:rs-dpp/) | |
+| `IdentityPublicKey` | Public key attached to an identity with purpose and security level | [P:rs-dpp/](P:rs-dpp/) | |
+| `DocumentQuery` | Query for fetching documents: contract, document type, conditions | [P:rs-sdk/src/platform/documents/document_query.rs](P:rs-sdk/src/platform/documents/document_query.rs) | |
+| `DriveDocumentQuery` | Lower-level document query builder with more complex filter support | [P:rs-sdk/src/platform/documents/](P:rs-sdk/src/platform/documents/) | |
+| `RequestSettings` | Per-request settings: timeout, retries, ban-failed-address | [P:rs-dapi-client/src/request_settings.rs](P:rs-dapi-client/src/request_settings.rs) | |
+| `Error` | SDK error type covering DAPI, proof verification, and DPP errors | [P:rs-sdk/src/error.rs](P:rs-sdk/src/error.rs) | |
+| `ProofVerifierError` | Error from proof verification layer | [P:rs-sdk/src/lib.rs](P:rs-sdk/src/lib.rs) | |
+| `ExtendedEpochInfo` | Epoch metadata: index, start time, block height, fee multiplier | [P:rs-dpp/src/block/extended_epoch_info/](P:rs-dpp/src/block/extended_epoch_info/) | |
+| `FinalizedEpochInfo` | Finalized epoch data: protocol version, core fee | [P:rs-dpp/src/block/finalized_epoch_info/](P:rs-dpp/src/block/finalized_epoch_info/) | |
+| `Vote` | Masternode vote for contested resource allocation | [P:rs-dpp/](P:rs-dpp/) | |
+| `ResourceVote` | Specific vote on a contested resource by an identity | [P:rs-dpp/](P:rs-dpp/) | |
+| `DapiClient` | Low-level DAPI client for gRPC transport | [P:rs-dapi-client/src/dapi_client.rs](P:rs-dapi-client/src/dapi_client.rs) | |
+| `DapiRequest` | Trait for gRPC request types with associated response | [P:rs-dapi-client/src/](P:rs-dapi-client/src/) | |
+| `LimitQuery` | Query wrapper adding limit/start_after pagination | [P:rs-sdk/src/platform/](P:rs-sdk/src/platform/) | |
+| `PlatformAddress` | Platform L2 address for address-based funding | [P:rs-dpp/src/address_funds/platform_address.rs](P:rs-dpp/src/address_funds/platform_address.rs) | |
+| `TokenPricingSchedule` | Token pricing: fixed price or variable price-per-quantity schedule | [P:rs-dpp/](P:rs-dpp/) | |
 
 ## Functions
 | Keyword | Description | Src | Docs |
 |---------|-------------|-----|------|
-| `DapiClient::new` | Create new DapiClient with AddressList and RequestSettings | `P:rs-dapi-client/src/dapi_client.rs` | `R:dash_sdk/` |
-| `DapiClient::with_ca_certificate` | Set CA certificate for TLS verification | `P:rs-dapi-client/src/dapi_client.rs` | `R:dash_sdk/` |
-| `DapiClient::address_list` | Get reference to the address list | `P:rs-dapi-client/src/dapi_client.rs` | `R:dash_sdk/` |
-| `DapiRequest::execute` | Execute a DAPI request with settings on a client | `P:rs-dapi-client/src/lib.rs` | `R:dash_sdk/` |
-| `SdkBuilder::new` | Create SdkBuilder from AddressList | `T:src/sdk_wrapper.rs` | `R:dash_sdk/` |
-| `SdkBuilder::with_version` | Set protocol version on builder | `T:src/sdk_wrapper.rs` | `R:dash_sdk/` |
-| `SdkBuilder::with_network` | Set network (mainnet/testnet) on builder | `T:src/sdk_wrapper.rs` | `R:dash_sdk/` |
-| `SdkBuilder::with_context_provider` | Set context provider on builder | `T:src/sdk_wrapper.rs` | `R:dash_sdk/` |
-| `SdkBuilder::with_settings` | Set request settings on builder | `T:src/sdk_wrapper.rs` | `R:dash_sdk/` |
-| `SdkBuilder::build` | Build the Sdk instance | `T:src/sdk_wrapper.rs` | `R:dash_sdk/` |
-| `Fetch::fetch` | Fetch a single entity by query (Identity, DataContract, Document) | `T:src/backend_task/contract.rs` | `R:dash_sdk/` |
-| `Fetch::fetch_with_metadata` | Fetch with response metadata (e.g., ExtendedEpochInfo) | `T:src/backend_task/identity/register_identity.rs` | `R:dash_sdk/` |
-| `FetchMany::fetch_many` | Fetch multiple entities (contracts, documents, identities) | `T:src/backend_task/contract.rs` | `R:dash_sdk/` |
-| `PutIdentity::put_to_platform` | Register identity on platform using asset lock proof | `T:src/backend_task/identity/register_identity.rs` | `R:dash_sdk/` |
-| `DocumentCreateTransitionBuilder` | Builder for document create state transitions | `T:src/backend_task/document.rs` | `R:dash_sdk/` |
-| `DocumentReplaceTransitionBuilder` | Builder for document replace state transitions | `T:src/backend_task/document.rs` | `R:dash_sdk/` |
-| `DocumentDeleteTransitionBuilder` | Builder for document delete state transitions | `T:src/backend_task/document.rs` | `R:dash_sdk/` |
-| `DocumentTransferTransitionBuilder` | Builder for document transfer state transitions | `T:src/backend_task/document.rs` | `R:dash_sdk/` |
-| `DocumentPurchaseTransitionBuilder` | Builder for document purchase state transitions | `T:src/backend_task/document.rs` | `R:dash_sdk/` |
-| `DocumentSetPriceTransitionBuilder` | Builder for document set price state transitions | `T:src/backend_task/document.rs` | `R:dash_sdk/` |
-| `CanRetry::can_retry` | Check if an error is retryable | `P:rs-dapi-client/src/lib.rs` | `R:dash_sdk/` |
+| `Fetch::fetch()` | Fetch single object from Platform with proof verification | [P:rs-sdk/src/platform/fetch.rs](P:rs-sdk/src/platform/fetch.rs) | [R:dash_sdk/index.html](R:dash_sdk/index.html) |
+| `Fetch::fetch_with_metadata()` | Fetch with ResponseMetadata (height, epoch, time) | [P:rs-sdk/src/platform/fetch.rs](P:rs-sdk/src/platform/fetch.rs) | |
+| `Fetch::fetch_with_metadata_and_proof()` | Fetch with metadata and underlying Proof bytes | [P:rs-sdk/src/platform/fetch.rs](P:rs-sdk/src/platform/fetch.rs) | |
+| `Fetch::fetch_with_settings()` | Fetch with custom RequestSettings (timeout, retries) | [P:rs-sdk/src/platform/fetch.rs](P:rs-sdk/src/platform/fetch.rs) | |
+| `Fetch::fetch_by_identifier()` | Convenience: fetch by Identifier directly | [P:rs-sdk/src/platform/fetch.rs](P:rs-sdk/src/platform/fetch.rs) | |
+| `FetchMany::fetch_many()` | Fetch multiple objects matching a query with proofs | [P:rs-sdk/src/platform/fetch_many.rs](P:rs-sdk/src/platform/fetch_many.rs) | |
+| `FetchMany::fetch_by_identifiers()` | Fetch multiple objects by a slice of Identifiers | [P:rs-sdk/src/platform/fetch_many.rs](P:rs-sdk/src/platform/fetch_many.rs) | |
+| `FetchMany::fetch_many_with_limit()` | Fetch with max limit on returned objects | [P:rs-sdk/src/platform/fetch_many.rs](P:rs-sdk/src/platform/fetch_many.rs) | |
+| `FetchUnproved::fetch_unproved()` | Fetch without proof verification (e.g., node status) | [P:rs-sdk/src/platform/fetch_unproved.rs](P:rs-sdk/src/platform/fetch_unproved.rs) | |
+| `FetchCurrent::fetch_current()` | Fetch parameter-free current state (epoch, total credits) | [P:rs-sdk/src/platform/fetch_current_no_parameters.rs](P:rs-sdk/src/platform/fetch_current_no_parameters.rs) | |
+| `PutIdentity::put_to_platform()` | Register a new identity on Platform | [P:rs-sdk/src/platform/](P:rs-sdk/src/platform/) | |
+| `PutContract::put_to_platform()` | Publish a data contract to Platform | [P:rs-sdk/src/platform/](P:rs-sdk/src/platform/) | |
+| `PutDocument::put_to_platform()` | Create or replace a document on Platform | [P:rs-sdk/src/platform/](P:rs-sdk/src/platform/) | |
+| `TransferToIdentity::transfer()` | Transfer credits between identities | [P:rs-sdk/src/platform/](P:rs-sdk/src/platform/) | |
+| `WithdrawFromIdentity::withdraw()` | Withdraw credits from identity to L1 | [P:rs-sdk/src/platform/](P:rs-sdk/src/platform/) | |
+| `TopUpIdentity::top_up()` | Add credits to an identity via asset lock | [P:rs-sdk/src/platform/](P:rs-sdk/src/platform/) | |
+| `PutVote::put_vote()` | Cast a masternode vote on a contested resource | [P:rs-sdk/src/platform/](P:rs-sdk/src/platform/) | |
+| `Sdk::new_mock()` | Create a mock SDK for testing without network | [P:rs-sdk/src/mock/](P:rs-sdk/src/mock/) | |
 
 ## Patterns
 | Keyword | Description | Example |
 |---------|-------------|---------|
-| `sdk-builder` | Build Sdk with `SdkBuilder::new(addrs).with_version(v).with_network(n).with_context_provider(p).with_settings(s).build()` | See `T:src/sdk_wrapper.rs` |
-| `fetch-trait` | Query entities with `Entity::fetch(&sdk, query).await` or `Entity::fetch_many(&sdk, query).await` | `DataContract::fetch_many(sdk, identifiers).await` |
-| `fetch-with-metadata` | Get entity + blockchain metadata: `Entity::fetch_with_metadata(&sdk, query, None).await` | `ExtendedEpochInfo::fetch_with_metadata(&sdk, 0, None).await` |
-| `document-query` | Build DocumentQuery with data_contract, document_type_name, where_clauses, order_by, limit, start | See `T:src/backend_task/contract.rs` |
-| `transition-builder` | Create state transitions via builder: `DocumentCreateTransitionBuilder`, `DocumentReplaceTransitionBuilder`, etc. | See `T:src/backend_task/document.rs` |
-| `asset-lock-proof` | Create identity with `AssetLockProof::Instant(...)` or `AssetLockProof::Chain(ChainAssetLockProof { ... })` | See `T:src/backend_task/identity/register_identity.rs` |
-| `error-retry` | Use `CanRetry::can_retry()` to check if request failures are retryable | `DapiClientError::Transport(e) => e.can_retry()` |
-| `request-settings` | Configure timeouts and retries: `RequestSettings { connect_timeout, timeout, retries, ban_failed_address, ... }` | See `T:src/sdk_wrapper.rs` |
+| `Fetch trait pattern` | `Identity::fetch(&sdk, identifier).await?` returns `Option<Identity>` | [P:rs-sdk/src/platform/fetch.rs](P:rs-sdk/src/platform/fetch.rs) |
+| `FetchMany trait pattern` | `DataContract::fetch_many(&sdk, vec![id1, id2]).await?` returns collection | [P:rs-sdk/src/platform/fetch_many.rs](P:rs-sdk/src/platform/fetch_many.rs) |
+| `Query trait` | Types implementing `Query<R>` convert to gRPC requests; Identifier, DocumentQuery, etc. | [P:rs-sdk/src/platform/query.rs](P:rs-sdk/src/platform/query.rs) |
+| `Document transitions` | Builder APIs for create, delete, replace, purchase, set_price, transfer documents | [P:rs-sdk/src/platform/documents/transitions/](P:rs-sdk/src/platform/documents/transitions/) |
+| `Token builders` | Builder APIs: mint, burn, transfer, freeze, unfreeze, destroy, purchase, set_price, claim, config_update | [P:rs-sdk/src/platform/tokens/builders/](P:rs-sdk/src/platform/tokens/builders/) |
+| `Token queries` | Query token balances, status, total supply, contract info, pricing | [P:rs-sdk/src/platform/tokens/](P:rs-sdk/src/platform/tokens/) |
+| `DPNS usernames` | Query and register DPNS names, handle contested names | [P:rs-sdk/src/platform/dpns_usernames/](P:rs-sdk/src/platform/dpns_usernames/) |
+| `Group actions` | Query group info, actions, and signers | [P:rs-sdk/src/platform/group_actions.rs](P:rs-sdk/src/platform/group_actions.rs) |
+| `Address sync` | Track Platform address balances and state | [P:rs-sdk/src/platform/address_sync/](P:rs-sdk/src/platform/address_sync/) |
+| `Proof verification` | All Fetch/FetchMany results are verified via GroveDB proofs by default | [P:rs-sdk/src/platform/fetch.rs](P:rs-sdk/src/platform/fetch.rs) |
+| `Mock testing` | Use `Sdk::new_mock()` with `MockResponse` trait for deterministic tests | [P:rs-sdk/src/mock/](P:rs-sdk/src/mock/) |
+| `Delegate pattern` | `delegate.rs` delegates SDK calls to inner implementation | [P:rs-sdk/src/platform/delegate.rs](P:rs-sdk/src/platform/delegate.rs) |
 
 ## Examples
 | Keyword | Description | File |
 |---------|-------------|------|
-| `sdk-init` | Initialize Rust SDK with network config and context provider | `T:src/sdk_wrapper.rs` |
-| `register-identity` | Full identity registration flow with asset lock, keys, and broadcast | `T:src/backend_task/identity/register_identity.rs` |
-| `load-identity` | Load an identity from platform by ID | `T:src/backend_task/identity/load_identity.rs` |
-| `top-up-identity` | Top up an identity's credit balance | `T:src/backend_task/identity/top_up_identity.rs` |
-| `credit-transfer` | Transfer credits between identities | `T:src/backend_task/identity/transfer.rs` |
-| `withdraw-credits` | Withdraw credits from identity to L1 | `T:src/backend_task/identity/withdraw_from_identity.rs` |
-| `register-dpns` | Register a DPNS name for an identity | `T:src/backend_task/identity/register_dpns_name.rs` |
-| `fetch-documents` | Query and fetch documents from a contract | `T:src/backend_task/document.rs` |
-| `broadcast-document` | Create and broadcast a new document | `T:src/backend_task/document.rs` |
-| `fetch-contracts` | Fetch data contracts by identifier | `T:src/backend_task/contract.rs` |
-| `register-contract` | Register a new data contract on platform | `T:src/backend_task/register_contract.rs` |
-| `update-contract` | Update an existing data contract | `T:src/backend_task/update_data_contract.rs` |
-| `token-mint` | Mint tokens on a contract | `T:src/backend_task/tokens/mint_tokens.rs` |
-| `token-burn` | Burn tokens | `T:src/backend_task/tokens/burn_tokens.rs` |
-| `token-transfer` | Transfer tokens between identities | `T:src/backend_task/tokens/transfer_tokens.rs` |
-| `token-freeze` | Freeze tokens for an identity | `T:src/backend_task/tokens/freeze_tokens.rs` |
-| `contested-names` | Query DPNS contested resources and vote contenders | `T:src/backend_task/contested_names/query_dpns_contested_resources.rs` |
-| `vote-on-name` | Vote on a contested DPNS name | `T:src/backend_task/contested_names/vote_on_dpns_name.rs` |
-| `mock-dapi-client` | Mock DapiClient for testing | `P:rs-dapi-client/tests/mock_dapi_client.rs` |
+| `read_contract` | Example: fetch a data contract by ID | [P:rs-sdk/examples/read_contract.rs](P:rs-sdk/examples/read_contract.rs) |
+| `contested_names_with_contenders` | Example: query contested DPNS names and their contenders | [P:rs-sdk/examples/contested_names_with_contenders.rs](P:rs-sdk/examples/contested_names_with_contenders.rs) |
+| `identity_contested_names` | Example: query contested names for an identity | [P:rs-sdk/examples/identity_contested_names.rs](P:rs-sdk/examples/identity_contested_names.rs) |
+| `dash-evo-tool` | Full GUI tool using rs-sdk: identities, contracts, documents, tokens, voting, DPNS | [T:src/](T:src/) |
+| `register_identity` | Evo-tool: register identity via SDK | [T:src/backend_task/identity/register_identity.rs](T:src/backend_task/identity/register_identity.rs) |
+| `register_dpns_name` | Evo-tool: register DPNS name for identity | [T:src/backend_task/identity/register_dpns_name.rs](T:src/backend_task/identity/register_dpns_name.rs) |
+| `load_identity` | Evo-tool: load/fetch identity from Platform | [T:src/backend_task/identity/load_identity.rs](T:src/backend_task/identity/load_identity.rs) |
+| `transfer` | Evo-tool: credit transfer between identities | [T:src/backend_task/identity/transfer.rs](T:src/backend_task/identity/transfer.rs) |
+| `register_contract` | Evo-tool: register data contract on Platform | [T:src/backend_task/register_contract.rs](T:src/backend_task/register_contract.rs) |
+| `mint_tokens` | Evo-tool: mint tokens via SDK | [T:src/backend_task/tokens/mint_tokens.rs](T:src/backend_task/tokens/mint_tokens.rs) |
+| `burn_tokens` | Evo-tool: burn tokens | [T:src/backend_task/tokens/burn_tokens.rs](T:src/backend_task/tokens/burn_tokens.rs) |
+| `transfer_tokens` | Evo-tool: transfer tokens between identities | [T:src/backend_task/tokens/transfer_tokens.rs](T:src/backend_task/tokens/transfer_tokens.rs) |
+| `freeze_tokens` | Evo-tool: freeze token account | [T:src/backend_task/tokens/freeze_tokens.rs](T:src/backend_task/tokens/freeze_tokens.rs) |
+| `purchase_tokens` | Evo-tool: purchase tokens at set price | [T:src/backend_task/tokens/purchase_tokens.rs](T:src/backend_task/tokens/purchase_tokens.rs) |
+| `vote_on_dpns_name` | Evo-tool: masternode vote on contested DPNS name | [T:src/backend_task/contested_names/vote_on_dpns_name.rs](T:src/backend_task/contested_names/vote_on_dpns_name.rs) |
