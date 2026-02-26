@@ -1,6 +1,6 @@
 # claudash
 
-**Give Claude full knowledge of Dash Platform.** Data contracts, Rust SDK, JS/TS SDK, gRPC API — 4,400+ indexed entries so Claude can write correct code, answer API questions, and navigate the platform monorepo without hallucinating.
+**Give Claude full knowledge of Dash Platform.** Data contracts, Rust SDK, JS/TS SDK, gRPC API — thousands of indexed entries so Claude can write correct code, answer API questions, and navigate the platform monorepo without hallucinating.
 
 A [Claude Code plugin](https://docs.anthropic.com/en/docs/claude-code/plugins) for [Dash Platform](https://docs.dash.org/projects/platform/) developers.
 
@@ -15,7 +15,7 @@ Dash Platform has a rich API surface, but the developer experience has real fric
 - **Documentation is fragmented** across docs.dash.org, rustdoc, proto files, and multiple GitHub repos
 - **The Rust SDK isn't on crates.io** or docs.rs — types are deeply nested across `dash-sdk`, `dpp`, `rs-dapi-client`, and `dapi-grpc`
 - **The monorepo is massive** — finding the right type, trait, or query pattern means knowing which of 30+ packages to look in
-- **API surface is large** — 2,700+ public Rust types/functions, 80 gRPC RPCs, 560+ JS SDK exports, and 300+ contract-related types
+- **API surface is large** — thousands of public Rust types/functions, hundreds of gRPC RPCs and messages, hundreds of JS SDK exports and contract types
 - **Community resources are limited** — fewer tutorials, examples, and Stack Overflow answers compared to larger blockchain ecosystems
 
 When you ask a vanilla LLM about Dash Platform, it guesses. Often wrong.
@@ -28,11 +28,11 @@ claudash ships a **lexicon** — pre-indexed lookup tables generated from actual
 
 | Lexicon | Entries | Coverage |
 |---------|---------|----------|
-| **Rust SDK** | 2,700+ | Every public type, function, and trait from `dash-sdk`, `dpp`, `rs-dapi-client`, `dapi-grpc` |
-| **Rust Patterns** | 65 | Real-world SDK usage patterns and examples from `dash-evo-tool`, `yappr`, `dash-bridge` |
-| **JS/TS SDK** | 560+ | Types, options, facades, query interfaces from the `dash` npm package and `wasm-dpp` |
-| **Data Contracts** | 300+ | Contract types, document schemas, state transitions, token config, groups, voting |
-| **gRPC API** | 460+ | All 3 services, 80 RPCs, request/response message types |
+| **Rust SDK** | ~2,900 | Every public type, function, and trait from `dash-sdk`, `dpp`, `rs-dapi-client`, `dapi-grpc` |
+| **Rust Patterns** | ~40 | Real-world SDK usage patterns and examples from `dash-evo-tool`, `yappr`, `dash-bridge` |
+| **JS/TS SDK** | ~500 | Types, options, facades, query interfaces from the `dash` npm package and `wasm-dpp` |
+| **Data Contracts** | ~240 | Contract types, document schemas, state transitions, token config, groups, voting |
+| **gRPC API** | ~320 | All 3 services, RPCs, request/response message types |
 
 This means Claude can help you:
 
@@ -88,7 +88,7 @@ User asks about Dash Platform
           │ grep lexicon/*.md for keywords
           ▼
 ┌─────────────────────┐
-│   Lexicon tables     │  ← 4,400+ entries with source links
+│   Lexicon tables     │  ← ~4,000 entries with source links
 │   rust.md            │
 │   js.md              │
 │   contract.md        │
@@ -138,7 +138,7 @@ claudash/
 │   ├── dash-platform/       # Main development skill
 │   └── update-lexicon/      # Lexicon regeneration skill
 ├── lexicon/                 # Auto-generated lookup tables (do not edit)
-│   ├── rust.md              # 2,700+ Rust SDK entries
+│   ├── rust.md              # Rust SDK entries
 │   ├── rust-patterns.md     # SDK usage patterns & examples
 │   ├── js.md                # JS/TS SDK types & patterns
 │   ├── contract.md          # Data contract types
