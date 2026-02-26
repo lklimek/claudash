@@ -4,13 +4,15 @@ Guidance for Claude Code working in this repository.
 
 ## Project Overview
 
-**claudash** — a Claude Code plugin at [github.com/lklimek/claudash](https://github.com/lklimek/claudash). Skills and lexicon for Dash Platform developers. GPL-3.0.
+**claudash** — a plugin for Claude Code and GitHub Copilot CLI at [github.com/lklimek/claudash](https://github.com/lklimek/claudash). Skills and lexicon for Dash Platform developers. GPL-3.0.
+
+Both tools discover `plugin.json` and `marketplace.json` in `.claude-plugin/` — no conversion or duplication needed.
 
 ## Repository Structure
 
 ```
 .claude-plugin/
-  plugin.json       # Plugin manifest (only `name` required; skills/ auto-discovered)
+  plugin.json       # Plugin manifest (shared by Claude Code and Copilot CLI)
   marketplace.json  # Marketplace listing
 skills/             # Skill definitions (directories with SKILL.md)
 lexicon/            # Auto-generated keyword lookup tables (do not edit manually)

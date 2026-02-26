@@ -6,5 +6,7 @@
   "author": {
     "name": "lklimek"
   },
-  "repository": "https://github.com/lklimek/claudash"
+  "repository": "https://github.com/lklimek/claudash",
+  "keywords": ["dash", "dash-platform", "blockchain", "sdk", "data-contracts", "grpc", "rust", "javascript"],
+  "skills": ["skills/"]
 }

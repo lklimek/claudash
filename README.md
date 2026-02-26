@@ -2,7 +2,7 @@
 
 **Give Claude full knowledge of Dash Platform.** Data contracts, Rust SDK, JS/TS SDK, gRPC API — thousands of indexed entries so Claude can write correct code, answer API questions, and navigate the platform monorepo without hallucinating.
 
-A [Claude Code plugin](https://docs.anthropic.com/en/docs/claude-code/plugins) for [Dash Platform](https://docs.dash.org/projects/platform/) developers.
+A plugin for [Dash Platform](https://docs.dash.org/projects/platform/) developers. Works with both [Claude Code](https://docs.anthropic.com/en/docs/claude-code/plugins) and [GitHub Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/plugins-creating).
 
 ## What is Dash Platform?
 
@@ -44,6 +44,8 @@ This means Claude can help you:
 
 ## Install
 
+### Claude Code
+
 Add the marketplace, then install the plugin:
 
 ```
@@ -51,13 +53,27 @@ Add the marketplace, then install the plugin:
 /plugin install dash-platform@claudash
 ```
 
-Alternatively, install from a local clone:
+Or install from a local clone:
 
 ```bash
 claude plugin install /path/to/claudash
 
 # Or load for a single session
 claude --plugin-dir /path/to/claudash
+```
+
+### GitHub Copilot CLI
+
+Install directly from GitHub:
+
+```
+/plugin install lklimek/claudash
+```
+
+Or from a local clone:
+
+```bash
+copilot plugin install /path/to/claudash
 ```
 
 ## Usage
@@ -156,12 +172,17 @@ claudash/
 
 ## Development
 
+The plugin manifest at `.claude-plugin/plugin.json` is shared by both Claude Code and Copilot CLI — no duplication or conversion needed.
+
 ```bash
 # Validate the plugin
 claude plugin validate .
 
-# Test locally
+# Test locally (Claude Code)
 claude --plugin-dir .
+
+# Test locally (Copilot CLI)
+copilot plugin install .
 
 # Refresh lexicon from source
 /dash-platform:update-lexicon
