@@ -44,11 +44,16 @@ This means Claude can help you:
 
 ## Install
 
-```bash
-# From the marketplace (when available)
-claude plugin install claudash
+Add the marketplace, then install the plugin:
 
-# From a local clone
+```
+/plugin marketplace add lklimek/claudash
+/plugin install dash-platform@lklimek-claudash
+```
+
+Alternatively, install from a local clone:
+
+```bash
 claude plugin install /path/to/claudash
 
 # Or load for a single session
