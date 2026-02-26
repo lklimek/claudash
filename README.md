@@ -22,10 +22,8 @@ claude --plugin-dir /path/to/claudash
 
 | Skill | Triggers | Purpose |
 |-------|----------|---------|
+| `dash-platform` | Data contracts, Rust SDK, JS/TS SDK, identities, documents | Full Dash Platform development guidance |
 | `update-lexicon` | Manual invocation | Crawl repos and docs, regenerate `lexicon/*.md` |
-| `dash-platform-contract` | Data contracts, JSON Schema, DPP, DPNS | Contract design, document types, indexing |
-| `dash-platform-rust` | dash-sdk, dpp, rs-dapi-client, Rust | Rust SDK development and patterns |
-| `dash-platform-js` | dash npm, js-dash-sdk, wasm-dpp | JS/TS SDK development and patterns |
 
 ### Usage
 

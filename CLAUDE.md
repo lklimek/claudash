@@ -21,9 +21,7 @@ scripts/            # Helper scripts for lexicon generation
 
 | Skill | Purpose |
 |-------|---------|
-| `dash-platform-contract` | Data contract design, JSON Schema, DPP, document types |
-| `dash-platform-rust` | Rust SDK development (dash-sdk, dpp, rs-dapi-client) |
-| `dash-platform-js` | JS/TS SDK development (dash npm, wasm-dpp) |
+| `dash-platform` | Data contracts, Rust SDK, JS/TS SDK, identities, documents, queries |
 | `update-lexicon` | Regenerate lexicon/ from source repos (user-invocable) |
 
 ## Lexicon
