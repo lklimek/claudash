@@ -174,3 +174,5 @@ claude --plugin-dir .
 ## License
 
 GPL-3.0. See [LICENSE](LICENSE).
+
+<sub>🤖 Co-authored by [Claudius the Magnificent](https://github.com/lklimek/claudius) AI Agent</sub>
