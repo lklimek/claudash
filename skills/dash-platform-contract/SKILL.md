@@ -9,9 +9,21 @@ Assist with Dash Platform data contract design, creation, and management.
 
 In `dashpay/platform` repo: `bash scripts/setup-ai-agent-environment.sh`
 
-## Reference
+## Lexicon
 
-Grep `index/contract.md` for lookups. Expand prefixes → WebFetch full content.
+`lexicon/` contains keyword lookup tables for Dash Platform APIs. To answer questions:
+1. Grep the relevant `lexicon/*.md` file for keywords matching the user's query
+2. Find the `Src` or `Docs` column link in matching rows
+3. Expand the link prefix (see table below) to a full URL and WebFetch it for details
+
+| File | Content |
+|------|---------|
+| `lexicon/contract.md` | data contract types, JSON Schema, DPP, document types |
+| `lexicon/rust.md` | Rust SDK types, functions, patterns |
+| `lexicon/js.md` | JS SDK types, functions, patterns |
+| `lexicon/grpc.md` | gRPC services, messages, endpoints |
+
+Primary: `lexicon/contract.md`. Link prefixes:
 
 | Pre | URL |
 |-----|-----|
@@ -33,7 +45,7 @@ Each type defines:
 - `required` — required fields
 - Optional: `additionalProperties: false`, `$comment`, `transient`, `documentsKeepHistoryContractDefault`
 
-## Index Design
+## Document Index Design
 
 - `name` + `properties` array (each: `name` + `asc`/`desc`)
 - `unique: true` for uniqueness constraints
