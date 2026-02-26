@@ -6,11 +6,5 @@
   "author": {
     "name": "lklimek"
   },
-  "repository": "https://github.com/lklimek/claudash",
-  "skills": [
-    "skills/update-lexicon",
-    "skills/dash-platform-contract",
-    "skills/dash-platform-rust",
-    "skills/dash-platform-js"
-  ]
+  "repository": "https://github.com/lklimek/claudash"
 }

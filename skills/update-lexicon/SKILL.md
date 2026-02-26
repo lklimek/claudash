@@ -30,27 +30,38 @@ Note the `DOC_DIR=...` line from output, then:
 python3 scripts/gen-rust-lexicon.py "$DOC_DIR" --patterns lexicon/rust-patterns.md > lexicon/rust.md
 ```
 
-Requires `cargo +nightly` (only for this step). The `rust-patterns.md` file is hand-maintained — update it when SDK patterns change.
+Requires `cargo +nightly` (only for this step).
 
-## Step 3: Spawn agents for remaining lexicons
+## Step 3: Spawn agents
 
-Spawn 3 agents in parallel (`subagent_type: "general-purpose"`). Each reads source files locally from `.repos/`.
+Spawn 4 agents in parallel (`subagent_type: "general-purpose"`). Each reads source files locally from `.repos/`.
 
 **Critical**: Be exhaustive. Read every source file in assigned packages. Extract every public type, function, trait, struct, enum, const, service, RPC, example. Aim for 50+ entries per section. Coverage > speed.
 
-### Agent 1: `lexicon/contract.md`
+### Agent 1: `lexicon/rust-patterns.md`
+
+**Paths**: `.repos/platform/packages/rs-sdk/src/platform/` (Fetch, FetchMany, Put traits, queries, transitions, builders, mock), `.repos/platform/packages/rs-sdk/examples/`, `.repos/platform/packages/rs-sdk/tests/`, `.repos/dash-evo-tool/src/` (real-world usage).
+
+**Extract**: SDK usage patterns (trait conventions, builder patterns, error handling, async, proof verification, mock testing) and examples (every example file, every significant dash-evo-tool backend task). Output only `## Patterns` and `## Examples` tables — no Types/Functions (those come from the script). Aim for 15+ patterns and 20+ examples.
+
+After this agent completes, re-run the gen-rust-lexicon.py script to concatenate:
+```bash
+python3 scripts/gen-rust-lexicon.py "$DOC_DIR" --patterns lexicon/rust-patterns.md > lexicon/rust.md
+```
+
+### Agent 2: `lexicon/contract.md`
 
 **Paths**: `.repos/platform/packages/rs-dpp/` (contract types, document types, validation), `.repos/platform/packages/wasm-dpp/` (WASM bindings), `.repos/platform/packages/js-dash-sdk/src/SDK/Client/Platform/methods/`, `.repos/yappr/contracts/` (contract examples), `.repos/dash-bridge/` (TS types).
 
 **Extract**: Every public type related to data contracts, document types, state transitions, validation, JSON Schema, token config, group actions. Every contract JSON example.
 
-### Agent 2: `lexicon/js.md`
+### Agent 3: `lexicon/js.md`
 
 **Paths**: `.repos/platform/packages/js-evo-sdk/`, `.repos/platform/packages/js-dash-sdk/`, `.repos/platform/packages/wasm-dpp/`, `.repos/platform/packages/wasm-dpp2/`, `.repos/platform/packages/wasm-sdk/`, `.repos/yappr/` (TS files), `.repos/dash-bridge/` (TS files), `.repos/evo-sdk-website/`.
 
 **Extract**: Every exported class, function, type, interface, facade method. Usage patterns from example apps. WASM init patterns.
 
-### Agent 3: `lexicon/grpc.md`
+### Agent 4: `lexicon/grpc.md`
 
 **Paths**: `.repos/platform/packages/dapi-grpc/protos/` (all `.proto` files).
 
