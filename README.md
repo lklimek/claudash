@@ -76,10 +76,9 @@ Skills expand these prefixes when fetching details via WebFetch.
 
 ## Marketplace
 
-This repo also serves as a marketplace configuration bundling two plugins:
+This repo serves as a marketplace shipping the **dash-platform** plugin.
 
-- **dash-platform** — This plugin (skills for Dash Platform development)
-- **claudius** — [Claudius the Magnificent](https://github.com/lklimek/claudius) dev lifecycle agents
+Claudash's best friend is **[claudius](https://github.com/lklimek/claudius)** — an opinionated dev lifecycle toolkit with agents and skills. Cool people use them together.
 
 See `.claude-plugin/marketplace.json` for details.
 
