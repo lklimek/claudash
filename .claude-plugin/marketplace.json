@@ -9,7 +9,7 @@
       "name": "dash-platform",
       "source": "./",
       "description": "Skills for Dash Platform developers — data contracts, Rust SDK, JS SDK, and API lexicon",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "license": "GPL-3.0"
     }
   ]
