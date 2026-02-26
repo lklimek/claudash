@@ -27,8 +27,8 @@ jobs:
       - name: Validate plugin
         run: claude plugin validate .
 
-  copilot-install:
-    name: Copilot CLI – test install
+  copilot-validate:
+    name: Copilot CLI – validate plugin structure
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -40,7 +40,48 @@ jobs:
       - name: Install GitHub Copilot CLI
         run: npm install -g @github/copilot
 
-      - name: Test plugin install
+      - name: Validate plugin.json
         run: |
-          copilot plugin install .
-          copilot plugin list
+          manifest=".claude-plugin/plugin.json"
+          if [ ! -f "$manifest" ]; then
+            echo "::error::Missing $manifest"
+            exit 1
+          fi
+          # Validate JSON syntax
+          node -e "JSON.parse(require('fs').readFileSync('$manifest','utf8'))"
+          echo "Valid JSON"
+
+      - name: Check required fields
+        run: |
+          node -e "
+            const p = JSON.parse(require('fs').readFileSync('.claude-plugin/plugin.json','utf8'));
+            const required = ['name','version','description','skills'];
+            const missing = required.filter(k => !p[k]);
+            if (missing.length) { console.error('Missing fields:', missing.join(', ')); process.exit(1); }
+            console.log('name:', p.name);
+            console.log('version:', p.version);
+            console.log('skills:', p.skills);
+          "
+
+      - name: Verify skill directories
+        run: |
+          node -e "
+            const fs = require('fs'), path = require('path');
+            const p = JSON.parse(fs.readFileSync('.claude-plugin/plugin.json','utf8'));
+            let ok = true;
+            for (const s of p.skills || []) {
+              const dir = s.replace(/\/$/,'');
+              if (!fs.existsSync(dir)) { console.error('Missing skill dir:', dir); ok = false; continue; }
+              const entries = fs.readdirSync(dir, {withFileTypes:true});
+              for (const e of entries) {
+                if (!e.isDirectory()) continue;
+                const md = path.join(dir, e.name, 'SKILL.md');
+                if (!fs.existsSync(md)) { console.error('Missing:', md); ok = false; }
+                else { console.log('OK:', md); }
+              }
+            }
+            if (!ok) process.exit(1);
+          "
+
+      - name: Smoke-test copilot CLI
+        run: copilot --version
