@@ -57,6 +57,7 @@
 | enum | `DataContractCreateTransition` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_create_transition/mod.rs#L57] |
 | enum | `DataContractCreateTransitionSignable` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_create_transition/mod.rs#L43] |
 | enum | `DataContractError` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/errors/contract.rs#L17] |
+| enum | `DataContractFactory` | rs-dpp | # Data Contract Factory | [P:packages/rs-dpp/src/data_contract/factory/mod.rs#L32] |
 | enum | `DataContractInSerializationFormat` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/serialized_version/mod.rs#L100] |
 | enum | `DataContractMismatch` | rs-dpp | Represents a field mismatch between two `DataContractInSerializationFormat::V1` | [P:packages/rs-dpp/src/data_contract/serialized_version/mod.rs#L44] |
 | enum | `DataContractUpdateTransition` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_update_transition/mod.rs#L59] |
@@ -74,6 +75,7 @@
 | enum | `DocumentDeleteResult` | rs-sdk | Result types returned from document delete operations. | [P:packages/rs-sdk/src/platform/documents/transitions/delete.rs#L216] |
 | enum | `DocumentDeleteTransition` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_delete_transition/mod.rs#L16] |
 | enum | `DocumentError` | rs-dpp |  | [P:packages/rs-dpp/src/document/errors.rs#L12] |
+| enum | `DocumentFactory` | rs-dpp | # Document Factory | [P:packages/rs-dpp/src/document/document_factory/mod.rs#L37] |
 | enum | `DocumentPropertyType` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L53] |
 | enum | `DocumentPurchaseResult` | rs-sdk | Result types returned from document purchase operations. | [P:packages/rs-sdk/src/platform/documents/transitions/purchase.rs#L230] |
 | enum | `DocumentPurchaseTransition` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_purchase_transition/mod.rs#L16] |
@@ -93,6 +95,7 @@
 | enum | `EventType` | dapi-grpc |  |  |
 | enum | `ExtendedBlockInfo` | rs-dpp | Extended Block information | [P:packages/rs-dpp/src/block/extended_block_info/mod.rs#L30] |
 | enum | `ExtendedEpochInfo` | rs-dpp | Extended Epoch information | [P:packages/rs-dpp/src/block/extended_epoch_info/mod.rs#L26] |
+| enum | `FieldType` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/convert.rs#L8] |
 | enum | `FinalizedEpochInfo` | rs-dpp | Finalized Epoch information | [P:packages/rs-dpp/src/block/finalized_epoch_info/mod.rs#L25] |
 | enum | `FinishedVoteOutcome` | dapi-grpc |  |  |
 | enum | `FreezeResult` | rs-sdk | Result types returned from freezing token operations. | [P:packages/rs-sdk/src/platform/tokens/transitions/freeze.rs#L21] |
@@ -138,6 +141,7 @@
 | enum | `MasternodeVoteTransitionSignable` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/masternode_vote_transition/mod.rs#L39] |
 | enum | `MergeIdentityNonceResult` | rs-dpp | The result of the merge of the identity contract nonce | [P:packages/rs-dpp/src/identity/identity_nonce.rs#L23] |
 | enum | `MintResult` | rs-sdk | Result types returned from minting token operations. | [P:packages/rs-sdk/src/platform/tokens/transitions/mint.rs#L22] |
+| enum | `MockError` | rs-dapi-client | Mock errors | [P:packages/rs-dapi-client/src/mock.rs#L211] |
 | enum | `NonConsensusError` | rs-dpp |  | [P:packages/rs-dpp/src/errors/non_consensus_error.rs#L10] |
 | enum | `Operation` | dapi-grpc |  |  |
 | enum | `Operation` | dapi-grpc |  |  |
@@ -147,8 +151,9 @@
 | enum | `PoolItem` | rs-dapi-client | Item stored in the pool. | [P:packages/rs-dapi-client/src/connection_pool.rs#L108] |
 | enum | `PoolPrefix` | rs-dapi-client | Prefix for the item in the pool. Used to distinguish between Core and Platform clients. | [P:packages/rs-dapi-client/src/connection_pool.rs#L155] |
 | enum | `Pooling` | rs-dpp |  | [P:packages/rs-dpp/src/withdrawal/mod.rs#L12] |
-| enum | `Price` | dapi-grpc | Price of the token; optional |  |
+| enum | `PreferredKeyPurposeForSigningWithdrawal` | rs-dpp | The key purpose that is preferred for signing the withdrawal | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_withdrawal_transition/methods/v0/mod.rs#L16] |
 | enum | `Price` | dapi-grpc |  |  |
+| enum | `Price` | dapi-grpc | Price of the token; optional |  |
 | enum | `ProtocolError` | rs-dpp |  | [P:packages/rs-dpp/src/errors/protocol_error.rs#L48] |
 | enum | `ProtocolValidationOperation` | rs-dpp |  | [P:packages/rs-dpp/src/validation/operations.rs#L5] |
 | enum | `Purpose` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/purpose.rs#L28] |
@@ -209,10 +214,12 @@
 | enum | `SecurityLevel` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/security_level.rs#L30] |
 | enum | `SetPriceResult` | rs-sdk | Result types returned from setting token price operations. | [P:packages/rs-sdk/src/platform/tokens/transitions/set_price_for_direct_purchase.rs#L22] |
 | enum | `SignableBytesHasher` | rs-dpp | This is a structure to hash signable bytes when we are not sure if we will need the hashing | [P:packages/rs-dpp/src/state_transition/state_transitions/signable_bytes_hasher.rs#L6] |
+| enum | `SpecializedDocumentFactory` | rs-dpp | # Document Factory | [P:packages/rs-dpp/src/document/specialized_document_factory/mod.rs#L37] |
 | enum | `StaleNodeError` | rs-sdk | Server returned stale metadata | [P:packages/rs-sdk/src/error.rs#L285] |
 | enum | `Start` | dapi-grpc | Specifies the starting point for the document retrieval |  |
 | enum | `Start` | dapi-grpc |  |  |
 | enum | `StateTransition` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/mod.rs#L358] |
+| enum | `StateTransitionError` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/state_transition_error.rs#L8] |
 | enum | `StateTransitionProofResult` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/proof_result.rs#L22] |
 | enum | `StateTransitionSignable` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/mod.rs#L347] |
 | enum | `StateTransitionType` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transition_types.rs#L21] |
@@ -265,6 +272,8 @@
 | enum | `Type` | dapi-grpc |  |  |
 | enum | `Type` | dapi-grpc |  |  |
 | enum | `UnfreezeResult` | rs-sdk | Result types returned from unfreezing token operations. | [P:packages/rs-sdk/src/platform/tokens/transitions/unfreeze.rs#L21] |
+| enum | `Validator` | rs-dpp | A validator in the context of a quorum | [P:packages/rs-dpp/src/core_types/validator/mod.rs#L16] |
+| enum | `ValidatorSet` | rs-dpp | The validator set is only slightly different from a quorum as it does not contain non valid | [P:packages/rs-dpp/src/core_types/validator_set/mod.rs#L33] |
 | enum | `Version` | dapi-grpc |  |  |
 | enum | `Version` | dapi-grpc |  |  |
 | enum | `Version` | dapi-grpc |  |  |
@@ -417,6 +426,7 @@
 | struct | `BurnEvent` | dapi-grpc | Burn event |  |
 | struct | `ByteArrayPropertySizes` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L46] |
 | struct | `Cache` | rs-sdk | Thread-safe cache of various objects inside the SDK. | [P:packages/rs-sdk/src/mock/provider.rs#L253] |
+| struct | `CborCanonicalMap` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L19] |
 | struct | `Chain` | dapi-grpc |  |  |
 | struct | `Chain` | dapi-grpc |  |  |
 | struct | `ChainAssetLockProof` | rs-dpp | Instant Asset Lock Proof is a part of Identity Create and Identity Topup | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/chain/chain_asset_lock_proof.rs#L15] |
@@ -450,11 +460,14 @@
 | struct | `CreatedDataContractInSerializationFormatV0` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/created_data_contract/v0/mod.rs#L26] |
 | struct | `CreatedDataContractV0` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/created_data_contract/v0/mod.rs#L20] |
 | struct | `DapiClient` | rs-dapi-client | Access point to DAPI. | [P:packages/rs-dapi-client/src/dapi_client.rs#L89] |
+| struct | `DashPlatformProtocol` | rs-dpp |  | [P:packages/rs-dpp/src/dash_platform_protocol.rs#L4] |
 | struct | `DataContractConfigV0` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/config/v0/mod.rs#L18] |
 | struct | `DataContractConfigV1` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/config/v1/mod.rs#L18] |
 | struct | `DataContractCreateTransitionV0` | rs-dpp | DataContractCreateTransitionV0 has the same encoding structure | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_create_transition/v0/mod.rs#L37] |
 | struct | `DataContractCreateTransitionV0Signable` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_create_transition/v0/mod.rs#L31] |
 | struct | `DataContractEntry` | dapi-grpc |  |  |
+| struct | `DataContractFacade` | rs-dpp | # Data Contract Facade | [P:packages/rs-dpp/src/data_contract/data_contract_facade.rs#L26] |
+| struct | `DataContractFactoryV0` | rs-dpp | The version 0 implementation of the data contract factory. | [P:packages/rs-dpp/src/data_contract/factory/v0/mod.rs#L33] |
 | struct | `DataContractHistory` | dapi-grpc | Collection of data contract history entries |  |
 | struct | `DataContractHistoryEntry` | dapi-grpc | Represents a single entry in the data contract's history |  |
 | struct | `DataContractInSerializationFormatV0` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/serialized_version/v0/mod.rs#L17] |
@@ -477,6 +490,7 @@
 | struct | `DocumentDeleteTransitionBuilder` | rs-sdk | A builder to configure and broadcast document delete transitions | [P:packages/rs-sdk/src/platform/documents/transitions/delete.rs#L21] |
 | struct | `DocumentDeleteTransitionV0` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_delete_transition/v0/mod.rs#L21] |
 | struct | `DocumentEvent` | dapi-grpc |  |  |
+| struct | `DocumentFactoryV0` | rs-dpp | Factory for creating documents | [P:packages/rs-dpp/src/document/document_factory/v0/mod.rs#L40] |
 | struct | `DocumentProperty` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L33] |
 | struct | `DocumentPropertyTypeParsingOptions` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L2366] |
 | struct | `DocumentPurchaseTransitionBuilder` | rs-sdk | A builder to configure and broadcast document purchase transitions | [P:packages/rs-sdk/src/platform/documents/transitions/purchase.rs#L22] |
@@ -494,6 +508,7 @@
 | struct | `Documents` | dapi-grpc | Represents a collection of documents |  |
 | struct | `DpnsUsername` | rs-sdk | Result of a DPNS username search | [P:packages/rs-sdk/src/platform/dpns_usernames/queries.rs#L13] |
 | struct | `Drive` | dapi-grpc |  |  |
+| struct | `DumpData` | rs-dapi-client | Data format of dumps created with [DapiClient::dump_dir]. | [P:packages/rs-dapi-client/src/dump.rs#L14] |
 | struct | `Elements` | dapi-grpc |  |  |
 | struct | `EmergencyActionEvent` | dapi-grpc | Emergency action event |  |
 | struct | `EndAtTimeInfo` | dapi-grpc |  |  |
@@ -771,6 +786,8 @@
 | struct | `IdentityCreditWithdrawalTransitionV0Signable` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_withdrawal_transition/v0/mod.rs#L24] |
 | struct | `IdentityCreditWithdrawalTransitionV1` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_withdrawal_transition/v1/mod.rs#L32] |
 | struct | `IdentityCreditWithdrawalTransitionV1Signable` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_withdrawal_transition/v1/mod.rs#L25] |
+| struct | `IdentityFacade` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_facade.rs#L26] |
+| struct | `IdentityFactory` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_factory.rs#L67] |
 | struct | `IdentityKeys` | dapi-grpc |  |  |
 | struct | `IdentityKeysQuery` | rs-sdk | Query for specific identity keys by their IDs | [P:packages/rs-sdk/src/platform/query.rs#L193] |
 | struct | `IdentityNotPresentError` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/errors/identity_not_present_error.rs#L9] |
@@ -798,9 +815,13 @@
 | struct | `IndexProperty` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/index/mod.rs#L336] |
 | struct | `InstantAssetLockProof` | rs-dpp | Instant Asset Lock Proof is a part of Identity Create and Identity Topup | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/instant/instant_asset_lock_proof.rs#L29] |
 | struct | `InstantSendLockMessages` | dapi-grpc |  |  |
+| struct | `IntervalEvaluationExplanation` | rs-dpp | Detailed explanation of an interval evaluation containing all steps and reasoning | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/distribution_function/evaluate_interval.rs#L37] |
 | struct | `InvalidDocumentTypeError` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/errors/invalid_document_type_error.rs#L9] |
+| struct | `InvalidIdentityPublicKeyTypeError` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/invalid_identity_public_key_type_error.rs#L8] |
+| struct | `InvalidSignaturePublicKeyError` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/invalid_signature_public_key_error.rs#L6] |
 | struct | `InvalidVectorSizeError` | rs-dpp |  | [P:packages/rs-dpp/src/errors/invalid_vector_size_error.rs#L5] |
 | struct | `JsonPathLiteral` | rs-dpp | JsonPathLiteral represents the path in JSON structure. | [P:packages/rs-dpp/src/util/json_path.rs#L27] |
+| struct | `Key` | rs-dapi-client | Unique identifier of some serializable object (e.g. request) that can be used as a key in a hashmap. | [P:packages/rs-dapi-client/src/mock.rs#L161] |
 | struct | `KeyRequestType` | dapi-grpc |  |  |
 | struct | `KeyTypeIter` | rs-dpp | An iterator over the variants of [KeyType] | [P:packages/rs-dpp/src/identity/identity_public_key/key_type.rs#L44] |
 | struct | `Keys` | dapi-grpc |  |  |
@@ -814,24 +835,29 @@
 | struct | `MasternodeVoteTransitionV0Signable` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/masternode_vote_transition/v0/mod.rs#L30] |
 | struct | `Metadata` | rs-dpp |  | [P:packages/rs-dpp/src/metadata.rs#L11] |
 | struct | `MintEvent` | dapi-grpc | Mint event |  |
+| struct | `MockDapiClient` | rs-dapi-client | Mock DAPI client. | [P:packages/rs-dapi-client/src/mock.rs#L34] |
 | struct | `MockDashPlatformSdk` | rs-sdk | Mechanisms to mock Dash Platform SDK. | [P:packages/rs-sdk/src/mock/sdk.rs#L47] |
+| struct | `NativeBlsModule` | rs-dpp |  | [P:packages/rs-dpp/src/bls/native_bls.rs#L7] |
 | struct | `Network` | dapi-grpc |  |  |
 | struct | `Network` | dapi-grpc |  |  |
 | struct | `NetworkFee` | dapi-grpc |  |  |
 | struct | `Node` | dapi-grpc |  |  |
 | struct | `NonUniquePublicKeyHashQuery` | rs-sdk | Non-unique public key hash that can be used as a [Query] to find an identity. | [P:packages/rs-sdk/src/platform/types/identity.rs#L81] |
+| struct | `ParentDocumentOptions` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/get_dpns_document_fixture.rs#L16] |
 | struct | `PartialIdentity` | rs-dpp | An identity struct that represent partially set/loaded identity data. | [P:packages/rs-dpp/src/identity/identity.rs#L59] |
 | struct | `PersonalEncryptedNote` | dapi-grpc | Personal encrypted note |  |
 | struct | `PlatformAddressParseError` | rs-dpp | Error type for parsing a bech32m-encoded Platform address | [P:packages/rs-dpp/src/address_funds/platform_address.rs#L569] |
 | struct | `PlatformClient` | dapi-grpc |  |  |
-| struct | `PriceForQuantity` | dapi-grpc |  |  |
 | struct | `PriceForQuantity` | dapi-grpc | Contains the individual price tier for a specific quantity of tokens. |  |
+| struct | `PriceForQuantity` | dapi-grpc |  |  |
 | struct | `PricingSchedule` | dapi-grpc | Contains list of price tiers for a specific token. |  |
 | struct | `PricingSchedule` | dapi-grpc |  |  |
 | struct | `Proof` | dapi-grpc | Proof message includes cryptographic proofs for validating responses |  |
 | struct | `ProposerBlockCountByIdsQuery` | rs-sdk | Query for fetching proposed block counts by specific evonode IDs | [P:packages/rs-sdk/src/platform/query.rs#L869] |
 | struct | `Protocol` | dapi-grpc |  |  |
 | struct | `PublicKeyHash` | rs-sdk | Public key hash that can be used as a [Query] to find an identity. | [P:packages/rs-sdk/src/platform/types/identity.rs#L59] |
+| struct | `PublicKeyMismatchError` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/public_key_mismatch_error.rs#L8] |
+| struct | `PublicKeySecurityLevelNotMetError` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/public_key_security_level_not_met_error.rs#L8] |
 | struct | `PublicKeyValidationError` | rs-dpp |  | [P:packages/rs-dpp/src/errors/public_key_validation_error.rs#L5] |
 | struct | `PurposeIter` | rs-dpp | An iterator over the variants of [Purpose] | [P:packages/rs-dpp/src/identity/identity_public_key/purpose.rs#L26] |
 | struct | `PurposeKeys` | dapi-grpc |  |  |
@@ -858,6 +884,7 @@
 | struct | `SerializedVotePollsByTimestamps` | dapi-grpc |  |  |
 | struct | `SharedEncryptedNote` | dapi-grpc | Shared encrypted note |  |
 | struct | `Software` | dapi-grpc |  |  |
+| struct | `SpecializedDocumentFactoryV0` | rs-dpp | Factory for creating documents | [P:packages/rs-dpp/src/document/specialized_document_factory/v0/mod.rs#L39] |
 | struct | `SpecificKeys` | dapi-grpc | SpecificKeys is used to request specific keys by their IDs |  |
 | struct | `SplitFeatureVersionOutcome` | rs-dpp | The outcome of splitting a message that has a protocol version | [P:packages/rs-dpp/src/util/deserializer.rs#L26] |
 | struct | `StartAtActionId` | dapi-grpc |  |  |
@@ -873,6 +900,7 @@
 | struct | `StateTransitionBroadcastError` | dapi-grpc |  |  |
 | struct | `StateTransitionCreationOptions` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/methods/mod.rs#L51] |
 | struct | `StateTransitionFactory` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transition_factory.rs#L9] |
+| struct | `StateTransitionIsNotSignedError` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/state_transition_is_not_signed_error.rs#L8] |
 | struct | `StateTransitionSigningOptions` | rs-dpp | The state transition signing options | [P:packages/rs-dpp/src/state_transition/mod.rs#L388] |
 | struct | `StorageAndProcessingPoolCredits` | rs-dpp |  | [P:packages/rs-dpp/src/block/pool_credits.rs#L5] |
 | struct | `StringPropertySizes` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L40] |
@@ -945,7 +973,9 @@
 | struct | `UnknownAssetLockProofTypeError` | rs-dpp |  | [P:packages/rs-dpp/src/identity/errors/unknown_asset_lock_proof_type_error.rs#L5] |
 | struct | `UpdateDirectPurchasePriceEvent` | dapi-grpc | UpdatePrice event |  |
 | struct | `ValidationResult` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L22] |
+| struct | `ValidatorSetV0` | rs-dpp | The validator set is only slightly different from a quorum as it does not contain non-valid | [P:packages/rs-dpp/src/core_types/validator_set/v0/mod.rs#L29] |
 | struct | `ValidatorSetV0` | dapi-grpc |  |  |
+| struct | `ValidatorV0` | rs-dpp | A validator in the context of a quorum | [P:packages/rs-dpp/src/core_types/validator/v0/mod.rs#L25] |
 | struct | `ValidatorV0` | dapi-grpc |  |  |
 | struct | `Version` | dapi-grpc |  |  |
 | struct | `Version` | dapi-grpc |  |  |
@@ -959,6 +989,7 @@
 | struct | `WaitForStateTransitionResultResponse` | dapi-grpc |  |  |
 | struct | `WaitForStateTransitionResultResponseV0` | dapi-grpc |  |  |
 | struct | `WitnessValidationResult` | rs-dpp | Result of witness validation, containing both the validation result and the operations performed. | [P:packages/rs-dpp/src/state_transition/traits/state_transition_witness_validation.rs#L8] |
+| struct | `WrongPublicKeyPurposeError` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/wrong_public_key_purpose_error.rs#L9] |
 | trait | `AddressCreditWithdrawalTransitionAccessorsV0` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_credit_withdrawal_transition/accessors/v0/mod.rs#L6] |
 | trait | `AddressCreditWithdrawalTransitionMethodsV0` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_credit_withdrawal_transition/methods/v0/mod.rs#L24] |
 | trait | `AddressFundingFromAssetLockTransitionAccessorsV0` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_funding_from_asset_lock_transition/accessors/v0/mod.rs#L7] |
@@ -975,6 +1006,9 @@
 | trait | `BroadcastRequestForStateTransition` | rs-sdk | Trait implemented by objects that can be used to create broadcast requests for state transitions. | [P:packages/rs-sdk/src/platform/transition/broadcast_request.rs#L48] |
 | trait | `BroadcastStateTransition` | rs-sdk |  | [P:packages/rs-sdk/src/platform/transition/broadcast.rs#L22] |
 | trait | `CanRetry` | rs-dapi-client | Returns true if the operation can be retried. | [P:packages/rs-dapi-client/src/lib.rs#L84] |
+| trait | `CborBTreeMapHelper` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/map.rs#L10] |
+| trait | `CborMapExtension` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/map.rs#L58] |
+| trait | `ConfigurationForSystemContract` | rs-dpp |  | [P:packages/rs-dpp/src/system_data_contracts.rs#L12] |
 | trait | `ContestedDocumentVotePollStoredInfoV0Getters` | rs-dpp |  | [P:packages/rs-dpp/src/voting/vote_info_storage/contested_document_vote_poll_stored_info/v0/mod.rs#L140] |
 | trait | `Creditable` | rs-dpp | Trait for signed and unsigned credits | [P:packages/rs-dpp/src/balances/credits.rs#L143] |
 | trait | `DapiRequest` | rs-dapi-client | A DAPI request could be executed with an initialized [DapiClient]. | [P:packages/rs-dapi-client/src/lib.rs#L53] |
@@ -985,6 +1019,7 @@
 | trait | `DataContractConfigSettersV1` | rs-dpp | Trait representing setters for `DataContractConfigV1` | [P:packages/rs-dpp/src/data_contract/config/v1/mod.rs#L54] |
 | trait | `DataContractCreateTransitionAccessorsV0` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_create_transition/accessors/v0/mod.rs#L4] |
 | trait | `DataContractCreateTransitionMethodsV0` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_create_transition/methods/v0/mod.rs#L11] |
+| trait | `DataContractJsonConversionMethodsV0` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/conversion/json/v0/mod.rs#L5] |
 | trait | `DataContractSchemaMethodsV0` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/methods/schema/v0/mod.rs#L8] |
 | trait | `DataContractUpdateTransitionAccessorsV0` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_update_transition/accessors/v0/mod.rs#L4] |
 | trait | `DataContractUpdateTransitionMethodsV0` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_update_transition/methods/v0/mod.rs#L11] |
@@ -992,9 +1027,11 @@
 | trait | `DataContractV0Setters` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/accessors/v0/mod.rs#L49] |
 | trait | `DataContractV1Getters` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/accessors/v1/mod.rs#L12] |
 | trait | `DataContractV1Setters` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/accessors/v1/mod.rs#L77] |
+| trait | `DataContractValueConversionMethodsV0` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/conversion/value/v0/mod.rs#L5] |
 | trait | `DocumentBaseTransitionAccessors` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_base_transition/document_base_transition_trait.rs#L3] |
 | trait | `DocumentBaseTransitionV0Methods` | rs-dpp | A trait that contains getter and setter methods for `DocumentBaseTransitionV0` | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_base_transition/v0/v0_methods.rs#L7] |
 | trait | `DocumentBaseTransitionV1Methods` | rs-dpp | A trait that contains getter and setter methods for `DocumentBaseTransitionV0` | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_base_transition/v1/v1_methods.rs#L8] |
+| trait | `DocumentCborMethodsV0` | rs-dpp |  | [P:packages/rs-dpp/src/document/serialization_traits/cbor_conversion/v0/mod.rs#L5] |
 | trait | `DocumentCreateTransitionV0Methods` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_create_transition/v0/v0_methods.rs#L10] |
 | trait | `DocumentFromCreateTransition` | rs-dpp | document from create transition | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_create_transition/mod.rs#L37] |
 | trait | `DocumentFromCreateTransitionV0` | rs-dpp | documents from create transition v0 | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_create_transition/v0/mod.rs#L133] |
@@ -1002,6 +1039,7 @@
 | trait | `DocumentFromReplaceTransitionV0` | rs-dpp | document from replace transition v0 | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_replace_transition/v0/mod.rs#L48] |
 | trait | `DocumentMethodsV0` | rs-dpp |  | [P:packages/rs-dpp/src/document/document_methods/mod.rs#L16] |
 | trait | `DocumentPlatformConversionMethodsV0` | rs-dpp |  | [P:packages/rs-dpp/src/document/serialization_traits/platform_serialization_conversion/v0/mod.rs#L9] |
+| trait | `DocumentPlatformValueMethodsV0` | rs-dpp |  | [P:packages/rs-dpp/src/document/serialization_traits/platform_value_conversion/v0/mod.rs#L7] |
 | trait | `DocumentPurchaseTransitionV0Methods` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_purchase_transition/v0/v0_methods.rs#L7] |
 | trait | `DocumentReplaceTransitionV0Methods` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_replace_transition/v0/v0_methods.rs#L10] |
 | trait | `DocumentTransferTransitionV0Methods` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_transfer_transition/v0/v0_methods.rs#L8] |
@@ -1034,6 +1072,7 @@
 | trait | `FetchMany` | rs-sdk | Fetch multiple objects from Platform. | [P:packages/rs-sdk/src/platform/fetch_many.rs#L88] |
 | trait | `FetchUnproved` | rs-sdk |  | [P:packages/rs-sdk/src/platform/fetch_unproved.rs#L16] |
 | trait | `FinalizedEpochInfoGettersV0` | rs-dpp | Trait for accessing fields of `FinalizedEpochInfoV0`. | [P:packages/rs-dpp/src/block/finalized_epoch_info/v0/getters.rs#L8] |
+| trait | `FromInner` | rs-dapi-client | Create full wrapping object from inner type, using defaults for | [P:packages/rs-dapi-client/src/mock.rs#L319] |
 | trait | `GroupActionAccessors` | rs-dpp |  | [P:packages/rs-dpp/src/group/group_action/mod.rs#L25] |
 | trait | `GroupV0Getters` | rs-dpp | Getters for GroupV0 | [P:packages/rs-dpp/src/data_contract/group/accessors/v0/mod.rs#L7] |
 | trait | `GroupV0Setters` | rs-dpp | Setters for GroupV0 | [P:packages/rs-dpp/src/data_contract/group/accessors/v0/mod.rs#L21] |
@@ -1048,10 +1087,12 @@
 | trait | `IdentityCreditWithdrawalTransitionAccessorsV0` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_withdrawal_transition/accessors/v0/mod.rs#L6] |
 | trait | `IdentityCreditWithdrawalTransitionMethodsV0` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_withdrawal_transition/methods/v0/mod.rs#L29] |
 | trait | `IdentityGettersV0` | rs-dpp | Trait for getters in Identity | [P:packages/rs-dpp/src/identity/accessors/v0/mod.rs#L9] |
+| trait | `IdentityPlatformValueConversionMethodsV0` | rs-dpp |  | [P:packages/rs-dpp/src/identity/conversion/platform_value/v0/mod.rs#L5] |
 | trait | `IdentityPublicKeyGettersV0` | rs-dpp | Trait for getters in IdentityPublicKeyV0 | [P:packages/rs-dpp/src/identity/identity_public_key/accessors/v0/mod.rs#L10] |
 | trait | `IdentityPublicKeyHashMethodsV0` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/methods/hash/v0/mod.rs#L4] |
 | trait | `IdentityPublicKeyInCreationV0Getters` | rs-dpp | Trait providing getters for `IdentityPublicKeyInCreationV0`. | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/public_key_in_creation/accessors.rs#L7] |
 | trait | `IdentityPublicKeyInCreationV0Setters` | rs-dpp | Trait providing getters for `IdentityPublicKeyInCreationV0`. | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/public_key_in_creation/accessors.rs#L34] |
+| trait | `IdentityPublicKeyPlatformValueConversionMethodsV0` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/conversion/platform_value/v0/mod.rs#L5] |
 | trait | `IdentityPublicKeySettersV0` | rs-dpp | Trait for setters in IdentityPublicKeyV0 | [P:packages/rs-dpp/src/identity/identity_public_key/accessors/v0/mod.rs#L43] |
 | trait | `IdentitySettersV0` | rs-dpp | Trait for setters in Identity | [P:packages/rs-dpp/src/identity/accessors/v0/mod.rs#L55] |
 | trait | `IdentityTokenInfoV0Accessors` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/info/v0/mod.rs#L16] |
@@ -1090,6 +1131,7 @@
 | trait | `PutIdentity` | rs-sdk | Trait for creating identities on the platform. | [P:packages/rs-sdk/src/platform/transition/put_identity.rs#L26] |
 | trait | `PutVote` | rs-sdk | A trait for putting a vote on platform | [P:packages/rs-sdk/src/platform/transition/vote.rs#L22] |
 | trait | `Query` | rs-sdk | Trait implemented by objects that can be used as queries. | [P:packages/rs-sdk/src/platform/query.rs#L87] |
+| trait | `ReplacePaths` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/mod.rs#L29] |
 | trait | `ResourceVoteGettersV0` | rs-dpp | Trait for getters in Resource Vote | [P:packages/rs-dpp/src/voting/votes/resource_vote/accessors/v0/mod.rs#L5] |
 | trait | `Signable` | rs-dpp |  | [P:packages/rs-dpp/src/serialization/serialization_traits.rs#L17] |
 | trait | `Signer` | rs-dpp |  | [P:packages/rs-dpp/src/identity/signer.rs#L7] |
@@ -1104,6 +1146,7 @@
 | trait | `StateTransitionOwned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/traits/state_transition_owned.rs#L3] |
 | trait | `StateTransitionSingleSigned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/traits/state_transition_single_signed.rs#L3] |
 | trait | `StateTransitionStructureValidation` | rs-dpp | Trait for validating the structure of a state transition | [P:packages/rs-dpp/src/state_transition/traits/state_transition_structure_validation.rs#L5] |
+| trait | `StateTransitionValueConvert` | rs-dpp | The trait contains methods related to conversion of StateTransition into different formats | [P:packages/rs-dpp/src/state_transition/traits/state_transition_value_convert.rs#L9] |
 | trait | `StateTransitionWitnessSigned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/traits/state_transition_multi_signed.rs#L7] |
 | trait | `StateTransitionWitnessValidation` | rs-dpp | Trait for validating input witnesses against signable bytes. | [P:packages/rs-dpp/src/state_transition/traits/state_transition_witness_validation.rs#L40] |
 | trait | `TokenBaseTransitionAccessors` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/token_base_transition/token_base_transition_accessors.rs#L3] |
@@ -1161,7 +1204,12 @@
 | trait | `TransportClient` | rs-dapi-client | Generic way to create a transport client from provided [Uri]. | [P:packages/rs-dapi-client/src/transport.rs#L140] |
 | trait | `TransportRequest` | rs-dapi-client | Generic transport layer request. | [P:packages/rs-dapi-client/src/transport.rs#L41] |
 | trait | `UpdatePriceOfDocument` | rs-sdk | A trait for updating the price of a document on Platform | [P:packages/rs-sdk/src/platform/transition/update_price_of_document.rs#L20] |
+| trait | `ValidatorSetV0Getters` | rs-dpp | Trait providing getter methods for `ValidatorSetV0` struct | [P:packages/rs-dpp/src/core_types/validator_set/v0/mod.rs#L212] |
+| trait | `ValidatorSetV0Setters` | rs-dpp | Trait providing setter methods for `ValidatorSetV0` struct | [P:packages/rs-dpp/src/core_types/validator_set/v0/mod.rs#L230] |
+| trait | `ValidatorV0Getters` | rs-dpp | Traits to get properties of a validator. | [P:packages/rs-dpp/src/core_types/validator/v0/mod.rs#L152] |
+| trait | `ValidatorV0Setters` | rs-dpp | Traits to set properties of a validator. | [P:packages/rs-dpp/src/core_types/validator/v0/mod.rs#L172] |
 | trait | `ValueConvertible` | rs-dpp |  | [P:packages/rs-dpp/src/serialization/serialization_traits.rs#L138] |
+| trait | `ValuesCollection` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/mod.rs#L20] |
 | trait | `VersionedGrpcMessage` | dapi-grpc | A trait representing versioned message with version V. | [P:packages/dapi-grpc/src/platform/versioning.rs#L24] |
 | trait | `VersionedGrpcResponse` | dapi-grpc |  | [P:packages/dapi-grpc/src/platform/versioning.rs#L5] |
 | trait | `Waitable` | rs-sdk | Waitable trait provides a way to wait for a response of a state transition after it has been broadcast and | [P:packages/rs-sdk/src/platform/transition/waitable.rs#L21] |
@@ -1218,6 +1266,7 @@
 | type | `LeafBoundaryKey` | rs-sdk | A key at the truncation boundary of a trunk/branch query result. | [P:packages/rs-sdk/src/platform/address_sync/types.rs#L18] |
 | type | `LockedVotePollCounter` | rs-dpp |  | [P:packages/rs-dpp/src/voting/vote_info_storage/contested_document_vote_poll_stored_info/mod.rs#L18] |
 | type | `MasternodeVoteTransitionLatest` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/masternode_vote_transition/mod.rs#L30] |
+| type | `MockResult` | rs-dapi-client | Result of executing a mock request | [P:packages/rs-dapi-client/src/mock.rs#L38] |
 | type | `PastAssetLockStateTransitionHashes` | rs-dpp |  | [P:packages/rs-dpp/src/asset_lock/mod.rs#L5] |
 | type | `PlatformGrpcClient` | rs-dapi-client | Platform Client using gRPC transport. | [P:packages/rs-dapi-client/src/transport/tonic_channel.rs#L8] |
 | type | `PrefundedSpecializedBalanceIdentifier` | rs-dpp |  | [P:packages/rs-dpp/src/prefunded_specialized_balance/mod.rs#L3] |
@@ -1242,8 +1291,8 @@
 | type | `StartAtIncluded` | rs-dpp |  | [P:packages/rs-dpp/src/lib.rs#L108] |
 | type | `SumTokenAmount` | rs-dpp | Sum token amount | [P:packages/rs-dpp/src/balances/credits.rs#L33] |
 | type | `TimestampIncluded` | rs-dpp |  | [P:packages/rs-dpp/src/lib.rs#L110] |
-| type | `TimestampMillis` | rs-dpp |  | [P:packages/rs-dpp/src/lib.rs#L104] |
 | type | `TimestampMillis` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/mod.rs#L32] |
+| type | `TimestampMillis` | rs-dpp |  | [P:packages/rs-dpp/src/lib.rs#L104] |
 | type | `TimestampMillisInterval` | rs-dpp |  | [P:packages/rs-dpp/src/lib.rs#L106] |
 | type | `TokenAmount` | rs-dpp | Token Amount type | [P:packages/rs-dpp/src/balances/credits.rs#L27] |
 | type | `TokenContractPosition` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/mod.rs#L72] |
@@ -1277,11 +1326,12 @@
 | fn | `admin_action_takers` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/change_control_rules/mod.rs#L22] |
 | fn | `all_key_types` | rs-dpp | All key types | [P:packages/rs-dpp/src/identity/identity_public_key/key_type.rs#L81] |
 | fn | `allowed_for_action_taker` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/change_control_rules/authorized_action_takers.rs#L36] |
+| fn | `allowed_key_purposes` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/wrong_public_key_purpose_error.rs#L25] |
 | fn | `and_then_borrowed_validation` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L166] |
 | fn | `and_then_simple_validation` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L135] |
 | fn | `and_then_validation` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L153] |
-| fn | `apply_token_configuration_item` | rs-dpp | Applies a `TokenConfigurationChangeItem` to this token configuration. | [P:packages/rs-dpp/src/data_contract/associated_token/token_configuration/methods/apply_token_configuration_item/v0/mod.rs#L17] |
 | fn | `apply_token_configuration_item` | rs-dpp | Applies a `TokenConfigurationChangeItem` to this token configuration. | [P:packages/rs-dpp/src/data_contract/associated_token/token_configuration/methods/apply_token_configuration_item/mod.rs#L13] |
+| fn | `apply_token_configuration_item` | rs-dpp | Applies a `TokenConfigurationChangeItem` to this token configuration. | [P:packages/rs-dpp/src/data_contract/associated_token/token_configuration/methods/apply_token_configuration_item/v0/mod.rs#L17] |
 | fn | `as_cow_v0` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/associated_token/token_configuration/mod.rs#L19] |
 | fn | `as_mut_ref` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/mod.rs#L106] |
 | fn | `as_ref` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/mod.rs#L99] |
@@ -1311,8 +1361,8 @@
 | fn | `balance` | dapi-grpc | Returns the value of `balance`, or the default value if `balance` is unset. |  |
 | fn | `balance` | dapi-grpc | Returns the value of `balance`, or the default value if `balance` is unset. |  |
 | fn | `balance` | dapi-grpc | Returns the value of `balance`, or the default value if `balance` is unset. |  |
-| fn | `ban` | rs-dapi-client | Ban the [Address] so it won't be available through [AddressList::get_live_address] for some time. | [P:packages/rs-dapi-client/src/address_list.rs#L80] |
 | fn | `ban` | rs-dapi-client | Bans address | [P:packages/rs-dapi-client/src/address_list.rs#L146] |
+| fn | `ban` | rs-dapi-client | Ban the [Address] so it won't be available through [AddressList::get_live_address] for some time. | [P:packages/rs-dapi-client/src/address_list.rs#L80] |
 | fn | `base64_string_with_nonce` | rs-dpp | Gets a base64 string of the PlatformAddress concatenated with the nonce. | [P:packages/rs-dpp/src/address_funds/platform_address.rs#L230] |
 | fn | `block` | dapi-grpc | Returns the value of `block`, or the default value if `block` is unset. |  |
 | fn | `block_info_from_metadata` | rs-sdk | Constructs a `BlockInfo` structure from the provided response metadata. This function | [P:packages/rs-sdk/src/platform/block_info_from_metadata.rs#L30] |
@@ -1323,26 +1373,30 @@
 | fn | `broadcast_transaction` | dapi-grpc |  |  |
 | fn | `build` | rs-sdk | Build the Sdk instance. | [P:packages/rs-sdk/src/sdk.rs#L878] |
 | fn | `build_historical_document_owned` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/token_event.rs#L256] |
+| fn | `calculate_action_id_with_fields` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/token_destroy_frozen_funds_transition/v0_methods.rs#L73] |
 | fn | `calculate_action_id_with_fields` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/token_mint_transition/v0_methods.rs#L95] |
 | fn | `calculate_action_id_with_fields` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/token_config_update_transition/v0_methods.rs#L77] |
+| fn | `calculate_action_id_with_fields` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/token_freeze_transition/v0_methods.rs#L71] |
 | fn | `calculate_action_id_with_fields` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/token_burn_transition/v0_methods.rs#L72] |
 | fn | `calculate_action_id_with_fields` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/token_set_price_for_direct_purchase_transition/v0_methods.rs#L74] |
 | fn | `calculate_action_id_with_fields` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/token_unfreeze_transition/v0_methods.rs#L71] |
-| fn | `calculate_action_id_with_fields` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/token_destroy_frozen_funds_transition/v0_methods.rs#L73] |
 | fn | `calculate_action_id_with_fields` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/token_emergency_action_transition/v0_methods.rs#L72] |
-| fn | `calculate_action_id_with_fields` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/token_freeze_transition/v0_methods.rs#L71] |
 | fn | `calculate_token_id` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/mod.rs#L27] |
-| fn | `can_apply_token_configuration_item` | rs-dpp | Applies a `TokenConfigurationChangeItem` to this token configuration. | [P:packages/rs-dpp/src/data_contract/associated_token/token_configuration/methods/can_apply_token_configuration_item/mod.rs#L18] |
 | fn | `can_apply_token_configuration_item` | rs-dpp | Determines whether a `TokenConfigurationChangeItem` can be applied to this token configuration. | [P:packages/rs-dpp/src/data_contract/associated_token/token_configuration/methods/can_apply_token_configuration_item/v0/mod.rs#L23] |
+| fn | `can_apply_token_configuration_item` | rs-dpp | Applies a `TokenConfigurationChangeItem` to this token configuration. | [P:packages/rs-dpp/src/data_contract/associated_token/token_configuration/methods/can_apply_token_configuration_item/mod.rs#L18] |
 | fn | `can_change_admin_action_takers` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/change_control_rules/v0/mod.rs#L65] |
 | fn | `can_change_admin_action_takers` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/change_control_rules/mod.rs#L88] |
 | fn | `can_change_authorized_action_takers` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/change_control_rules/v0/mod.rs#L42] |
 | fn | `can_change_authorized_action_takers` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/change_control_rules/mod.rs#L67] |
-| fn | `can_change_to` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/change_control_rules/mod.rs#L108] |
 | fn | `can_change_to` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/change_control_rules/v0/mod.rs#L91] |
+| fn | `can_change_to` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/change_control_rules/mod.rs#L108] |
 | fn | `can_make_change` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/change_control_rules/v0/mod.rs#L26] |
 | fn | `can_make_change` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/change_control_rules/mod.rs#L52] |
 | fn | `cancelled` | rs-sdk | Returns a future that resolves when the Sdk is cancelled (e.g. shutdown was requested). | [P:packages/rs-sdk/src/sdk.rs#L426] |
+| fn | `cbor_map_into_json_map` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/mod.rs#L192] |
+| fn | `cbor_map_to_json_map` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/mod.rs#L168] |
+| fn | `cbor_value_into_json_value` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/mod.rs#L148] |
+| fn | `cbor_value_to_json_value` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/mod.rs#L128] |
 | fn | `check_dpns_name_availability` | rs-sdk | Check if a DPNS username is available | [P:packages/rs-sdk/src/platform/dpns_usernames/queries.rs#L85] |
 | fn | `check_version_is_active` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/mod.rs#L302] |
 | fn | `clone_with_contract` | rs-sdk | Create a clone of this query with a different data contract. | [P:packages/rs-sdk/src/platform/documents/document_query.rs#L136] |
@@ -1368,19 +1422,67 @@
 | fn | `count` | dapi-grpc | Returns the value of `count`, or the default value if `count` is unset. |  |
 | fn | `count` | dapi-grpc | Returns the value of `count`, or the default value if `count` is unset. |  |
 | fn | `count` | dapi-grpc | Returns the value of `count`, or the default value if `count` is unset. |  |
+| fn | `create` | rs-dpp | Create Data Contract | [P:packages/rs-dpp/src/data_contract/factory/v0/mod.rs#L62] |
+| fn | `create` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_factory.rs#L76] |
+| fn | `create` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_facade.rs#L37] |
+| fn | `create` | rs-dpp | Create Data Contract | [P:packages/rs-dpp/src/data_contract/data_contract_facade.rs#L38] |
+| fn | `create` | rs-dpp | Create a DataContract | [P:packages/rs-dpp/src/data_contract/factory/mod.rs#L76] |
 | fn | `create_basic_identity` | rs-dpp |  | [P:packages/rs-dpp/src/identity/methods/create_basic_identity/mod.rs#L10] |
+| fn | `create_chain_asset_lock_proof` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_facade.rs#L80] |
+| fn | `create_chain_asset_lock_proof` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_factory.rs#L117] |
 | fn | `create_channel` | rs-dapi-client | Create channel (connection) for gRPC transport. | [P:packages/rs-dapi-client/src/transport/tonic_channel.rs#L17] |
+| fn | `create_data_contract_create_transition` | rs-dpp | Create Data Contract Create State Transition | [P:packages/rs-dpp/src/data_contract/data_contract_facade.rs#L85] |
+| fn | `create_data_contract_create_transition` | rs-dpp | Create a DataContractCreateTransition | [P:packages/rs-dpp/src/data_contract/factory/mod.rs#L134] |
+| fn | `create_data_contract_update_transition` | rs-dpp | Create a DataContractUpdateTransition | [P:packages/rs-dpp/src/data_contract/factory/mod.rs#L147] |
+| fn | `create_data_contract_update_transition` | rs-dpp | Create Data Contract Update State Transition | [P:packages/rs-dpp/src/data_contract/data_contract_facade.rs#L95] |
+| fn | `create_document` | rs-dpp |  | [P:packages/rs-dpp/src/document/document_factory/v0/mod.rs#L63] |
+| fn | `create_document` | rs-dpp |  | [P:packages/rs-dpp/src/document/specialized_document_factory/mod.rs#L91] |
+| fn | `create_document` | rs-dpp |  | [P:packages/rs-dpp/src/document/specialized_document_factory/v0/mod.rs#L66] |
+| fn | `create_document` | rs-dpp |  | [P:packages/rs-dpp/src/document/document_factory/mod.rs#L83] |
 | fn | `create_document_types_from_document_schemas` | rs-dpp | Retrieve document types from a value array. | [P:packages/rs-dpp/src/data_contract/document_type/class_methods/create_document_types_from_document_schemas/mod.rs#L39] |
+| fn | `create_document_without_time_based_properties` | rs-dpp |  | [P:packages/rs-dpp/src/document/specialized_document_factory/v0/mod.rs#L96] |
+| fn | `create_document_without_time_based_properties` | rs-dpp |  | [P:packages/rs-dpp/src/document/document_factory/v0/mod.rs#L94] |
+| fn | `create_empty_block` | rs-dpp |  | [P:packages/rs-dpp/src/tests/utils/mod.rs#L215] |
 | fn | `create_from_buffer` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transition_factory.rs#L12] |
+| fn | `create_from_buffer` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_factory.rs#L89] |
+| fn | `create_from_buffer` | rs-dpp | Create Data Contract from buffer | [P:packages/rs-dpp/src/data_contract/data_contract_facade.rs#L71] |
+| fn | `create_from_buffer` | rs-dpp | Create a DataContract from a buffer | [P:packages/rs-dpp/src/data_contract/factory/mod.rs#L113] |
+| fn | `create_from_buffer` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_facade.rs#L56] |
+| fn | `create_from_buffer` | rs-dpp | Create Data Contract from buffer | [P:packages/rs-dpp/src/data_contract/factory/v0/mod.rs#L137] |
+| fn | `create_from_object` | rs-dpp | Create Data Contract from plain object | [P:packages/rs-dpp/src/data_contract/factory/v0/mod.rs#L105] |
+| fn | `create_from_object` | rs-dpp | Create Data Contract from plain object | [P:packages/rs-dpp/src/data_contract/data_contract_facade.rs#L57] |
+| fn | `create_from_object` | rs-dpp | Create a DataContract from a plain object | [P:packages/rs-dpp/src/data_contract/factory/mod.rs#L93] |
 | fn | `create_identifier` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/mod.rs#L178] |
 | fn | `create_identifier` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/instant/instant_asset_lock_proof.rs#L137] |
 | fn | `create_identifier` | rs-dpp | Create identifier | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/chain/chain_asset_lock_proof.rs#L45] |
+| fn | `create_identity_create_transition` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_factory.rs#L125] |
+| fn | `create_identity_create_transition` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_facade.rs#L88] |
+| fn | `create_identity_credit_transfer_transition` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_factory.rs#L171] |
+| fn | `create_identity_credit_transfer_transition` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_facade.rs#L108] |
+| fn | `create_identity_credit_withdrawal_transition` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_factory.rs#L192] |
+| fn | `create_identity_credit_withdrawal_transition` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_facade.rs#L124] |
+| fn | `create_identity_topup_transition` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_factory.rs#L157] |
+| fn | `create_identity_topup_transition` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_facade.rs#L98] |
+| fn | `create_identity_update_transition` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_facade.rs#L144] |
+| fn | `create_identity_update_transition` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_factory.rs#L256] |
+| fn | `create_identity_with_create_transition` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_factory.rs#L137] |
+| fn | `create_instant_lock_proof` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_factory.rs#L109] |
+| fn | `create_instant_lock_proof` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_facade.rs#L68] |
+| fn | `create_state_transition` | rs-dpp |  | [P:packages/rs-dpp/src/document/document_factory/mod.rs#L116] |
+| fn | `create_state_transition` | rs-dpp |  | [P:packages/rs-dpp/src/document/document_factory/v0/mod.rs#L178] |
+| fn | `create_state_transition` | rs-dpp |  | [P:packages/rs-dpp/src/document/specialized_document_factory/mod.rs#L119] |
+| fn | `create_state_transition` | rs-dpp |  | [P:packages/rs-dpp/src/document/specialized_document_factory/v0/mod.rs#L186] |
+| fn | `create_unsigned_data_contract_create_transition` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/factory/v0/mod.rs#L187] |
+| fn | `create_unsigned_data_contract_update_transition` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/factory/v0/mod.rs#L198] |
+| fn | `create_with_value_config` | rs-dpp | Create Data Contract | [P:packages/rs-dpp/src/data_contract/factory/v0/mod.rs#L44] |
+| fn | `create_with_value_config` | rs-dpp | Create a DataContract using a | [P:packages/rs-dpp/src/data_contract/factory/mod.rs#L56] |
 | fn | `current_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/errors/compatible_protocol_version_is_not_defined_error.rs#L16] |
 | fn | `cycle_start` | rs-dpp | Computes the cycle start for the given moment, aligned with the `step` boundary. | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/reward_distribution_moment/mod.rs#L69] |
 | fn | `daily_withdrawal_limit` | rs-dpp |  | [P:packages/rs-dpp/src/withdrawal/daily_withdrawal_limit/mod.rs#L9] |
 | fn | `data_as_borrowed` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L268] |
-| fn | `data_contract` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/errors/invalid_document_type_error.rs#L25] |
+| fn | `data_contract` | rs-dpp |  | [P:packages/rs-dpp/src/document/specialized_document_factory/mod.rs#L85] |
 | fn | `data_contract` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/created_data_contract/mod.rs#L150] |
+| fn | `data_contract` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/errors/invalid_document_type_error.rs#L25] |
 | fn | `data_contract_and_identity_nonce` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/created_data_contract/mod.rs#L144] |
 | fn | `data_contract_and_identity_nonce_owned` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/created_data_contract/mod.rs#L225] |
 | fn | `data_contract_id` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/errors/data_contract_not_present_error.rs#L18] |
@@ -1415,31 +1517,35 @@
 | fn | `default_marketplace_rules_v0` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/associated_token/token_configuration/v0/mod.rs#L438] |
 | fn | `default_most_restrictive` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/associated_token/token_configuration/v0/mod.rs#L485] |
 | fn | `default_size` | rs-dpp | Gets the default size of the public key | [P:packages/rs-dpp/src/identity/identity_public_key/key_type.rs#L76] |
-| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_create_from_addresses_transition/mod.rs#L59] |
-| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_topup_from_addresses_transition/mod.rs#L57] |
-| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_transfer_transition/mod.rs#L59] |
-| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_create_transition/mod.rs#L57] |
-| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_funds_transfer_transition/mod.rs#L59] |
-| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity.rs#L77] |
-| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_topup_transition/mod.rs#L56] |
 | fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/masternode_vote_transition/mod.rs#L59] |
-| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_transfer_to_addresses_transition/mod.rs#L61] |
-| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/mod.rs#L95] |
 | fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_credit_withdrawal_transition/mod.rs#L66] |
-| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_update_transition/mod.rs#L58] |
-| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/public_key_in_creation/mod.rs#L38] |
-| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_funding_from_asset_lock_transition/mod.rs#L59] |
+| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_transfer_to_addresses_transition/mod.rs#L61] |
+| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_topup_transition/mod.rs#L56] |
 | fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_withdrawal_transition/mod.rs#L74] |
+| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_update_transition/mod.rs#L58] |
+| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity.rs#L77] |
+| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_funding_from_asset_lock_transition/mod.rs#L59] |
+| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/public_key_in_creation/mod.rs#L38] |
+| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_transfer_transition/mod.rs#L59] |
+| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/mod.rs#L95] |
+| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_funds_transfer_transition/mod.rs#L59] |
+| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_topup_from_addresses_transition/mod.rs#L57] |
+| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_create_transition/mod.rs#L57] |
+| fn | `default_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_create_from_addresses_transition/mod.rs#L59] |
 | fn | `default_with_epoch` | rs-dpp | Create default block with specified fee epoch | [P:packages/rs-dpp/src/block/block_info/mod.rs#L93] |
 | fn | `default_with_height` | rs-dpp | Create default block with specified height | [P:packages/rs-dpp/src/block/block_info/mod.rs#L73] |
 | fn | `default_with_height_and_time` | rs-dpp | Create default block with specified height and time | [P:packages/rs-dpp/src/block/block_info/mod.rs#L81] |
 | fn | `default_with_time` | rs-dpp | Create default block with specified time | [P:packages/rs-dpp/src/block/block_info/mod.rs#L65] |
-| fn | `default_with_version` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/config/v0/mod.rs#L123] |
 | fn | `default_with_version` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/config/v1/mod.rs#L80] |
+| fn | `default_with_version` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/config/v0/mod.rs#L123] |
 | fn | `description` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/serialized_version/mod.rs#L173] |
 | fn | `deserialize` | rs-dpp |  | [P:packages/rs-dpp/src/util/deserializer.rs#L64] |
+| fn | `deserialize` | rs-dapi-client | Return deserialized request | [P:packages/rs-dapi-client/src/dump.rs#L24] |
+| fn | `deserialize` | dapi-grpc |  | [P:packages/dapi-grpc/src/deserialization.rs#L11] |
+| fn | `deserialize` | dapi-grpc | Deserialize any Mockable object from bytes. | [P:packages/dapi-grpc/src/mock/serde_mockable.rs#L98] |
 | fn | `deserialize_from_bytes_in_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/mod.rs#L397] |
 | fn | `deserialize_many` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/serialization.rs#L6] |
+| fn | `detailed_explanation` | rs-dpp | Returns a detailed explanation with all steps and calculations | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/distribution_function/evaluate_interval.rs#L1366] |
 | fn | `doc_type` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/errors/invalid_document_type_error.rs#L22] |
 | fn | `document` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L58] |
 | fn | `document` | dapi-grpc | Returns the value of `document`, or the default value if `document` is unset. |  |
@@ -1453,6 +1559,7 @@
 | fn | `document_type` | rs-dpp | Gets the document type | [P:packages/rs-dpp/src/identity/identity_public_key/contract_bounds/mod.rs#L98] |
 | fn | `document_type_name` | dapi-grpc | Returns the value of `document_type_name`, or the default value if `document_type_name` is unset. |  |
 | fn | `drive` | dapi-grpc | Returns the value of `drive`, or the default value if `drive` is unset. |  |
+| fn | `dump_dir` | rs-dapi-client | Define directory where dumps of all traffic will be saved. | [P:packages/rs-dapi-client/src/dump.rs#L178] |
 | fn | `duplicated_key_ids_witness` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/public_key_in_creation/methods/duplicated_key_ids_witness/mod.rs#L9] |
 | fn | `duplicated_keys_witness` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/public_key_in_creation/methods/duplicated_keys_witness/mod.rs#L9] |
 | fn | `encode` | dapi-grpc | Encodes the message to a buffer. |  |
@@ -1635,10 +1742,10 @@
 | fn | `encode_u64` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L1587] |
 | fn | `encode_u8` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L1867] |
 | fn | `encode_value_for_tree_keys` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L1143] |
-| fn | `encode_value_ref_with_size` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/array.rs#L205] |
 | fn | `encode_value_ref_with_size` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L988] |
-| fn | `encode_value_with_size` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L766] |
+| fn | `encode_value_ref_with_size` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/array.rs#L205] |
 | fn | `encode_value_with_size` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/array.rs#L152] |
+| fn | `encode_value_with_size` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L766] |
 | fn | `encoded_len` | dapi-grpc | Returns the encoded length of the message without a length delimiter. |  |
 | fn | `encoded_len` | dapi-grpc | Returns the encoded length of the message without a length delimiter. |  |
 | fn | `encoded_len` | dapi-grpc | Returns the encoded length of the message without a length delimiter. |  |
@@ -1815,32 +1922,36 @@
 | fn | `error_message` | rs-dpp | Gives a result from the enum | [P:packages/rs-dpp/src/identity/identity_nonce.rs#L47] |
 | fn | `evaluate` | rs-dpp | Evaluates the distribution function at the given period `x`. | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/distribution_function/evaluate.rs#L18] |
 | fn | `evaluate_interval` | rs-dpp | Evaluates the total amount of tokens emitted over a specified interval. | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/distribution_function/evaluate_interval.rs#L1567] |
+| fn | `evaluate_interval_with_explanation` | rs-dpp | Evaluates the total amount of tokens emitted over a specified interval with detailed explanation. | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/distribution_function/evaluate_interval.rs#L1710] |
 | fn | `event_name` | rs-dpp | Returns a name of the event | [P:packages/rs-dpp/src/group/action_event.rs#L39] |
+| fn | `expect` | rs-dapi-client | Add a new expectation for a request | [P:packages/rs-dapi-client/src/mock.rs#L47] |
 | fn | `expect_fetch` | rs-sdk | Expect a [Fetch] request and return provided object. | [P:packages/rs-sdk/src/mock/sdk.rs#L321] |
 | fn | `expect_fetch_many` | rs-sdk | Expect a [FetchMany] request and return provided object. | [P:packages/rs-sdk/src/mock/sdk.rs#L378] |
 | fn | `expect_fetch_proof_error` | rs-sdk | Expect a [Fetch] request to fail with a document deserialization (CorruptedSerialization) error. | [P:packages/rs-sdk/src/mock/sdk.rs#L411] |
 | fn | `expected_size` | rs-dpp |  | [P:packages/rs-dpp/src/errors/invalid_vector_size_error.rs#L18] |
+| fn | `explanation_for_step` | rs-dpp | Returns a detailed explanation for a specific step in the evaluation process | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/distribution_function/evaluate_interval.rs#L1462] |
 | fn | `extract_values` | rs-dpp | Get values | [P:packages/rs-dpp/src/data_contract/document_type/index/mod.rs#L326] |
-| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_credit_withdrawal_transition/mod.rs#L47] |
-| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/mod.rs#L106] |
-| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/contract_info/mod.rs#L22] |
 | fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_update_transition/mod.rs#L39] |
-| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/status/mod.rs#L19] |
-| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/serialized_version/mod.rs#L94] |
 | fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_funding_from_asset_lock_transition/mod.rs#L40] |
-| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_withdrawal_transition/mod.rs#L53] |
-| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_create_from_addresses_transition/mod.rs#L40] |
-| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_topup_from_addresses_transition/mod.rs#L38] |
+| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/contract_info/mod.rs#L22] |
 | fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_transfer_transition/mod.rs#L40] |
-| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_create_transition/mod.rs#L38] |
 | fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_funds_transfer_transition/mod.rs#L40] |
-| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/info/mod.rs#L19] |
-| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_update_transition/mod.rs#L46] |
+| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_topup_from_addresses_transition/mod.rs#L38] |
+| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_create_transition/mod.rs#L38] |
 | fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/mod.rs#L75] |
-| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_topup_transition/mod.rs#L37] |
+| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_create_from_addresses_transition/mod.rs#L40] |
+| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/serialized_version/mod.rs#L94] |
 | fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/masternode_vote_transition/mod.rs#L40] |
-| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_create_transition/mod.rs#L44] |
+| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_credit_withdrawal_transition/mod.rs#L47] |
 | fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_transfer_to_addresses_transition/mod.rs#L42] |
+| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/mod.rs#L106] |
+| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_update_transition/mod.rs#L46] |
+| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_topup_transition/mod.rs#L37] |
+| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/status/mod.rs#L19] |
+| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_withdrawal_transition/mod.rs#L53] |
+| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/info/mod.rs#L19] |
+| fn | `feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_create_transition/mod.rs#L44] |
+| fn | `filename` | rs-dapi-client | Generate unique filename for this dump. | [P:packages/rs-dapi-client/src/dump.rs#L117] |
 | fn | `finalize` | rs-dapi-client | Fill in settings defaults. | [P:packages/rs-dapi-client/src/request_settings.rs#L67] |
 | fn | `finalize_vote_poll` | rs-dpp |  | [P:packages/rs-dpp/src/voting/vote_info_storage/contested_document_vote_poll_stored_info/mod.rs#L116] |
 | fn | `finished_vote_outcome` | dapi-grpc | Returns the enum value of `finished_vote_outcome`, or the default if the field is set to an invalid enum value. |  |
@@ -1851,33 +1962,38 @@
 | fn | `for_p2sh_multisig` | rs-dpp | Operations for a P2SH multisig witness verification | [P:packages/rs-dpp/src/address_funds/witness_verification_operations.rs#L59] |
 | fn | `from_bech32m_string` | rs-dpp | Decodes a bech32m-encoded Platform address string per DIP-0018. | [P:packages/rs-dpp/src/address_funds/platform_address.rs#L159] |
 | fn | `from_block_info` | rs-dpp | Converts a reference to `BlockInfo` and a `RewardDistributionType` into a `RewardDistributionMoment`. | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/reward_distribution_moment/mod.rs#L467] |
-| fn | `from_bytes` | rs-dpp |  | [P:packages/rs-dpp/src/identity/core_script.rs#L38] |
-| fn | `from_bytes` | rs-dpp | Creates a PlatformAddress from storage bytes. | [P:packages/rs-dpp/src/address_funds/platform_address.rs#L244] |
 | fn | `from_bytes` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L198] |
+| fn | `from_bytes` | rs-dpp | Creates a PlatformAddress from storage bytes. | [P:packages/rs-dpp/src/address_funds/platform_address.rs#L244] |
+| fn | `from_bytes` | rs-dpp |  | [P:packages/rs-dpp/src/identity/core_script.rs#L38] |
 | fn | `from_contract_and_identity_nonce` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/created_data_contract/mod.rs#L175] |
 | fn | `from_document` | rs-sdk | Creates a new builder from an existing document | [P:packages/rs-sdk/src/platform/documents/transitions/delete.rs#L74] |
-| fn | `from_document` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_transfer_transition/from_document.rs#L14] |
 | fn | `from_document` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_update_price_transition/from_document.rs#L13] |
-| fn | `from_document` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_replace_transition/from_document.rs#L12] |
-| fn | `from_document` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_base_transition/from_document.rs#L13] |
-| fn | `from_document` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_delete_transition/from_document.rs#L13] |
-| fn | `from_document` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_create_transition/from_document.rs#L12] |
 | fn | `from_document` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_purchase_transition/from_document.rs#L14] |
+| fn | `from_document` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_replace_transition/from_document.rs#L12] |
+| fn | `from_document` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_transfer_transition/from_document.rs#L14] |
+| fn | `from_document` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_create_transition/from_document.rs#L12] |
+| fn | `from_document` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_delete_transition/from_document.rs#L13] |
+| fn | `from_document` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_base_transition/from_document.rs#L13] |
 | fn | `from_document_info` | rs-sdk | Creates a new builder from document ID | [P:packages/rs-sdk/src/platform/documents/transitions/transfer.rs#L76] |
 | fn | `from_document_info` | rs-sdk | Creates a new builder from document ID | [P:packages/rs-sdk/src/platform/documents/transitions/set_price.rs#L77] |
 | fn | `from_document_info` | rs-sdk | Creates a new builder from document ID | [P:packages/rs-sdk/src/platform/documents/transitions/purchase.rs#L82] |
+| fn | `from_i32` | dapi-grpc | Converts an `i32` to a `ResultType`, or `None` if `value` is not a valid variant. |  |
+| fn | `from_i32` | dapi-grpc | Converts an `i32` to a `Status`, or `None` if `value` is not a valid variant. |  |
+| fn | `from_i32` | dapi-grpc | Converts an `i32` to a `VoteChoiceType`, or `None` if `value` is not a valid variant. |  |
+| fn | `from_i32` | dapi-grpc | Converts an `i32` to a `ActionStatus`, or `None` if `value` is not a valid variant. |  |
+| fn | `from_i32` | dapi-grpc | Converts an `i32` to a `KeyPurpose`, or `None` if `value` is not a valid variant. |  |
+| fn | `from_i32` | dapi-grpc | Converts an `i32` to a `FinishedVoteOutcome`, or `None` if `value` is not a valid variant. |  |
 | fn | `from_i32` | dapi-grpc | Converts an `i32` to a `Status`, or `None` if `value` is not a valid variant. |  |
 | fn | `from_i32` | dapi-grpc | Converts an `i32` to a `ActionType`, or `None` if `value` is not a valid variant. |  |
-| fn | `from_i32` | dapi-grpc | Converts an `i32` to a `ResultType`, or `None` if `value` is not a valid variant. |  |
-| fn | `from_i32` | dapi-grpc | Converts an `i32` to a `FinishedVoteOutcome`, or `None` if `value` is not a valid variant. |  |
-| fn | `from_i32` | dapi-grpc | Converts an `i32` to a `VoteChoiceType`, or `None` if `value` is not a valid variant. |  |
+| fn | `from_i32` | dapi-grpc | Converts an `i32` to a `ActionStatus`, or `None` if `value` is not a valid variant. |  |
 | fn | `from_i32` | dapi-grpc | Converts an `i32` to a `KeyKindRequestType`, or `None` if `value` is not a valid variant. |  |
-| fn | `from_i32` | dapi-grpc | Converts an `i32` to a `ActionStatus`, or `None` if `value` is not a valid variant. |  |
-| fn | `from_i32` | dapi-grpc | Converts an `i32` to a `ActionStatus`, or `None` if `value` is not a valid variant. |  |
-| fn | `from_i32` | dapi-grpc | Converts an `i32` to a `Status`, or `None` if `value` is not a valid variant. |  |
-| fn | `from_i32` | dapi-grpc | Converts an `i32` to a `KeyPurpose`, or `None` if `value` is not a valid variant. |  |
+| fn | `from_object` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/created_data_contract/mod.rs#L199] |
+| fn | `from_object` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/created_data_contract/v0/mod.rs#L33] |
 | fn | `from_operation` | rs-dpp | Creates a new BlockAwareCreditOperation from a CreditOperation at a specific block height. | [P:packages/rs-dpp/src/balances/credits.rs#L106] |
 | fn | `from_platform_value` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/index/mod.rs#L635] |
+| fn | `from_public_key_signed_external` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/public_key_in_creation/methods/from_public_key_signed_external/mod.rs#L11] |
+| fn | `from_public_key_signed_with_private_key` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/public_key_in_creation/methods/from_public_key_signed_with_private_key/mod.rs#L10] |
+| fn | `from_serializable` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L28] |
 | fn | `from_str_name` | dapi-grpc | Creates an enum from field names used in the ProtoBuf definition. |  |
 | fn | `from_str_name` | dapi-grpc | Creates an enum from field names used in the ProtoBuf definition. |  |
 | fn | `from_str_name` | dapi-grpc | Creates an enum from field names used in the ProtoBuf definition. |  |
@@ -1889,14 +2005,19 @@
 | fn | `from_str_name` | dapi-grpc | Creates an enum from field names used in the ProtoBuf definition. |  |
 | fn | `from_str_name` | dapi-grpc | Creates an enum from field names used in the ProtoBuf definition. |  |
 | fn | `from_string` | rs-dpp |  | [P:packages/rs-dpp/src/identity/core_script.rs#L32] |
-| fn | `from_value` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/config/v0/mod.rs#L119] |
-| fn | `from_value` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/config/v1/mod.rs#L76] |
 | fn | `from_value` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/config/mod.rs#L76] |
+| fn | `from_value` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/config/v1/mod.rs#L76] |
+| fn | `from_value` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/config/v0/mod.rs#L119] |
+| fn | `from_value_map_consume` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/token_base_transition/v0/mod.rs#L76] |
+| fn | `from_value_map_consume` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_base_transition/v1/mod.rs#L69] |
+| fn | `from_value_map_consume` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/document_base_transition/v0/mod.rs#L65] |
+| fn | `from_vector` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L37] |
 | fn | `full_range` | rs-dpp | The full range of purposes | [P:packages/rs-dpp/src/identity/identity_public_key/purpose.rs#L113] |
 | fn | `full_range` | rs-dpp | The full range of security levels | [P:packages/rs-dpp/src/identity/identity_public_key/security_level.rs#L82] |
 | fn | `function` | rs-dpp | Returns the function defining the emission behavior. | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/reward_distribution_type/accessors.rs#L28] |
 | fn | `generate_data_contract_id_v0` | rs-dpp | Generate data contract id based on owner id and identity nonce | [P:packages/rs-dpp/src/data_contract/generate_data_contract.rs#L10] |
 | fn | `generate_document_id_v0` | rs-dpp | Generates the document ID | [P:packages/rs-dpp/src/document/generate_document_id.rs#L6] |
+| fn | `generate_random_identifier_struct` | rs-dpp |  | [P:packages/rs-dpp/src/tests/utils/mod.rs#L60] |
 | fn | `genesis` | rs-dpp | Create block info for genesis block | [P:packages/rs-dpp/src/block/block_info/mod.rs#L60] |
 | fn | `genesis` | dapi-grpc | Returns the value of `genesis`, or the default value if `genesis` is unset. |  |
 | fn | `get` | rs-sdk | Get a reference to the value stored under `k`. | [P:packages/rs-sdk/src/mock/provider.rs#L269] |
@@ -1906,11 +2027,13 @@
 | fn | `get_addresses_infos` | dapi-grpc |  |  |
 | fn | `get_addresses_trunk_state` | dapi-grpc |  |  |
 | fn | `get_balance` | rs-sdk | Return the wallet balance. | [P:packages/rs-sdk/src/core/dash_core_client.rs#L118] |
+| fn | `get_batched_transitions_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/get_document_transitions_fixture.rs#L13] |
 | fn | `get_best_block_height` | dapi-grpc |  |  |
 | fn | `get_block` | dapi-grpc |  |  |
 | fn | `get_blockchain_status` | dapi-grpc |  |  |
 | fn | `get_compressed_public_ec_key` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/traits/state_transition_identity_signed.rs#L108] |
 | fn | `get_consensus_params` | dapi-grpc |  |  |
+| fn | `get_contact_request_document_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/get_dashpay_document_fixture.rs#L14] |
 | fn | `get_contested_dpns_identity_votes` | rs-sdk | Get all contested DPNS usernames that an identity has voted on | [P:packages/rs-sdk/src/platform/dpns_usernames/contested_queries.rs#L209] |
 | fn | `get_contested_dpns_normalized_usernames` | rs-sdk | Get all contested DPNS usernames | [P:packages/rs-sdk/src/platform/dpns_usernames/contested_queries.rs#L58] |
 | fn | `get_contested_dpns_usernames_by_identity` | rs-sdk | Get all contested DPNS usernames where an identity is a contender | [P:packages/rs-sdk/src/platform/dpns_usernames/contested_queries.rs#L240] |
@@ -1923,10 +2046,18 @@
 | fn | `get_contested_resources` | dapi-grpc | What votes are currently happening for a specific contested index |  |
 | fn | `get_current_dpns_contests` | rs-sdk | Get current DPNS contests (active vote polls) | [P:packages/rs-sdk/src/platform/dpns_usernames/contested_queries.rs#L420] |
 | fn | `get_current_quorums_info` | dapi-grpc |  |  |
+| fn | `get_dashpay_contract_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/get_dashpay_contract_fixture.rs#L11] |
+| fn | `get_dashpay_contract_with_generalized_encryption_key_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/get_dashpay_contract_with_generalized_encryption_key_fixture.rs#L13] |
 | fn | `get_data_contract` | dapi-grpc |  |  |
+| fn | `get_data_contract_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/get_data_contract.rs#L9] |
 | fn | `get_data_contract_history` | dapi-grpc |  |  |
 | fn | `get_data_contracts` | dapi-grpc |  |  |
+| fn | `get_data_from_file` | rs-dpp |  | [P:packages/rs-dpp/src/tests/utils/mod.rs#L66] |
 | fn | `get_documents` | dapi-grpc |  |  |
+| fn | `get_documents_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/get_documents_fixture.rs#L34] |
+| fn | `get_documents_fixture_with_owner_id_from_contract` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/get_documents_fixture.rs#L24] |
+| fn | `get_dpns_data_contract_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/get_dpns_data_contract.rs#L9] |
+| fn | `get_dpns_parent_document_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/get_dpns_document_fixture.rs#L32] |
 | fn | `get_dpns_usernames_by_identity` | rs-sdk | Get DPNS usernames owned by a specific identity | [P:packages/rs-sdk/src/platform/dpns_usernames/queries.rs#L40] |
 | fn | `get_epochs_info` | dapi-grpc |  |  |
 | fn | `get_error` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L213] |
@@ -1935,6 +2066,7 @@
 | fn | `get_evonodes_proposed_epoch_blocks_by_range` | dapi-grpc |  |  |
 | fn | `get_feature_version` | rs-dpp | Get Identity protocol version | [P:packages/rs-dpp/src/identity/v0/mod.rs#L88] |
 | fn | `get_finalized_epoch_infos` | dapi-grpc |  |  |
+| fn | `get_from_cbor_map` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/value.rs#L130] |
 | fn | `get_group_action_signers` | dapi-grpc |  |  |
 | fn | `get_group_actions` | dapi-grpc |  |  |
 | fn | `get_group_info` | dapi-grpc |  |  |
@@ -1950,15 +2082,21 @@
 | fn | `get_identity_by_public_key_hash` | dapi-grpc |  |  |
 | fn | `get_identity_contract_nonce` | rs-sdk | Updates or fetches the nonce for a given identity and contract pair from | [P:packages/rs-sdk/src/sdk.rs#L373] |
 | fn | `get_identity_contract_nonce` | dapi-grpc |  |  |
+| fn | `get_identity_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/identity_fixture.rs#L119] |
 | fn | `get_identity_keys` | dapi-grpc |  |  |
 | fn | `get_identity_nonce` | rs-sdk | Updates or fetches the nonce for a given identity from the cache, | [P:packages/rs-sdk/src/sdk.rs#L341] |
 | fn | `get_identity_nonce` | dapi-grpc |  |  |
 | fn | `get_identity_token_balances` | dapi-grpc |  |  |
 | fn | `get_identity_token_infos` | dapi-grpc |  |  |
+| fn | `get_identity_update_transition_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/get_identity_update_transition_fixture.rs#L13] |
+| fn | `get_key_from_cbor_map` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/mod.rs#L41] |
 | fn | `get_live_address` | rs-dapi-client | Randomly select a not banned address. | [P:packages/rs-dapi-client/src/address_list.rs#L214] |
 | fn | `get_live_addresses` | rs-dapi-client | Get all not banned addresses. | [P:packages/rs-dapi-client/src/address_list.rs#L252] |
 | fn | `get_live_addresses` | rs-dapi-client | Get all non-banned addresses from the address list. | [P:packages/rs-dapi-client/src/dapi_client.rs#L155] |
+| fn | `get_masternode_reward_shares_data_contract_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/get_masternode_reward_shares_documents_fixture.rs#L44] |
+| fn | `get_masternode_reward_shares_documents_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/get_masternode_reward_shares_documents_fixture.rs#L13] |
 | fn | `get_masternode_status` | dapi-grpc |  |  |
+| fn | `get_mut` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L58] |
 | fn | `get_non_resolved_dpns_contests_for_identity` | rs-sdk | Get non-resolved DPNS contests for a specific identity | [P:packages/rs-sdk/src/platform/dpns_usernames/contested_queries.rs#L378] |
 | fn | `get_or_create` | rs-dapi-client | Get value from cache or create it using provided closure. | [P:packages/rs-dapi-client/src/connection_pool.rs#L70] |
 | fn | `get_path_elements` | dapi-grpc |  |  |
@@ -1986,12 +2124,14 @@
 | fn | `get_value_from_json_path_mut` | rs-dpp | returns the value from the JsonValue based on the JsonPath | [P:packages/rs-dpp/src/util/json_value/mod.rs#L400] |
 | fn | `get_value_mut` | rs-dpp | returns the value from the JsonValue based on the path: i.e "root.data[0].id" | [P:packages/rs-dpp/src/util/json_value/mod.rs#L393] |
 | fn | `get_vote_polls_by_end_date` | dapi-grpc | What vote polls will end soon? |  |
+| fn | `get_withdrawal_document_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/get_documents_fixture.rs#L188] |
 | fn | `groups` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/serialized_version/mod.rs#L153] |
 | fn | `has_data` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L228] |
 | fn | `has_index_with_type` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/index_level/mod.rs#L71] |
 | fn | `hash` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/mod.rs#L314] |
 | fn | `hash` | rs-dpp | Returns the hash portion of the address (20 bytes) | [P:packages/rs-dpp/src/address_funds/platform_address.rs#L253] |
 | fn | `hash` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/public_key_in_creation/methods/hash/mod.rs#L7] |
+| fn | `hash` | rs-dpp | Computes the hash of an identity | [P:packages/rs-dpp/src/identity/identity.rs#L71] |
 | fn | `hash_as_vec` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/public_key_in_creation/methods/hash/mod.rs#L13] |
 | fn | `hash_bytes` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/signable_bytes_hasher.rs#L26] |
 | fn | `hash_bytes_and_check_if_vec_contains` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/signable_bytes_hasher.rs#L37] |
@@ -2002,21 +2142,33 @@
 | fn | `hex_to_array` | rs-dpp |  | [P:packages/rs-dpp/src/util/vec.rs#L48] |
 | fn | `highest_level` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/security_level.rs#L91] |
 | fn | `hrp_for_network` | rs-dpp | Returns the appropriate HRP (Human-Readable Part) for the given network. | [P:packages/rs-dpp/src/address_funds/platform_address.rs#L104] |
-| fn | `id` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/errors/identity_not_present_error.rs#L18] |
 | fn | `id` | rs-dpp | Returns the unique identifier for the data contract. | [P:packages/rs-dpp/src/data_contract/serialized_version/mod.rs#L109] |
+| fn | `id` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/errors/identity_not_present_error.rs#L18] |
 | fn | `identifier` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/index_level/mod.rs#L63] |
 | fn | `identifier` | rs-dpp | Gets the identifier | [P:packages/rs-dpp/src/identity/identity_public_key/contract_bounds/mod.rs#L89] |
+| fn | `identities` | rs-dpp |  | [P:packages/rs-dpp/src/dash_platform_protocol.rs#L23] |
 | fn | `identity` | dapi-grpc | Returns the value of `identity`, or the default value if `identity` is unset. |  |
 | fn | `identity_contract_nonce` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/mod.rs#L86] |
+| fn | `identity_create_transition_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/identity_create_transition_fixture.rs#L13] |
+| fn | `identity_credit_withdrawal_transition_fixture_json` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/identity_credit_withdrawal_transition_fixture.rs#L28] |
+| fn | `identity_credit_withdrawal_transition_fixture_raw_object` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/identity_credit_withdrawal_transition_fixture.rs#L13] |
+| fn | `identity_fixture_json` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/identity_fixture.rs#L93] |
+| fn | `identity_fixture_raw_object` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/identity_fixture.rs#L16] |
 | fn | `identity_id` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L78] |
 | fn | `identity_id` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L46] |
 | fn | `identity_id` | dapi-grpc | Returns the value of `identity_id`, or the default value if `identity_id` is unset. |  |
-| fn | `identity_id_ref` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L84] |
 | fn | `identity_id_ref` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L52] |
+| fn | `identity_id_ref` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L84] |
 | fn | `identity_nonce` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/created_data_contract/mod.rs#L162] |
 | fn | `identity_proof_bytes` | dapi-grpc | Returns the value of `identity_proof_bytes`, or the default value if `identity_proof_bytes` is unset. |  |
+| fn | `identity_topup_transition_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/identity_topup_transition_fixture.rs#L11] |
+| fn | `identity_v0_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/identity_fixture.rs#L42] |
 | fn | `inputs` | rs-dpp | returns the signature as a byte-array | [P:packages/rs-dpp/src/state_transition/mod.rs#L662] |
+| fn | `insert` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L43] |
 | fn | `insert_security_level_map` | dapi-grpc | Inserts a key value pair into `security_level_map`. |  |
+| fn | `instant_asset_lock_is_lock_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/instant_asset_lock_proof_fixture.rs#L109] |
+| fn | `instant_asset_lock_proof_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/instant_asset_lock_proof_fixture.rs#L32] |
+| fn | `instant_asset_lock_proof_transaction_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/instant_asset_lock_proof_fixture.rs#L45] |
 | fn | `instant_lock` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/instant/instant_asset_lock_proof.rs#L110] |
 | fn | `interval` | rs-dpp | Returns the interval of the distribution. | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/reward_distribution_type/accessors.rs#L10] |
 | fn | `into_data` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L236] |
@@ -2025,13 +2177,13 @@
 | fn | `into_hashed_bytes` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/signable_bytes_hasher.rs#L12] |
 | fn | `into_partial_identity_info` | rs-dpp | Convenience method to get Partial Identity Info | [P:packages/rs-dpp/src/identity/identity.rs#L150] |
 | fn | `into_partial_identity_info` | rs-dpp | Convenience method to get Partial Identity Info | [P:packages/rs-dpp/src/identity/v0/mod.rs#L93] |
-| fn | `into_partial_identity_info_no_balance` | rs-dpp | Convenience method to get Partial Identity Info | [P:packages/rs-dpp/src/identity/v0/mod.rs#L111] |
 | fn | `into_partial_identity_info_no_balance` | rs-dpp | Convenience method to get Partial Identity Info | [P:packages/rs-dpp/src/identity/identity.rs#L157] |
+| fn | `into_partial_identity_info_no_balance` | rs-dpp | Convenience method to get Partial Identity Info | [P:packages/rs-dpp/src/identity/v0/mod.rs#L111] |
 | fn | `into_result_without_data` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L217] |
 | fn | `into_v0` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/mod.rs#L250] |
 | fn | `into_v1` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/mod.rs#L271] |
-| fn | `is_banned` | rs-dapi-client | Check if [Address] is banned. | [P:packages/rs-dapi-client/src/address_list.rs#L89] |
 | fn | `is_banned` | rs-dapi-client | Check if the address is banned. | [P:packages/rs-dapi-client/src/address_list.rs#L173] |
+| fn | `is_banned` | rs-dapi-client | Check if [Address] is banned. | [P:packages/rs-dapi-client/src/address_list.rs#L89] |
 | fn | `is_confirmed` | rs-sdk | Checks if the state transition is confirmed | [P:packages/rs-sdk/src/platform/transition/txid.rs#L7] |
 | fn | `is_contested_username` | rs-sdk | Check if a username is contested (requires masternode voting) | [P:packages/rs-sdk/src/platform/dpns_usernames/mod.rs#L103] |
 | fn | `is_core_address_key_type` | rs-dpp | Can this key type be understood as an address on the Core chain? | [P:packages/rs-dpp/src/identity/identity_public_key/key_type.rs#L103] |
@@ -2053,18 +2205,24 @@
 | fn | `is_unique_key_type` | rs-dpp | Are keys of this type unique? | [P:packages/rs-dpp/src/identity/identity_public_key/key_type.rs#L92] |
 | fn | `is_valid` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L201] |
 | fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `ActionStatus`. |  |
-| fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `ActionStatus`. |  |
+| fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `KeyKindRequestType`. |  |
+| fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `ResultType`. |  |
 | fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `Status`. |  |
+| fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `VoteChoiceType`. |  |
+| fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `ActionStatus`. |  |
 | fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `KeyPurpose`. |  |
+| fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `FinishedVoteOutcome`. |  |
 | fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `Status`. |  |
 | fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `ActionType`. |  |
-| fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `ResultType`. |  |
-| fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `FinishedVoteOutcome`. |  |
-| fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `VoteChoiceType`. |  |
-| fn | `is_valid` | dapi-grpc | Returns `true` if `value` is a variant of `KeyKindRequestType`. |  |
 | fn | `is_valid_username` | rs-sdk | Check if a username is valid according to DPNS rules | [P:packages/rs-sdk/src/platform/dpns_usernames/mod.rs#L55] |
 | fn | `is_valid_with_data` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L224] |
 | fn | `issued_to_identity_id` | rs-sdk | Sets the recipient identity ID for the minted tokens | [P:packages/rs-sdk/src/platform/tokens/builders/mint.rs#L75] |
+| fn | `json_document_to_contract` | rs-dpp | Reads a JSON file and converts it a contract. | [P:packages/rs-dpp/src/tests/json_document.rs#L68] |
+| fn | `json_document_to_contract_with_ids` | rs-dpp | Reads a JSON file and converts it a document. | [P:packages/rs-dpp/src/tests/json_document.rs#L105] |
+| fn | `json_document_to_created_contract` | rs-dpp | Reads a JSON file and converts it a contract. | [P:packages/rs-dpp/src/tests/json_document.rs#L83] |
+| fn | `json_document_to_document` | rs-dpp | Reads a JSON file and converts it a document. | [P:packages/rs-dpp/src/tests/json_document.rs#L128] |
+| fn | `json_document_to_json_value` | rs-dpp | Reads a JSON file and converts it to serde_value. | [P:packages/rs-dpp/src/tests/json_document.rs#L25] |
+| fn | `json_document_to_platform_value` | rs-dpp | Reads a JSON file and converts it to serde_value. | [P:packages/rs-dpp/src/tests/json_document.rs#L41] |
 | fn | `keywords` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/serialized_version/mod.rs#L166] |
 | fn | `last` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/security_level.rs#L85] |
 | fn | `len` | rs-dapi-client | Get number of all addresses, both banned and not banned. | [P:packages/rs-dapi-client/src/address_list.rs#L270] |
@@ -2072,28 +2230,33 @@
 | fn | `limit` | dapi-grpc | Returns the value of `limit`, or the default value if `limit` is unset. |  |
 | fn | `limit` | dapi-grpc | Returns the value of `limit`, or the default value if `limit` is unset. |  |
 | fn | `list_unspent` | rs-sdk | List unspent transactions | [P:packages/rs-sdk/src/core/dash_core_client.rs#L99] |
+| fn | `load` | rs-dapi-client | Load expectation from file. | [P:packages/rs-dapi-client/src/mock.rs#L95] |
+| fn | `load` | rs-dapi-client | Load dump data from file. | [P:packages/rs-dapi-client/src/dump.rs#L133] |
 | fn | `load_expectations` | rs-sdk | Load all expectations from files in a directory asynchronously. | [P:packages/rs-sdk/src/mock/sdk.rs#L98] |
 | fn | `load_expectations_sync` | rs-sdk | Load all expectations from files in a directory. | [P:packages/rs-sdk/src/mock/sdk.rs#L112] |
+| fn | `load_system_data_contract` | rs-dpp |  | [P:packages/rs-dpp/src/system_data_contracts.rs#L101] |
+| fn | `load_system_data_contracts` | rs-dpp |  | [P:packages/rs-dpp/src/system_data_contracts.rs#L110] |
 | fn | `lock_vote_tally` | dapi-grpc | Returns the value of `lock_vote_tally`, or the default value if `lock_vote_tally` is unset. |  |
 | fn | `lookup_cost` | rs-dpp |  | [P:packages/rs-dpp/src/fee/default_costs/mod.rs#L61] |
 | fn | `lookup_cost_on_epoch` | rs-dpp |  | [P:packages/rs-dpp/src/fee/default_costs/mod.rs#L112] |
 | fn | `lowest_level` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/security_level.rs#L88] |
+| fn | `main_keys_with_random_authentication_keys_with_private_keys_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L718] |
 | fn | `map` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L115] |
 | fn | `map_result` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L125] |
-| fn | `matches` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/index/mod.rs#L253] |
 | fn | `matches` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/index/mod.rs#L390] |
+| fn | `matches` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/index/mod.rs#L253] |
 | fn | `max_byte_size` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L215] |
 | fn | `max_cycle_moment` | rs-dpp | Determines the maximum cycle moment allowed based on the last paid moment, | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/reward_distribution_type/mod.rs#L154] |
 | fn | `max_decoding_message_size` | dapi-grpc | Limits the maximum size of a decoded message. |  |
 | fn | `max_decoding_message_size` | dapi-grpc | Limits the maximum size of a decoded message. |  |
 | fn | `max_encoding_message_size` | dapi-grpc | Limits the maximum size of an encoded message. |  |
 | fn | `max_encoding_message_size` | dapi-grpc | Limits the maximum size of an encoded message. |  |
-| fn | `max_possible_size_key` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/v0/mod.rs#L53] |
 | fn | `max_possible_size_key` | rs-dpp | Generates an identity public key with the maximum possible size based on the platform version. | [P:packages/rs-dpp/src/identity/identity_public_key/mod.rs#L77] |
+| fn | `max_possible_size_key` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/v0/mod.rs#L53] |
 | fn | `max_size` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L260] |
 | fn | `merge` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L197] |
-| fn | `merge` | rs-dpp | Merges a CreditOperation from a specific block height into this BlockAwareCreditOperation. | [P:packages/rs-dpp/src/balances/credits.rs#L68] |
 | fn | `merge` | rs-dpp | Merges two credit operations, where `other` is applied after `self`. | [P:packages/rs-dpp/src/balances/credits.rs#L126] |
+| fn | `merge` | rs-dpp | Merges a CreditOperation from a specific block height into this BlockAwareCreditOperation. | [P:packages/rs-dpp/src/balances/credits.rs#L68] |
 | fn | `merge` | dapi-grpc | Decodes an instance of the message from a buffer, and merges it into self. |  |
 | fn | `merge` | dapi-grpc | Decodes an instance of the message from a buffer, and merges it into self. |  |
 | fn | `merge` | dapi-grpc | Decodes an instance of the message from a buffer, and merges it into self. |  |
@@ -2262,8 +2425,8 @@
 | fn | `merge` | dapi-grpc | Decodes an instance of the message from a buffer, and merges it into self. |  |
 | fn | `merge_many` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L54] |
 | fn | `merge_many_errors` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L71] |
-| fn | `message` | rs-dpp |  | [P:packages/rs-dpp/src/errors/serde_parsing_error.rs#L19] |
 | fn | `message` | rs-dpp |  | [P:packages/rs-dpp/src/errors/public_key_validation_error.rs#L16] |
+| fn | `message` | rs-dpp |  | [P:packages/rs-dpp/src/errors/serde_parsing_error.rs#L19] |
 | fn | `middle_byte_size` | rs-dpp | The middle size rounded down halfway between min and max byte size | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L316] |
 | fn | `middle_byte_size_ceil` | rs-dpp | The middle size rounded up halfway between min and max byte size | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L334] |
 | fn | `middle_size` | rs-dpp | The middle size rounded down halfway between min and max size | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L294] |
@@ -2303,34 +2466,55 @@
 | fn | `new` | rs-sdk | Create a new query for specific identity keys | [P:packages/rs-sdk/src/platform/query.rs#L221] |
 | fn | `new` | rs-sdk | Create a new query starting from a specific block height | [P:packages/rs-sdk/src/platform/query.rs#L924] |
 | fn | `new` | rs-sdk | Start building a token configuration update transition for the provided DataContract. | [P:packages/rs-sdk/src/platform/tokens/builders/config_update.rs#L45] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/status/mod.rs#L33] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/chain/chain_asset_lock_proof.rs#L37] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/errors/public_key_validation_error.rs#L10] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/errors/serde_parsing_error.rs#L13] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/asset_lock/reduced_asset_lock_value/mod.rs#L21] |
 | fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/errors/identity_not_present_error.rs#L14] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L83] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/instant/instant_asset_lock_proof.rs#L94] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/identity/errors/asset_lock_output_not_found_error.rs#L10] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/index/mod.rs#L69] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/info/mod.rs#L36] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/errors/compatible_protocol_version_is_not_defined_error.rs#L10] |
-| fn | `new` | rs-dpp | Create a new result with the given validation result and operations | [P:packages/rs-dpp/src/state_transition/traits/state_transition_witness_validation.rs#L17] |
 | fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/identity/errors/asset_lock_transaction_is_not_found_error.rs#L13] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/errors/invalid_vector_size_error.rs#L11] |
-| fn | `new` | rs-dpp | Create new epoch | [P:packages/rs-dpp/src/block/epoch/mod.rs#L41] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/voting/vote_info_storage/contested_document_vote_poll_stored_info/mod.rs#L74] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/errors/serde_parsing_error.rs#L13] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/public_key_mismatch_error.rs#L13] |
 | fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/errors/invalid_document_type_error.rs#L15] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/contract_info/mod.rs#L32] |
-| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/errors/data_contract_not_present_error.rs#L14] |
-| fn | `new` | rs-dpp | Create a new empty operations tracker | [P:packages/rs-dpp/src/address_funds/witness_verification_operations.rs#L35] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/errors/compatible_protocol_version_is_not_defined_error.rs#L10] |
 | fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/identity/errors/unknown_asset_lock_proof_type_error.rs#L10] |
+| fn | `new` | rs-dpp | Create a new empty operations tracker | [P:packages/rs-dpp/src/address_funds/witness_verification_operations.rs#L35] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/public_key_security_level_not_met_error.rs#L14] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L24] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/voting/vote_info_storage/contested_document_vote_poll_stored_info/mod.rs#L74] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/identity/errors/asset_lock_output_not_found_error.rs#L10] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/errors/public_key_validation_error.rs#L10] |
+| fn | `new` | rs-dpp | Create new epoch | [P:packages/rs-dpp/src/block/epoch/mod.rs#L41] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L83] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_factory.rs#L72] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/errors/data_contract_not_present_error.rs#L14] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/status/mod.rs#L33] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/factory/v0/mod.rs#L39] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/info/mod.rs#L36] |
+| fn | `new` | rs-dpp | Create a new document factory knowing versions | [P:packages/rs-dpp/src/document/specialized_document_factory/mod.rs#L44] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/errors/invalid_vector_size_error.rs#L11] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/document/specialized_document_factory/v0/mod.rs#L46] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/asset_lock/reduced_asset_lock_value/mod.rs#L21] |
+| fn | `new` | rs-dpp | Create a new document factory knowing versions | [P:packages/rs-dpp/src/document/document_factory/mod.rs#L44] |
 | fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/identity/core_script.rs#L24] |
-| fn | `new` | rs-dapi-client | Create a new pool with a given capacity. | [P:packages/rs-dapi-client/src/connection_pool.rs#L30] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/invalid_identity_public_key_type_error.rs#L13] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/contract_info/mod.rs#L32] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/index/mod.rs#L69] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/document/document_factory/v0/mod.rs#L46] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/instant/instant_asset_lock_proof.rs#L94] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/wrong_public_key_purpose_error.rs#L15] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/chain/chain_asset_lock_proof.rs#L37] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_facade.rs#L31] |
+| fn | `new` | rs-dpp | Create a new result with the given validation result and operations | [P:packages/rs-dpp/src/state_transition/traits/state_transition_witness_validation.rs#L17] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/state_transition_is_not_signed_error.rs#L13] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/data_contract_facade.rs#L31] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/invalid_signature_public_key_error.rs#L11] |
+| fn | `new` | rs-dpp |  | [P:packages/rs-dpp/src/dash_platform_protocol.rs#L15] |
+| fn | `new` | rs-dpp | Create a new data contract factory knowing versions | [P:packages/rs-dpp/src/data_contract/factory/mod.rs#L39] |
+| fn | `new` | rs-dapi-client | Create new dump data. | [P:packages/rs-dapi-client/src/dump.rs#L90] |
 | fn | `new` | rs-dapi-client | Initialize new [DapiClient] and optionally override default settings. | [P:packages/rs-dapi-client/src/dapi_client.rs#L102] |
+| fn | `new` | rs-dapi-client | Create a new mock client | [P:packages/rs-dapi-client/src/mock.rs#L42] |
+| fn | `new` | rs-dapi-client | Create a new expectation key from a serializable object (e.g. request). | [P:packages/rs-dapi-client/src/mock.rs#L169] |
 | fn | `new` | rs-dapi-client | Creates an empty [AddressList] with default base ban time. | [P:packages/rs-dapi-client/src/address_list.rs#L132] |
+| fn | `new` | rs-dapi-client | Create a new pool with a given capacity. | [P:packages/rs-dapi-client/src/connection_pool.rs#L30] |
 | fn | `new` | dapi-grpc |  |  |
 | fn | `new` | dapi-grpc |  |  |
+| fn | `new_block_header` | rs-dpp |  | [P:packages/rs-dpp/src/tests/utils/mod.rs#L222] |
 | fn | `new_from_type` | rs-dpp | Creates a new contract bounds for the key | [P:packages/rs-dpp/src/identity/identity_public_key/contract_bounds/mod.rs#L39] |
 | fn | `new_mainnet` | rs-sdk | Create a new SdkBuilder instance preconfigured for mainnet (production network). NOT IMPLEMENTED YET. | [P:packages/rs-sdk/src/sdk.rs#L713] |
 | fn | `new_mock` | rs-sdk | Initialize Dash Platform SDK in mock mode. | [P:packages/rs-sdk/src/sdk.rs#L206] |
@@ -2342,6 +2526,10 @@
 | fn | `new_with_data_and_errors` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L97] |
 | fn | `new_with_data_contract_id` | rs-sdk | Create new document query for provided document type name and data contract ID. | [P:packages/rs-sdk/src/platform/documents/document_query.rs#L88] |
 | fn | `new_with_drive_query` | rs-sdk | Create new document query based on a [DriveDocumentQuery]. | [P:packages/rs-sdk/src/platform/documents/document_query.rs#L81] |
+| fn | `new_with_entropy_generator` | rs-dpp |  | [P:packages/rs-dpp/src/document/specialized_document_factory/mod.rs#L60] |
+| fn | `new_with_entropy_generator` | rs-dpp |  | [P:packages/rs-dpp/src/document/specialized_document_factory/v0/mod.rs#L54] |
+| fn | `new_with_entropy_generator` | rs-dpp |  | [P:packages/rs-dpp/src/document/document_factory/mod.rs#L60] |
+| fn | `new_with_entropy_generator` | rs-dpp |  | [P:packages/rs-dpp/src/document/document_factory/v0/mod.rs#L53] |
 | fn | `new_with_error` | rs-dpp | Create a new error result with no operations tracked | [P:packages/rs-dpp/src/state_transition/traits/state_transition_witness_validation.rs#L28] |
 | fn | `new_with_error` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L104] |
 | fn | `new_with_errors` | rs-dpp |  | [P:packages/rs-dpp/src/validation/validation_result.rs#L111] |
@@ -2352,13 +2540,13 @@
 | fn | `objects_are_conflicting` | rs-dpp | Check to see if two objects are conflicting | [P:packages/rs-dpp/src/data_contract/document_type/index/mod.rs#L302] |
 | fn | `offset` | dapi-grpc | Returns the value of `offset`, or the default value if `offset` is unset. |  |
 | fn | `ok` | rs-dpp | Is the outcome okay? basically do the values match up | [P:packages/rs-dpp/src/balances/total_credits_balance/mod.rs#L52] |
-| fn | `ok` | rs-dpp | Is the outcome okay? basically do the values match up | [P:packages/rs-dpp/src/balances/total_tokens_balance/mod.rs#L33] |
 | fn | `ok` | rs-dpp | Is the outcome okay? basically do the values match up | [P:packages/rs-dpp/src/balances/total_single_token_balance/mod.rs#L34] |
+| fn | `ok` | rs-dpp | Is the outcome okay? basically do the values match up | [P:packages/rs-dpp/src/balances/total_tokens_balance/mod.rs#L33] |
 | fn | `out_point` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/instant/instant_asset_lock_proof.rs#L122] |
 | fn | `out_point` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/mod.rs#L192] |
 | fn | `output` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/instant/instant_asset_lock_proof.rs#L127] |
-| fn | `output_index` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/instant/instant_asset_lock_proof.rs#L118] |
 | fn | `output_index` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/mod.rs#L185] |
+| fn | `output_index` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/instant/instant_asset_lock_proof.rs#L118] |
 | fn | `override_by` | rs-dapi-client | Combines two instances of [RequestSettings] with following rules: | [P:packages/rs-dapi-client/src/request_settings.rs#L54] |
 | fn | `owner_id` | rs-dpp | returns the signature as a byte-array | [P:packages/rs-dpp/src/state_transition/mod.rs#L641] |
 | fn | `owner_id` | rs-dpp | Returns the owner identifier for the data contract. | [P:packages/rs-dpp/src/data_contract/serialized_version/mod.rs#L117] |
@@ -2366,6 +2554,7 @@
 | fn | `paused` | rs-dpp |  | [P:packages/rs-dpp/src/tokens/emergency_action.rs#L21] |
 | fn | `paused` | dapi-grpc | Returns the value of `paused`, or the default value if `paused` is unset. |  |
 | fn | `perpetual_storage_epochs` | rs-dpp |  | [P:packages/rs-dpp/src/fee/epoch/mod.rs#L53] |
+| fn | `platform_value_set_ref` | rs-dpp | Sets a key value pair in serde_json object, returns the modified object | [P:packages/rs-dpp/src/tests/utils/mod.rs#L48] |
 | fn | `prefunded_voting_balances_for_document` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/mod.rs#L113] |
 | fn | `prettify_proof` | rs-sdk |  | [P:packages/rs-sdk/src/sdk.rs#L997] |
 | fn | `pro_tx_hash` | dapi-grpc | Returns the value of `pro_tx_hash`, or the default value if `pro_tx_hash` is unset. |  |
@@ -2374,7 +2563,12 @@
 | fn | `protx_list` | rs-sdk | Request list of Platform validators from Core. | [P:packages/rs-sdk/src/core/dash_core_client.rs#L171] |
 | fn | `prove` | rs-sdk | Returns true when requests should use proofs. | [P:packages/rs-sdk/src/mock/sdk.rs#L63] |
 | fn | `prove` | rs-sdk | Indicate if the sdk should request and verify proofs. | [P:packages/rs-sdk/src/sdk.rs#L409] |
+| fn | `public_key` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/invalid_signature_public_key_error.rs#L15] |
+| fn | `public_key` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/public_key_mismatch_error.rs#L17] |
 | fn | `public_key_data_from_private_key_data` | rs-dpp | Gets the public key data for a private key depending on the key type | [P:packages/rs-dpp/src/identity/identity_public_key/key_type.rs#L202] |
+| fn | `public_key_purpose` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/wrong_public_key_purpose_error.rs#L22] |
+| fn | `public_key_security_level` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/public_key_security_level_not_met_error.rs#L24] |
+| fn | `public_key_type` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/invalid_identity_public_key_type_error.rs#L17] |
 | fn | `public_note` | rs-dpp | Returns a reference to the public note if the variant includes one. | [P:packages/rs-dpp/src/tokens/token_event.rs#L233] |
 | fn | `public_note` | rs-dpp | Returns a reference to the public note if the variant includes one. | [P:packages/rs-dpp/src/group/action_event.rs#L32] |
 | fn | `public_note` | dapi-grpc | Returns the value of `public_note`, or the default value if `public_note` is unset. |  |
@@ -2392,22 +2586,77 @@
 | fn | `put` | rs-sdk | Insert a new value into the cache. | [P:packages/rs-sdk/src/mock/provider.rs#L275] |
 | fn | `put` | rs-dapi-client | Put item into the pool for the given uri and settings. | [P:packages/rs-dapi-client/src/connection_pool.rs#L89] |
 | fn | `random` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/index/random_index.rs#L9] |
+| fn | `random_authentication_key` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L40] |
+| fn | `random_authentication_key_with_private_key` | rs-dpp | Generates a random authentication key and its corresponding private key based on the platform version. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L137] |
+| fn | `random_authentication_key_with_private_key_with_rng` | rs-dpp | Generates a random authentication key and its corresponding private key based on the platform version. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L174] |
+| fn | `random_authentication_key_with_private_key_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/v0/random.rs#L66] |
+| fn | `random_authentication_key_with_rng` | rs-dpp | Generates a random authentication key based on the platform version. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L91] |
+| fn | `random_authentication_key_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/v0/random.rs#L18] |
+| fn | `random_authentication_keys` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L52] |
+| fn | `random_authentication_keys_with_private_keys_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L700] |
+| fn | `random_authentication_keys_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L682] |
+| fn | `random_ecdsa_critical_level_authentication_key` | rs-dpp | Generates a random ECDSA critical-level authentication public key along with its corresponding private key. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L409] |
+| fn | `random_ecdsa_critical_level_authentication_key_with_rng` | rs-dpp | Generates a random ECDSA high-level authentication public key along with its corresponding private key. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L440] |
+| fn | `random_ecdsa_critical_level_authentication_key_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/v0/random.rs#L300] |
+| fn | `random_ecdsa_high_level_authentication_key` | rs-dpp | Generates a random ECDSA high-level authentication public key along with its corresponding private key. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L627] |
+| fn | `random_ecdsa_high_level_authentication_key_with_rng` | rs-dpp | Generates a random ECDSA high-level authentication public key along with its corresponding private key. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L654] |
+| fn | `random_ecdsa_high_level_authentication_key_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/v0/random.rs#L326] |
+| fn | `random_ecdsa_master_authentication_key` | rs-dpp | Generates a random ECDSA master-level authentication public key along with its corresponding private key. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L382] |
+| fn | `random_ecdsa_master_authentication_key_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/v0/random.rs#L196] |
+| fn | `random_ecdsa_master_authentication_key_with_rng` | rs-dpp | Generates a random ECDSA master authentication public key along with its corresponding private key. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L316] |
 | fn | `random_filled_value` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L476] |
+| fn | `random_identities` | rs-dpp |  | [P:packages/rs-dpp/src/identity/v0/random.rs#L91] |
+| fn | `random_identities` | rs-dpp | Generates a specified number of random identities using the specified version and key count, with an optional seed fo... | [P:packages/rs-dpp/src/identity/random.rs#L141] |
+| fn | `random_identities_with_private_keys_with_rng` | rs-dpp | Generates a specified number of random identities with their corresponding private keys, using the specified version,... | [P:packages/rs-dpp/src/identity/random.rs#L229] |
+| fn | `random_identities_with_private_keys_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/v0/random.rs#L121] |
+| fn | `random_identities_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/v0/random.rs#L104] |
+| fn | `random_identities_with_rng` | rs-dpp | Generates a specified number of random identities using the specified version and key count, with a provided RNG. | [P:packages/rs-dpp/src/identity/random.rs#L181] |
+| fn | `random_identity` | rs-dpp |  | [P:packages/rs-dpp/src/identity/v0/random.rs#L79] |
+| fn | `random_identity` | rs-dpp | Generates a random identity using the specified version and key count, with an optional seed for reproducibility. | [P:packages/rs-dpp/src/identity/random.rs#L106] |
+| fn | `random_identity_with_main_keys_with_private_key` | rs-dpp | Generates a random identity with main keys and their corresponding private keys, using the specified version and key ... | [P:packages/rs-dpp/src/identity/random.rs#L62] |
+| fn | `random_identity_with_main_keys_with_private_key` | rs-dpp |  | [P:packages/rs-dpp/src/identity/v0/random.rs#L43] |
+| fn | `random_identity_with_rng` | rs-dpp | Generates a random identity using the specified version and key count, with a provided RNG. | [P:packages/rs-dpp/src/identity/random.rs#L24] |
+| fn | `random_identity_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/v0/random.rs#L16] |
+| fn | `random_key` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L14] |
+| fn | `random_key_with_known_attributes` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/v0/random.rs#L119] |
+| fn | `random_key_with_known_attributes` | rs-dpp | Generates a random key based on the platform version. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L267] |
+| fn | `random_key_with_rng` | rs-dpp | Generates a random key based on the platform version. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L221] |
+| fn | `random_key_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/v0/random.rs#L145] |
+| fn | `random_keys` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L22] |
+| fn | `random_keys_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L783] |
+| fn | `random_masternode_owner_key` | rs-dpp | Generates a random ECDSA critical-level authentication key for a masternode owner. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L487] |
+| fn | `random_masternode_owner_key_with_rng` | rs-dpp | Generates a random ECDSA critical-level authentication key for a masternode owner using a custom RNG. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L516] |
+| fn | `random_masternode_transfer_key` | rs-dpp | Generates a random ECDSA critical-level transfer key for a masternode. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L556] |
+| fn | `random_masternode_transfer_key_with_rng` | rs-dpp | Generates a random ECDSA critical-level transfer key for a masternode using a custom RNG. | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L585] |
+| fn | `random_masternode_transfer_key_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/v0/random.rs#L274] |
+| fn | `random_owner_key_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/v0/random.rs#L248] |
 | fn | `random_p2pkh` | rs-dpp |  | [P:packages/rs-dpp/src/identity/core_script.rs#L68] |
 | fn | `random_p2sh` | rs-dpp |  | [P:packages/rs-dpp/src/identity/core_script.rs#L64] |
+| fn | `random_public_and_private_key_data` | rs-dpp | Gets the default size of the public key | [P:packages/rs-dpp/src/identity/identity_public_key/key_type.rs#L316] |
+| fn | `random_public_and_private_key_data_v0` | rs-dpp | Gets the default size of the public key | [P:packages/rs-dpp/src/identity/identity_public_key/key_type.rs#L266] |
+| fn | `random_public_key_data` | rs-dpp | Gets the default size of the public key | [P:packages/rs-dpp/src/identity/identity_public_key/key_type.rs#L181] |
 | fn | `random_size` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L353] |
 | fn | `random_sub_filled_value` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L427] |
+| fn | `random_unique_keys_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L772] |
 | fn | `random_value` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L359] |
+| fn | `random_voting_key_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/random.rs#L344] |
+| fn | `random_voting_key_with_rng` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/v0/random.rs#L222] |
+| fn | `raw_instant_asset_lock_proof_fixture` | rs-dpp |  | [P:packages/rs-dpp/src/tests/fixtures/instant_asset_lock_proof_fixture.rs#L21] |
 | fn | `read_optionally_from` | rs-dpp | Reads an optional value from the buffer | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L547] |
 | fn | `redeem_script` | rs-dpp | Returns the redeem script if this is a P2SH witness | [P:packages/rs-dpp/src/address_funds/witness.rs#L272] |
 | fn | `refresh_identity_nonce` | rs-sdk | Marks identity nonce cache entries as stale so they are re-fetched from | [P:packages/rs-sdk/src/sdk.rs#L389] |
 | fn | `register_dpns_name` | rs-sdk | Register a DPNS username in a single operation | [P:packages/rs-sdk/src/platform/dpns_usernames/mod.rs#L216] |
-| fn | `registration_cost` | rs-dpp | Returns the registration cost of the data contract based on the current platform version | [P:packages/rs-dpp/src/data_contract/methods/registration_cost/mod.rs#L65] |
 | fn | `registration_cost` | rs-dpp | Returns the registration cost of the data contract based on the current platform version | [P:packages/rs-dpp/src/data_contract/methods/registration_cost/mod.rs#L26] |
+| fn | `registration_cost` | rs-dpp | Returns the registration cost of the data contract based on the current platform version | [P:packages/rs-dpp/src/data_contract/methods/registration_cost/mod.rs#L65] |
+| fn | `remove` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L47] |
 | fn | `remove` | rs-dapi-client | Remove address from the list | [P:packages/rs-dapi-client/src/address_list.rs#L199] |
+| fn | `remove` | rs-dapi-client | Remove an existing expectation for a request. | [P:packages/rs-dapi-client/src/mock.rs#L67] |
 | fn | `remove_fetch_expectation` | rs-sdk | Remove previously defined expectation for a [Fetch] request. | [P:packages/rs-sdk/src/mock/sdk.rs#L338] |
+| fn | `replace_path` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L76] |
+| fn | `replace_paths` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L66] |
 | fn | `required_asset_lock_balance_for_processing_start` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/mod.rs#L466] |
 | fn | `required_number_of_private_keys` | rs-dpp | returns the number of private keys | [P:packages/rs-dpp/src/state_transition/mod.rs#L584] |
+| fn | `required_security_level` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/public_key_security_level_not_met_error.rs#L27] |
 | fn | `resolve_dpns_name` | rs-sdk | Resolve a DPNS name to an identity ID | [P:packages/rs-sdk/src/platform/dpns_usernames/mod.rs#L418] |
 | fn | `resolve_dpns_name_to_identity` | rs-sdk | Resolve a DPNS name to an identity ID | [P:packages/rs-sdk/src/platform/dpns_usernames/queries.rs#L99] |
 | fn | `resolve_uri` | rs-dpp |  | [P:packages/rs-dpp/src/util/json_schema.rs#L30] |
@@ -2416,10 +2665,12 @@
 | fn | `resume` | rs-sdk | Start building a resume token transition for the provided DataContract. | [P:packages/rs-sdk/src/platform/tokens/builders/emergency_action.rs#L73] |
 | fn | `retry` | rs-sdk | Retry the provided closure. | [P:packages/rs-sdk/src/sync.rs#L165] |
 | fn | `rewards_in_interval` | rs-dpp | Computes the total rewards emitted in a given interval based on the provided distribution moments. | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/reward_distribution_type/evaluate_interval.rs#L33] |
+| fn | `rewards_in_interval_with_explanation` | rs-dpp | Computes the total rewards emitted in a given interval with detailed explanation. | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/reward_distribution_type/evaluate_interval.rs#L76] |
 | fn | `ripemd160_sha256` | rs-dpp |  | [P:packages/rs-dpp/src/util/hash.rs#L20] |
 | fn | `same_type` | rs-dpp | Checks if two `RewardDistributionMoment`s are of the same type. | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/reward_distribution_moment/mod.rs#L38] |
-| fn | `sanitize_value_mut` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L2034] |
 | fn | `sanitize_value_mut` | rs-dpp | Sanitize a value to match the expected array item type | [P:packages/rs-dpp/src/data_contract/document_type/property/array.rs#L20] |
+| fn | `sanitize_value_mut` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L2034] |
+| fn | `save` | rs-dapi-client | Save dump data to file. | [P:packages/rs-dapi-client/src/dump.rs#L150] |
 | fn | `schema_defs` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/serialized_version/mod.rs#L131] |
 | fn | `search_dpns_names` | rs-sdk | Search for DPNS names that start with a given prefix | [P:packages/rs-sdk/src/platform/dpns_usernames/queries.rs#L117] |
 | fn | `searchable_purposes` | rs-dpp | Just the authentication and withdraw purposes | [P:packages/rs-dpp/src/identity/identity_public_key/purpose.rs#L124] |
@@ -2427,10 +2678,15 @@
 | fn | `seller_sets_price` | rs-dpp |  | [P:packages/rs-dpp/src/nft/mod.rs#L16] |
 | fn | `send_compressed` | dapi-grpc | Compress requests with the given encoding. |  |
 | fn | `send_compressed` | dapi-grpc | Compress requests with the given encoding. |  |
-| fn | `serialize` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L170] |
+| fn | `serde_set` | rs-dpp | Sets a key value pair in serde_json object, returns the modified object | [P:packages/rs-dpp/src/tests/utils/mod.rs#L33] |
+| fn | `serializable_value_to_cbor` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_serializer.rs#L10] |
 | fn | `serialize` | rs-dpp |  | [P:packages/rs-dpp/src/util/deserializer.rs#L80] |
+| fn | `serialize` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L170] |
+| fn | `serialize` | dapi-grpc | Serialize from T into string | [P:packages/dapi-grpc/src/deserialization.rs#L27] |
+| fn | `serialize` | dapi-grpc | Serialize any Mockable object to bytes. | [P:packages/dapi-grpc/src/mock/serde_mockable.rs#L49] |
 | fn | `serialize_consume` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L184] |
 | fn | `serialized_document` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L90] |
+| fn | `set` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L85] |
 | fn | `set_action_type` | dapi-grpc | Sets `action_type` to the provided enum value. |  |
 | fn | `set_admin_action_takers` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/change_control_rules/mod.rs#L33] |
 | fn | `set_authorized_to_make_change_action_takers` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/change_control_rules/mod.rs#L41] |
@@ -2451,9 +2707,10 @@
 | fn | `set_user_fee_increase` | rs-dpp | set fee multiplier | [P:packages/rs-dpp/src/state_transition/mod.rs#L747] |
 | fn | `set_vote_choice_type` | dapi-grpc | Sets `vote_choice_type` to the provided enum value. |  |
 | fn | `sha256_2_hash` | rs-dpp |  | [P:packages/rs-dpp/src/voting/vote_polls/contested_document_resource_vote_poll/mod.rs#L54] |
-| fn | `should_use_creator_id` | rs-dpp | A convenience method on if we should add the creator id | [P:packages/rs-dpp/src/data_contract/document_type/class_methods/should_use_creator_id/mod.rs#L49] |
+| fn | `short_explanation` | rs-dpp | Returns a short explanation of the evaluation result | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/distribution_function/evaluate_interval.rs#L174] |
 | fn | `should_use_creator_id` | rs-dpp | A convenience method on if we should add the creator id | [P:packages/rs-dpp/src/data_contract/document_type/class_methods/should_use_creator_id/mod.rs#L30] |
 | fn | `should_use_creator_id` | rs-dpp | A convenience method on if we should add the creator id | [P:packages/rs-dpp/src/data_contract/document_type/class_methods/should_use_creator_id/mod.rs#L11] |
+| fn | `should_use_creator_id` | rs-dpp | A convenience method on if we should add the creator id | [P:packages/rs-dpp/src/data_contract/document_type/class_methods/should_use_creator_id/mod.rs#L49] |
 | fn | `shutdown` | rs-sdk | Request shutdown of the Sdk and all related operations. | [P:packages/rs-sdk/src/sdk.rs#L431] |
 | fn | `sign` | rs-sdk | Signs the token configuration update transition | [P:packages/rs-sdk/src/platform/tokens/builders/config_update.rs#L152] |
 | fn | `sign` | rs-sdk | Signs the token unfreeze transition | [P:packages/rs-sdk/src/platform/tokens/builders/unfreeze.rs#L151] |
@@ -2472,18 +2729,27 @@
 | fn | `sign` | rs-sdk | Signs the token purchase transition | [P:packages/rs-sdk/src/platform/tokens/builders/purchase.rs#L121] |
 | fn | `sign` | rs-sdk | Signs the document set price transition | [P:packages/rs-sdk/src/platform/documents/transitions/set_price.rs#L177] |
 | fn | `sign` | rs-sdk | Signs the document replace transition | [P:packages/rs-sdk/src/platform/documents/transitions/replace.rs#L130] |
+| fn | `sign` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/mod.rs#L902] |
+| fn | `sign_by_private_key` | rs-dpp | Signs data with the private key | [P:packages/rs-dpp/src/state_transition/mod.rs#L991] |
+| fn | `sign_external` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/mod.rs#L757] |
+| fn | `sign_external_with_options` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/mod.rs#L774] |
+| fn | `sign_with_options` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/mod.rs#L917] |
 | fn | `signature` | rs-dpp | returns the signature as a byte-array | [P:packages/rs-dpp/src/state_transition/mod.rs#L563] |
 | fn | `signature_public_key_id` | rs-dpp | returns the signature as a byte-array | [P:packages/rs-dpp/src/state_transition/mod.rs#L626] |
 | fn | `signature_verify_cost` | rs-dpp |  | [P:packages/rs-dpp/src/identity/identity_public_key/key_type.rs#L113] |
 | fn | `simple_resolve_with_distribution_type` | rs-dpp | Simple resolve matches the contract owner but does not try to resolve the evonodes | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/distribution_recipient.rs#L39] |
 | fn | `sleep` | rs-dapi-client | Sleep for the given duration. | [P:packages/rs-dapi-client/src/transport.rs#L29] |
-| fn | `specialized_balance_id` | rs-dpp |  | [P:packages/rs-dpp/src/voting/vote_polls/contested_document_resource_vote_poll/mod.rs#L59] |
+| fn | `sort_canonical` | rs-dpp | From the CBOR RFC on how to sort the keys: | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L106] |
 | fn | `specialized_balance_id` | rs-dpp |  | [P:packages/rs-dpp/src/voting/votes/mod.rs#L31] |
+| fn | `specialized_balance_id` | rs-dpp |  | [P:packages/rs-dpp/src/voting/vote_polls/contested_document_resource_vote_poll/mod.rs#L59] |
 | fn | `specialized_balance_id` | rs-dpp |  | [P:packages/rs-dpp/src/voting/vote_polls/mod.rs#L42] |
+| fn | `split_cbor_feature_version` | rs-dpp |  | [P:packages/rs-dpp/src/util/deserializer.rs#L36] |
 | fn | `start_after` | dapi-grpc | Returns the value of `start_after`, or the default value if `start_after` is unset. |  |
 | fn | `start_instant_send_lock_stream` | rs-sdk | Starts the stream to listen for instant send lock messages | [P:packages/rs-sdk/src/core/transaction.rs#L21] |
 | fn | `start_recipient` | dapi-grpc | Returns the value of `start_recipient`, or the default value if `start_recipient` is unset. |  |
 | fn | `start_recipient_included` | dapi-grpc | Returns the value of `start_recipient_included`, or the default value if `start_recipient_included` is unset. |  |
+| fn | `state_transition` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/errors/state_transition_is_not_signed_error.rs#L17] |
+| fn | `state_transition` | rs-dpp |  | [P:packages/rs-dpp/src/dash_platform_protocol.rs#L26] |
 | fn | `state_transition_type` | rs-dpp | returns the state transition type | [P:packages/rs-dpp/src/state_transition/mod.rs#L683] |
 | fn | `state_transition_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_create_transition/mod.rs#L144] |
 | fn | `status` | dapi-grpc | Returns the enum value of `status`, or the default if the field is set to an invalid enum value. |  |
@@ -2506,19 +2772,25 @@
 | fn | `to_address_with_network` | rs-dpp | Converts the PlatformAddress to a dashcore Address with the specified network. | [P:packages/rs-dpp/src/address_funds/platform_address.rs#L205] |
 | fn | `to_be_bytes_vec` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/reward_distribution_moment/mod.rs#L486] |
 | fn | `to_bech32m_string` | rs-dpp | Encodes the PlatformAddress as a bech32m string for the specified network. | [P:packages/rs-dpp/src/address_funds/platform_address.rs#L129] |
+| fn | `to_bytes` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L110] |
 | fn | `to_bytes` | rs-dpp | Converts the PlatformAddress to bytes for storage keys. | [P:packages/rs-dpp/src/address_funds/platform_address.rs#L223] |
+| fn | `to_cbor_buffer` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/instant/instant_asset_lock_proof.rs#L150] |
 | fn | `to_cleaned_object` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/instant/instant_asset_lock_proof.rs#L106] |
-| fn | `to_cleaned_object` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/chain/chain_asset_lock_proof.rs#L33] |
 | fn | `to_cleaned_object` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/abstract_state_transition.rs#L35] |
+| fn | `to_cleaned_object` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/chain/chain_asset_lock_proof.rs#L33] |
 | fn | `to_hashed_bytes` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/signable_bytes_hasher.rs#L19] |
-| fn | `to_object` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/abstract_state_transition.rs#L21] |
-| fn | `to_object` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/instant/instant_asset_lock_proof.rs#L102] |
 | fn | `to_object` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/chain/chain_asset_lock_proof.rs#L30] |
+| fn | `to_object` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/instant/instant_asset_lock_proof.rs#L102] |
+| fn | `to_object` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/abstract_state_transition.rs#L21] |
 | fn | `to_owned_document_type` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/mod.rs#L130] |
 | fn | `to_owned_transition` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/batched_transition/mod.rs#L77] |
+| fn | `to_path_of_cbors` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/value.rs#L143] |
 | fn | `to_raw_object` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/mod.rs#L206] |
 | fn | `to_string` | rs-dpp |  | [P:packages/rs-dpp/src/identity/core_script.rs#L28] |
 | fn | `to_u64` | rs-dpp | Converts a `RewardDistributionMoment` into a `u64` representation. | [P:packages/rs-dpp/src/data_contract/associated_token/token_perpetual_distribution/reward_distribution_moment/mod.rs#L51] |
+| fn | `to_value_clone` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L132] |
+| fn | `to_value_sorted` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L126] |
+| fn | `to_value_unsorted` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L122] |
 | fn | `token_burn` | rs-sdk | Burns tokens to permanently remove them from circulation. | [P:packages/rs-sdk/src/platform/tokens/transitions/burn.rs#L59] |
 | fn | `token_claim` | rs-sdk | Claims tokens for a specific identity. | [P:packages/rs-sdk/src/platform/tokens/transitions/claim.rs#L50] |
 | fn | `token_configuration_v0` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/associated_token/token_configuration/v0/mod.rs#L445] |
@@ -2537,8 +2809,8 @@
 | fn | `total_in_trees` | rs-dpp | Get the total in all trees | [P:packages/rs-dpp/src/balances/total_credits_balance/mod.rs#L103] |
 | fn | `total_queries` | rs-sdk | Get total number of queries (trunk + branch + incremental). | [P:packages/rs-sdk/src/platform/address_sync/types.rs#L193] |
 | fn | `total_signature_verifications` | rs-dpp | Total number of signature verifications | [P:packages/rs-dpp/src/address_funds/witness_verification_operations.rs#L89] |
-| fn | `transaction` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/mod.rs#L199] |
 | fn | `transaction` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/instant/instant_asset_lock_proof.rs#L114] |
+| fn | `transaction` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/mod.rs#L199] |
 | fn | `transaction_id` | rs-dpp |  | [P:packages/rs-dpp/src/identity/errors/asset_lock_transaction_is_not_found_error.rs#L17] |
 | fn | `transaction_id` | rs-dpp | The transaction id is a single hash of the data with the signature | [P:packages/rs-dpp/src/state_transition/mod.rs#L619] |
 | fn | `try_from_contender_with_serialized_document` | rs-dpp | Try to get the finalized contender from a finalized contender with a serialized document | [P:packages/rs-dpp/src/voting/contender_structs/mod.rs#L78] |
@@ -2549,21 +2821,24 @@
 | fn | `try_from_platform_versioned` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/serialized_version/mod.rs#L436] |
 | fn | `try_from_schema` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/class_methods/try_from_schema/mod.rs#L29] |
 | fn | `try_from_value_map` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L2307] |
+| fn | `try_from_vote_with_signer` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/masternode_vote_transition/v0/v0_methods.rs#L26] |
+| fn | `try_into_asset_unlock_base_transaction_info` | rs-dpp |  | [P:packages/rs-dpp/src/withdrawal/document_try_into_asset_unlock_base_transaction_info/mod.rs#L8] |
 | fn | `try_into_contender` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L110] |
 | fn | `try_into_contender` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/v0/mod.rs#L94] |
-| fn | `try_into_contender_with_serialized_document` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L136] |
 | fn | `try_into_contender_with_serialized_document` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/v0/mod.rs#L45] |
-| fn | `try_to_contender` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L122] |
+| fn | `try_into_contender_with_serialized_document` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L136] |
+| fn | `try_new` | rs-dapi-client | Generate unique identifier of some serializable object (e.g. request). | [P:packages/rs-dapi-client/src/mock.rs#L174] |
 | fn | `try_to_contender` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/v0/mod.rs#L116] |
-| fn | `try_to_contender_with_serialized_document` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L153] |
+| fn | `try_to_contender` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L122] |
 | fn | `try_to_contender_with_serialized_document` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/v0/mod.rs#L68] |
+| fn | `try_to_contender_with_serialized_document` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L153] |
 | fn | `type_from_raw_value` | rs-dpp |  | [P:packages/rs-dpp/src/identity/state_transition/asset_lock_proof/mod.rs#L166] |
 | fn | `u8_item_index` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/associated_token/token_configuration_item.rs#L69] |
-| fn | `unban` | rs-dapi-client | Clears address' ban record | [P:packages/rs-dapi-client/src/address_list.rs#L160] |
 | fn | `unban` | rs-dapi-client | Clears ban record. | [P:packages/rs-dapi-client/src/address_list.rs#L94] |
+| fn | `unban` | rs-dapi-client | Clears address' ban record | [P:packages/rs-dapi-client/src/address_list.rs#L160] |
 | fn | `unique_id` | rs-dpp |  | [P:packages/rs-dpp/src/voting/vote_polls/contested_document_resource_vote_poll/mod.rs#L63] |
-| fn | `unique_id` | rs-dpp | Generates a unique identifier for this witness based on its contents. | [P:packages/rs-dpp/src/address_funds/witness.rs#L245] |
 | fn | `unique_id` | rs-dpp |  | [P:packages/rs-dpp/src/voting/vote_polls/mod.rs#L52] |
+| fn | `unique_id` | rs-dpp | Generates a unique identifier for this witness based on its contents. | [P:packages/rs-dpp/src/address_funds/witness.rs#L245] |
 | fn | `unique_identifiers` | rs-dpp | returns the unique identifiers for the state transition | [P:packages/rs-dpp/src/state_transition/mod.rs#L688] |
 | fn | `update_address_ban_status` | rs-dapi-client | Ban address in case of retryable error or unban it | [P:packages/rs-dapi-client/src/dapi_client.rs#L162] |
 | fn | `update_to_latest_version` | rs-dpp |  | [P:packages/rs-dpp/src/voting/vote_info_storage/contested_document_vote_poll_stored_info/mod.rs#L92] |
@@ -2581,34 +2856,37 @@
 | fn | `validate_token_config_update` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/associated_token/token_configuration/methods/validate_token_configuration_update/mod.rs#L14] |
 | fn | `validate_update` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/config/methods/validate_update/mod.rs#L11] |
 | fn | `value_from_string` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/document_type/property/mod.rs#L1361] |
+| fn | `value_to_bytes` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L299] |
+| fn | `value_to_hash` | rs-dpp |  | [P:packages/rs-dpp/src/util/cbor_value/canonical.rs#L326] |
 | fn | `vec_to_array` | rs-dpp |  | [P:packages/rs-dpp/src/util/vec.rs#L53] |
 | fn | `verify_bytes_against_witness` | rs-dpp | Verifies that the provided witness matches this address and that signatures are valid. | [P:packages/rs-dpp/src/address_funds/platform_address.rs#L289] |
-| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_funding_from_asset_lock_transition/mod.rs#L40] |
-| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_withdrawal_transition/mod.rs#L53] |
-| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_create_from_addresses_transition/mod.rs#L40] |
-| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_topup_from_addresses_transition/mod.rs#L38] |
-| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_transfer_transition/mod.rs#L40] |
-| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_create_transition/mod.rs#L38] |
+| fn | `verify_identity_signed_signature` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/mod.rs#L1055] |
 | fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_funds_transfer_transition/mod.rs#L40] |
-| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_update_transition/mod.rs#L46] |
+| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_topup_from_addresses_transition/mod.rs#L38] |
+| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_create_transition/mod.rs#L38] |
 | fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/document/batch_transition/mod.rs#L75] |
-| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_topup_transition/mod.rs#L37] |
+| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_create_from_addresses_transition/mod.rs#L40] |
 | fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/masternode_vote_transition/mod.rs#L40] |
-| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_create_transition/mod.rs#L44] |
-| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_transfer_to_addresses_transition/mod.rs#L42] |
 | fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_credit_withdrawal_transition/mod.rs#L47] |
+| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_transfer_to_addresses_transition/mod.rs#L42] |
+| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_update_transition/mod.rs#L46] |
+| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_topup_transition/mod.rs#L37] |
+| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_withdrawal_transition/mod.rs#L53] |
+| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/contract/data_contract_create_transition/mod.rs#L44] |
 | fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_update_transition/mod.rs#L39] |
+| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/address_funds/address_funding_from_asset_lock_transition/mod.rs#L40] |
+| fn | `verify_protocol_version` | rs-dpp |  | [P:packages/rs-dpp/src/state_transition/state_transitions/identity/identity_credit_transfer_transition/mod.rs#L40] |
 | fn | `verify_response_metadata` | rs-sdk | Verify response metadata against the current state of the SDK. | [P:packages/rs-sdk/src/sdk.rs#L231] |
 | fn | `version` | rs-sdk | Return [Dash Platform version](PlatformVersion) information used by this SDK. | [P:packages/rs-sdk/src/sdk.rs#L399] |
 | fn | `version` | rs-dpp | Returns the version of this ExtendedBlockInfo. | [P:packages/rs-dpp/src/block/extended_block_info/mod.rs#L37] |
-| fn | `version` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/config/mod.rs#L30] |
 | fn | `version` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/serialized_version/mod.rs#L138] |
+| fn | `version` | rs-dpp |  | [P:packages/rs-dpp/src/data_contract/config/mod.rs#L30] |
 | fn | `vote_choice_type` | dapi-grpc | Returns the enum value of `vote_choice_type`, or the default if the field is set to an invalid enum value. |  |
 | fn | `vote_count` | dapi-grpc | Returns the value of `vote_count`, or the default value if `vote_count` is unset. |  |
-| fn | `vote_poll_unique_id` | rs-dpp |  | [P:packages/rs-dpp/src/voting/votes/resource_vote/v0/mod.rs#L32] |
 | fn | `vote_poll_unique_id` | rs-dpp |  | [P:packages/rs-dpp/src/voting/votes/mod.rs#L36] |
-| fn | `vote_tally` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L102] |
+| fn | `vote_poll_unique_id` | rs-dpp |  | [P:packages/rs-dpp/src/voting/votes/resource_vote/v0/mod.rs#L32] |
 | fn | `vote_tally` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L70] |
+| fn | `vote_tally` | rs-dpp |  | [P:packages/rs-dpp/src/voting/contender_structs/contender/mod.rs#L102] |
 | fn | `wait_for_asset_lock_proof_for_transaction` | rs-sdk | Waits for a response for the asset lock proof | [P:packages/rs-sdk/src/core/transaction.rs#L64] |
 | fn | `wait_for_state_transition_result` | dapi-grpc |  |  |
 | fn | `with_address_list` | rs-sdk | Replace the address list on this builder. | [P:packages/rs-sdk/src/sdk.rs#L680] |
@@ -2720,24 +2998,67 @@
 | fn | `won_by_identity_id` | dapi-grpc | Returns the value of `won_by_identity_id`, or the default value if `won_by_identity_id` is unset. |  |
 
 ## Patterns
+
 | Keyword | Description | Example |
 |---------|-------------|---------|
-| `Fetch trait` | `T::fetch(&sdk, query).await?` → `Option<T>` with proof verification | [P:rs-sdk/src/platform/fetch.rs] |
-| `FetchMany trait` | `T::fetch_many(&sdk, query).await?` → collection with proofs | [P:rs-sdk/src/platform/fetch_many.rs] |
-| `Put traits` | `PutIdentity`, `PutContract`, `PutDocument` — broadcast state transitions | [P:rs-sdk/src/platform/] |
-| `Query trait` | Types implementing `Query<R>` convert to gRPC requests; `Identifier`, `DocumentQuery`, etc. | [P:rs-sdk/src/platform/query.rs] |
-| `Document transitions` | Builders for create, delete, replace, purchase, set_price, transfer | [P:rs-sdk/src/platform/documents/transitions/] |
-| `Token builders` | Builders: mint, burn, transfer, freeze, unfreeze, destroy, purchase, set_price, claim | [P:rs-sdk/src/platform/tokens/builders/] |
-| `DPNS usernames` | Query and register DPNS names, handle contested names | [P:rs-sdk/src/platform/dpns_usernames/] |
-| `Proof verification` | All Fetch/FetchMany verify GroveDB proofs by default (security advantage over JS) | [P:rs-sdk/src/platform/fetch.rs] |
-| `Mock testing` | `Sdk::new_mock()` with `MockResponse` trait for deterministic tests | [P:rs-sdk/src/mock/] |
-| `Async runtime` | Fully async, requires `tokio` runtime | [P:rs-sdk/src/sdk.rs] |
+| `Fetch` trait | Async trait for single-object retrieval with proof verification. `T::fetch(&sdk, query).await?` returns `Option<T>`. Implemented for Identity, DataContract, Document, Vote, ExtendedEpochInfo, IdentityBalance, Group, TokenContractInfo, and 15+ other types. All responses include GroveDB proof verification by default. | [P:rs-sdk/src/platform/fetch.rs] |
+| `FetchMany` trait | Async trait for batch retrieval with proofs. `T::fetch_many(&sdk, query).await?` returns a keyed collection. Supports `fetch_by_identifiers()` and `fetch_many_with_limit()` convenience methods. Implemented for Documents, DataContracts, IdentityPublicKeys, ExtendedEpochInfos, Contenders, Voters, GroupActions, TokenAmounts, and more. | [P:rs-sdk/src/platform/fetch_many.rs] |
+| `FetchUnproved` trait | Fetches data without cryptographic proof verification, used for node status endpoints like `EvoNodeStatus` and `CurrentQuorumsInfo` where proofs are not available or not needed. | [P:rs-sdk/src/platform/fetch_unproved.rs] |
+| `FetchCurrent` trait | Parameter-free fetch for singleton platform state (e.g., current epoch, total credits). `T::fetch_current(&sdk).await?` with no query argument needed. | [P:rs-sdk/src/platform/fetch_current_no_parameters.rs] |
+| `Query` trait | Converts domain objects into gRPC `TransportRequest` messages. `Identifier` implements Query for identity/contract/key requests. `DocumentQuery`, `DriveDocumentQuery`, `VotePollsByDocumentTypeQuery`, `EpochQuery`, `EvoNode`, and many other types implement Query for their respective request types. A blanket impl allows any `TransportRequest` to be its own Query. | [P:rs-sdk/src/platform/query.rs] |
+| `LimitQuery` wrapper | Generic wrapper `LimitQuery<Q>` adds `limit`, `start_info` pagination to any inner query. Used with `FetchMany::fetch_many_with_limit()` or constructed directly with `LimitQuery { query, limit: Some(n), start_info }`. Implements `From<Q>` for ergonomic conversion. | [P:rs-sdk/src/platform/query.rs] |
+| `DocumentQuery` builder | Rich query builder for document fetches. Supports `new()`, `new_with_data_contract_id()` (auto-fetches contract), `with_document_id()`, `with_where()`, `with_order_by()`. Wraps `WhereClause`/`OrderClause` from Drive. Converts to/from `DriveDocumentQuery`. | [P:rs-sdk/src/platform/documents/document_query.rs] |
+| `BroadcastStateTransition` | Core trait for submitting state transitions to Platform. Provides `broadcast()` (fire-and-forget), `wait_for_response()` (proof-verified result), and `broadcast_and_wait()` (combined). Includes retry logic, timeout support via `PutSettings`, and automatic nonce refresh on failure. | [P:rs-sdk/src/platform/transition/broadcast.rs] |
+| `Put*` traits | Family of async traits (`PutIdentity`, `PutContract`, `PutDocument`, `PutVote`) that handle the full lifecycle: nonce acquisition, state transition construction, signing, validation, broadcast, and proof-verified response. Each provides `put_to_platform()` and `put_to_platform_and_wait_for_response()`. | [P:rs-sdk/src/platform/transition/put_identity.rs] |
+| `Waitable` trait | Convenience trait wrapping `BroadcastStateTransition::wait_for_response()` for typed results. Implemented for DataContract, Document, Identity (with AlreadyExists fallback to fetch), and Vote. Handles extracting the correct object from `StateTransitionProofResult`. | [P:rs-sdk/src/platform/transition/waitable.rs] |
+| Token builder pattern | Struct-based builders (e.g., `TokenMintTransitionBuilder`, `TokenTransferTransitionBuilder`, `TokenBurnTransitionBuilder`) with fluent API: `::new(contract, pos, id, amount).with_public_note(n).with_using_group_info(g).sign(&sdk, &key, &signer, version).await?`. The SDK then broadcasts via `sdk.token_mint(builder, &key, &signer)`. | [P:rs-sdk/src/platform/tokens/builders/mint.rs] |
+| Document transition builders | Struct-based builders (`DocumentCreateTransitionBuilder`, `DocumentReplaceTransitionBuilder`, `DocumentDeleteTransitionBuilder`, `DocumentTransferTransitionBuilder`, `DocumentPurchaseTransitionBuilder`, `DocumentSetPriceTransitionBuilder`) used via `sdk.document_create(builder, &key, &signer)`. Support optional token payment and creation options. | [P:rs-sdk/src/platform/documents/transitions/create.rs] |
+| `PutSettings` configuration | Configures broadcast behavior: `request_settings` (DAPI connection), `identity_nonce_stale_time_s`, `user_fee_increase`, `wait_timeout` (Duration), and `state_transition_creation_options`. Passed as `Option<PutSettings>` to all Put/broadcast methods. | [P:rs-sdk/src/platform/transition/put_settings.rs] |
+| Automatic proof verification | Every `Fetch`/`FetchMany` call verifies GroveDB proofs returned by Platform using `FromProof` trait and `parse_proof_with_metadata_and_proof()`. State transition results are verified via `Drive::verify_state_transition_was_executed_with_proof()`. This is a core security property of the Rust SDK. | [P:rs-sdk/src/platform/fetch.rs] |
+| Contract cache auto-refresh | Document fetch detects `CorruptedSerialization` errors (stale cached contract schema), automatically re-fetches the contract from Platform, updates the ContextProvider cache, and retries the document query with the fresh contract. | [P:rs-sdk/src/platform/fetch.rs] |
+| `delegate_enum!` macro | Macro for supporting multiple request/response types for a single object (e.g., Identity can be fetched by ID or by public key hash). Creates wrapper enums and delegates `TransportRequest` and `FromProof` to the appropriate variant. | [P:rs-sdk/src/platform/delegate.rs] |
+| Mock SDK testing | `Sdk::new_mock()` creates a mock SDK. Register expectations with `sdk.mock().expect_fetch(query, Some(expected))`. Supports deterministic testing without network. The `MockResponse` trait marks types usable in mock expectations. | [P:rs-sdk/tests/fetch/mock_fetch.rs] |
+| Nonce management | SDK automatically manages identity nonces and identity-contract nonces. `sdk.get_identity_nonce()` and `sdk.get_identity_contract_nonce()` fetch from Platform, with local caching and stale-time support. Nonces auto-refresh on broadcast failure. | [P:rs-sdk/src/platform/transition/put_contract.rs] |
+| Retry with node failover | All fetch and broadcast operations use `retry()` with `address_list()` for automatic node-level retry and failover. The retry closure receives `RequestSettings` and returns `ExecutionResponse` with address tracking. | [P:rs-sdk/src/platform/fetch.rs] |
+| `SdkBuilder` setup | `SdkBuilder::new(address_list).with_network(Network::Testnet).with_context_provider(provider).build()`. Requires a `ContextProvider` for contract caching and quorum key lookups. `GrpcContextProvider` or `TrustedHttpContextProvider` are common choices. | [P:rs-sdk/examples/read_contract.rs] |
+| DPNS high-level API | Methods directly on `Sdk`: `sdk.get_dpns_usernames_by_identity()`, `sdk.resolve_dpns_name()`, `sdk.is_dpns_name_available()`, `sdk.search_dpns_names()`, `sdk.get_contested_non_resolved_usernames()`, `sdk.get_non_resolved_dpns_contests_for_identity()`. Wraps DocumentQuery + FetchMany internally. | [P:rs-sdk/src/platform/dpns_usernames/queries.rs] |
+| Group actions queries | `GroupQuery`, `GroupInfosQuery`, `GroupActionsQuery`, `GroupActionSignersQuery` structs implement Query for fetching data contract groups, their actions, and signers. `GroupAction::fetch_many(&sdk, query)` returns active/closed group actions. | [P:rs-sdk/src/platform/group_actions.rs] |
+| Token balance/info queries | `IdentityTokenBalancesQuery` and `IdentitiesTokenBalancesQuery` fetch token balances (one identity many tokens, or many identities one token). Similarly `IdentityTokenInfosQuery`/`IdentitiesTokenInfosQuery` for freeze status and other token info. | [P:rs-sdk/src/platform/tokens/identity_token_balances.rs] |
+| Contested resource voting | Full voting lifecycle: create `ContestedDocumentResourceVotePoll`, wrap in `ResourceVoteV0`, submit via `Vote::put_to_platform_and_wait_for_response()`. Query contenders with `ContestedDocumentVotePollDriveQuery`, voters with `ContestedDocumentVotePollVotesDriveQuery`, vote polls by end date with `VotePollsByEndDateDriveQuery`. | [P:rs-sdk/src/platform/transition/vote.rs] |
+| Address funding for identity | `Identity::put_with_address_funding()` creates identities funded by Platform addresses instead of asset locks. Takes `BTreeMap<PlatformAddress, (AddressNonce, Credits)>` as inputs. Returns `(Identity, AddressInfos)` with proof-verified address state. | [P:rs-sdk/src/platform/transition/put_identity.rs] |
 
 ## Examples
+
 | Keyword | Description | File |
 |---------|-------------|------|
-| `read_contract` | Fetch a data contract by ID | [P:rs-sdk/examples/read_contract.rs] |
-| `contested_names_with_contenders` | Query contested DPNS names and their contenders | [P:rs-sdk/examples/contested_names_with_contenders.rs] |
-| `identity_contested_names` | Query contested names for an identity | [P:rs-sdk/examples/identity_contested_names.rs] |
-| `dash-evo-tool` | Full GUI: identities, contracts, documents, tokens, voting, DPNS | [T:src/] |
+| `read_contract` | Connects to Platform, builds SDK with `GrpcContextProvider`, fetches a DataContract by Identifier using `DataContract::fetch(&sdk, id)`. Shows full `SdkBuilder` setup with Core RPC credentials. | [P:rs-sdk/examples/read_contract.rs] |
+| `contested_names_with_contenders` | Uses `TrustedHttpContextProvider` for testnet, calls `sdk.get_contested_non_resolved_usernames(Some(10))` to list all unresolved DPNS name contests with contenders, vote tallies, and end times. | [P:rs-sdk/examples/contested_names_with_contenders.rs] |
+| `identity_contested_names` | Queries contested DPNS names for a specific identity via `sdk.get_non_resolved_dpns_contests_for_identity(identity_id, Some(20))`. Shows Base58 identifier parsing and contest result inspection. | [P:rs-sdk/examples/identity_contested_names.rs] |
+| Mock fetch identity | Creates `Sdk::new_mock()`, sets expectation with `sdk.mock().expect_fetch(query, Some(identity))`, then verifies `Identity::fetch(&sdk, query)` returns the expected object. | [P:rs-sdk/tests/fetch/mock_fetch.rs] |
+| Mock fetch document | Chains mock expectations: first for DataContract (needed by DocumentQuery), then for Document. Uses `DocumentQuery::new_with_data_contract_id()` and `random_document()` for test data. | [P:rs-sdk/tests/fetch/mock_fetch.rs] |
+| Mock fetch not found | Demonstrates `None` return: `sdk.mock().expect_fetch(id, None as Option<Identity>)` then asserts `Identity::fetch(&sdk, id)` returns `Ok(None)`. | [P:rs-sdk/tests/fetch/mock_fetch.rs] |
+| Register identity (asset lock) | Full identity registration flow: create asset lock transaction, broadcast to Core, wait for proof, build `Identity` with keys, call `identity.put_to_platform_and_wait_for_response()`. Handles instant lock expiration with chain lock fallback. | [T:src/backend_task/identity/register_identity.rs] |
+| Register identity (platform addresses) | Alternative funding: fetches address nonces from Platform with `AddressInfo::fetch_many()`, constructs `Identity::new_with_input_addresses_and_keys()`, calls `identity.put_with_address_funding()` with wallet as address signer. | [T:src/backend_task/identity/register_identity.rs] |
+| Register DPNS name | Two-step process: create preorder document (with salted domain hash), then domain document. Both use `document.put_to_platform_and_wait_for_response()`. Re-fetches names via `Document::fetch_many()` with `records.identity` where clause. | [T:src/backend_task/identity/register_dpns_name.rs] |
+| Top up identity | Calls `identity.top_up_identity(&sdk, asset_lock_proof, &private_key, None, None)` which returns updated balance. Handles instant lock expiration with chain lock proof fallback, tracks fee delta. | [T:src/backend_task/identity/top_up_identity.rs] |
+| Withdraw from identity | Refreshes identity with `Identity::fetch_by_identifier()` first, then calls `identity.withdraw(&sdk, to_address, credits, Some(1), signing_key, signer, None)`. Returns remaining balance. | [T:src/backend_task/identity/withdraw_from_identity.rs] |
+| Transfer credits | Uses `identity.transfer_credits(&sdk, to_id, amount, signing_key, signer, None)` returning `(sender_balance, receiver_balance)` tuple. Updates both local identities if receiver is known. | [T:src/backend_task/identity/transfer.rs] |
+| Fetch contracts | Batch-fetches contracts with `DataContract::fetch_many(sdk, identifiers)`, stores results in local DB. Also fetches contract descriptions from a search contract using `Document::fetch()` with where clauses. | [T:src/backend_task/contract.rs] |
+| Fetch group actions | Iterates contract groups where identity is a member, queries each with `GroupActionsQuery { contract_id, group_contract_position, status: ActionActive }` via `GroupAction::fetch_many(sdk, query)`. | [T:src/backend_task/contract.rs] |
+| Fetch documents | `Document::fetch_many(sdk, document_query)` with where/order_by/limit clauses. Supports pagination with `Start::StartAfter(last_id)` for cursor-based fetching. | [T:src/backend_task/document.rs] |
+| Document create (builder) | `DocumentCreateTransitionBuilder::new(contract, type_name, document, entropy)` optionally `.with_token_payment_info()`, then `sdk.document_create(builder, &key, &signer)`. Returns `DocumentCreateResult::Document`. | [T:src/backend_task/document.rs] |
+| Document delete (builder) | `DocumentDeleteTransitionBuilder::new(contract, type_name, doc_id, owner_id)` then `sdk.document_delete(builder, &key, &signer)`. Returns `DocumentDeleteResult::Deleted(id)`. | [T:src/backend_task/document.rs] |
+| Document replace (builder) | `DocumentReplaceTransitionBuilder::new(contract, type_name, document)` then `sdk.document_replace(builder, &key, &signer)`. | [T:src/backend_task/document.rs] |
+| Document transfer (builder) | Fetches document first, calls `document.bump_revision()`, builds with `DocumentTransferTransitionBuilder::new(contract, type_name, document, new_owner_id)`, then `sdk.document_transfer()`. | [T:src/backend_task/document.rs] |
+| Document purchase (builder) | Fetches document, bumps revision, builds with `DocumentPurchaseTransitionBuilder::new(contract, type_name, document, buyer_id, price)`, then `sdk.document_purchase()`. | [T:src/backend_task/document.rs] |
+| Document set price (builder) | Fetches document, bumps revision, builds with `DocumentSetPriceTransitionBuilder::new(contract, type_name, document, price)`, then `sdk.document_set_price()`. | [T:src/backend_task/document.rs] |
+| Mint tokens | `TokenMintTransitionBuilder::new(contract, pos, issuer_id, amount).issued_to_identity_id(recipient).with_public_note(note).with_using_group_info(group)` then `sdk.token_mint(builder, &key, &signer)`. Handles `MintResult` variants (direct balance, historical doc, group action). | [T:src/backend_task/tokens/mint_tokens.rs] |
+| Transfer tokens | `TokenTransferTransitionBuilder::new(contract, pos, sender_id, recipient_id, amount).with_public_note(note)` then `sdk.token_transfer(builder, &key, &signer)`. Handles `TransferResult` variants for balance updates. | [T:src/backend_task/tokens/transfer_tokens.rs] |
+| Burn tokens | `TokenBurnTransitionBuilder::new(contract, pos, owner_id, amount).with_public_note(note).with_using_group_info(group)` then `sdk.token_burn(builder, &key, &signer)`. Handles `BurnResult` variants. | [T:src/backend_task/tokens/burn_tokens.rs] |
+| Vote on DPNS name | Creates `ContestedDocumentResourceVotePoll` with DPNS index values, wraps in `ResourceVoteV0`, calls `vote.put_to_platform_and_wait_for_response(pro_tx_hash, &voting_key, sdk, &signer, None)`. Iterates multiple voter identities. | [T:src/backend_task/contested_names/vote_on_dpns_name.rs] |
+| Query contested resources | Uses `sdk.get_contested_non_resolved_usernames()` which internally builds `VotePollsByDocumentTypeQuery`, fetches contenders with `ContestedDocumentVotePollDriveQuery`, and end times with `VotePollsByEndDateDriveQuery`. | [P:rs-sdk/src/platform/dpns_usernames/contested_queries.rs] |
+| DPNS name resolution | `sdk.resolve_dpns_name("alice")` builds a DocumentQuery with `normalizedParentDomainName == "dash"` and `normalizedLabel == normalized_name`, fetches single document, extracts `records.identity`. | [P:rs-sdk/src/platform/dpns_usernames/queries.rs] |
+| DPNS name search | `sdk.search_dpns_names("ali", Some(10))` uses `WhereOperator::StartsWith` on `normalizedLabel` with `OrderClause` for sorted results. Returns `Vec<DpnsUsername>`. | [P:rs-sdk/src/platform/dpns_usernames/queries.rs] |
+| Proof error logging | dash-evo-tool pattern: match on `Error::DriveProofError(proof_error, proof_bytes, block_info)`, persist to `ProofLogItem` for debugging, then return user-friendly error. Applied consistently across all broadcast operations. | [T:src/backend_task/tokens/mint_tokens.rs] |
+| Fetch with metadata | `ExtendedEpochInfo::fetch_with_metadata(&sdk, 0, None)` returns `(Option<T>, ResponseMetadata)` tuple. Used to get `core_chain_locked_height` for asset lock proof type decisions. | [T:src/backend_task/identity/register_identity.rs] |
 
