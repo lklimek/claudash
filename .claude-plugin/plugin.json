@@ -1,0 +1,16 @@
+{
+  "name": "dash-platform",
+  "version": "0.1.0",
+  "description": "Skills for Dash Platform developers — data contracts, Rust SDK, JS SDK, and documentation indexing",
+  "license": "GPL-3.0",
+  "author": {
+    "name": "lklimek"
+  },
+  "repository": "https://github.com/lklimek/claudash",
+  "skills": [
+    "skills/update-index",
+    "skills/dash-platform-contract",
+    "skills/dash-platform-rust",
+    "skills/dash-platform-js"
+  ]
+}
