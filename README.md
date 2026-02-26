@@ -4,14 +4,19 @@
 
 A [Claude Code plugin](https://docs.anthropic.com/en/docs/claude-code/plugins) for [Dash Platform](https://docs.dash.org/projects/platform/) developers.
 
+## What is Dash Platform?
+
+[Dash Platform](https://www.dash.org/platform/) is a decentralized application layer built on the Dash network. It provides decentralized data storage (Drive), a gRPC API layer (DAPI), user identities, data contracts (schema-defined documents stored on-chain), and a name service (DPNS). Developers build on it using the Rust SDK (`dash-sdk` + `dpp`) or the JS/TS SDK (`dash` npm package). The entire stack lives in the [dashpay/platform](https://github.com/dashpay/platform) monorepo — 30+ packages spanning Rust, JavaScript, and protobuf definitions.
+
 ## The Problem
 
-Dash Platform is powerful but hard to learn:
+Dash Platform has a rich API surface, but the developer experience has real friction:
 
 - **Documentation is fragmented** across docs.dash.org, rustdoc, proto files, and multiple GitHub repos
 - **The Rust SDK isn't on crates.io** or docs.rs — types are deeply nested across `dash-sdk`, `dpp`, `rs-dapi-client`, and `dapi-grpc`
-- **The monorepo is massive** — finding the right type, trait, or query pattern means knowing which of dozens of packages to look in
-- **APIs evolve fast** — the platform is pre-1.0 with active changes across versions
+- **The monorepo is massive** — finding the right type, trait, or query pattern means knowing which of 30+ packages to look in
+- **API surface is large** — 2,700+ public Rust types/functions, 80 gRPC RPCs, 560+ JS SDK exports, and 300+ contract-related types
+- **Community resources are limited** — fewer tutorials, examples, and Stack Overflow answers compared to larger blockchain ecosystems
 
 When you ask a vanilla LLM about Dash Platform, it guesses. Often wrong.
 
