@@ -4,6 +4,24 @@
 
 A [Claude Code plugin](https://docs.anthropic.com/en/docs/claude-code/plugins) for [Dash Platform](https://docs.dash.org/projects/platform/) developers.
 
+## Install
+
+Add the marketplace, then install the plugin:
+
+```
+/plugin marketplace add lklimek/agents
+/plugin install claudash@lklimek
+```
+
+Alternatively, install from a local clone:
+
+```bash
+claude plugin install /path/to/claudash
+
+# Or load for a single session
+claude --plugin-dir /path/to/claudash
+```
+
 ## What is Dash Platform?
 
 [Dash Platform](https://www.dash.org/platform/) is a decentralized application layer built on the Dash network. It provides decentralized data storage (Drive), a gRPC API layer (DAPI), user identities, data contracts (schema-defined documents stored on-chain), and a name service (DPNS). Developers build on it using the Rust SDK (`dash-sdk` + `dpp`) or the JS/TS SDK (`dash` npm package). The entire stack lives in the [dashpay/platform](https://github.com/dashpay/platform) monorepo — 30+ packages spanning Rust, JavaScript, and protobuf definitions.
@@ -41,24 +59,6 @@ This means Claude can help you:
 - **Use the JS SDK** — client initialization, identity/contract/document CRUD, DPNS registration, wallet management
 - **Call gRPC endpoints** directly with correct message types
 - **Navigate the monorepo** — find the right package, type, or function instantly
-
-## Install
-
-Add the marketplace, then install the plugin:
-
-```
-/plugin marketplace add lklimek/agents
-/plugin install claudash@lklimek
-```
-
-Alternatively, install from a local clone:
-
-```bash
-claude plugin install /path/to/claudash
-
-# Or load for a single session
-claude --plugin-dir /path/to/claudash
-```
 
 ## Usage
 
