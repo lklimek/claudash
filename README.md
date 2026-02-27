@@ -48,7 +48,7 @@ Add the marketplace, then install the plugin:
 
 ```
 /plugin marketplace add lklimek/agents
-/plugin install claudash@agents
+/plugin install claudash@lklimek
 ```
 
 Alternatively, install from a local clone:
