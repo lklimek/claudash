@@ -47,8 +47,8 @@ This means Claude can help you:
 Add the marketplace, then install the plugin:
 
 ```
-/plugin marketplace add lklimek/agentes
-/plugin install dash-platform@agentes
+/plugin marketplace add lklimek/agents
+/plugin install claudash@agents
 ```
 
 Alternatively, install from a local clone:
