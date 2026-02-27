@@ -11,7 +11,6 @@ Guidance for Claude Code working in this repository.
 ```
 .claude-plugin/
   plugin.json       # Plugin manifest (only `name` required; skills/ auto-discovered)
-  marketplace.json  # Marketplace listing
 skills/             # Skill definitions (directories with SKILL.md)
 lexicon/            # Auto-generated keyword lookup tables (do not edit manually)
 scripts/            # Helper scripts for lexicon generation
@@ -77,6 +76,6 @@ claude plugin validate .                         # validate manifest
 
 ## Versioning
 
-Bump version in `plugin.json` and `marketplace.json` together. Follow SemVer 2.
+Bump version in `plugin.json`. Follow SemVer 2.
 
 Pre-1.0: minor (0.x.0) for new skills or behavior changes, patch (0.0.x) for fixes.
