@@ -47,8 +47,8 @@ This means Claude can help you:
 Add the marketplace, then install the plugin:
 
 ```
-/plugin marketplace add lklimek/claudash
-/plugin install dash-platform@claudash
+/plugin marketplace add lklimek/agents
+/plugin install claudash@agents
 ```
 
 Alternatively, install from a local clone:
@@ -137,8 +137,7 @@ Complete service definitions, all RPC endpoints, request/response message schema
 ```
 claudash/
 ├── .claude-plugin/
-│   ├── plugin.json          # Plugin manifest
-│   └── marketplace.json     # Marketplace listing
+│   └── plugin.json          # Plugin manifest
 ├── skills/
 │   ├── dash-platform/       # Main development skill
 │   └── update-lexicon/      # Lexicon regeneration skill
