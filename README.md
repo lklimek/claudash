@@ -24,7 +24,7 @@ claude --plugin-dir /path/to/claudash
 
 ## What is Dash Platform?
 
-[Dash Platform](https://www.dash.org/platform/) is a decentralized application layer built on the Dash network. It provides decentralized data storage (Drive), a gRPC API layer (DAPI), user identities, data contracts (schema-defined documents stored on-chain), and a name service (DPNS). Developers build on it using the Rust SDK (`dash-sdk` + `dpp`) or the JS/TS SDK (`dash` npm package). The entire stack lives in the [dashpay/platform](https://github.com/dashpay/platform) monorepo — 30+ packages spanning Rust, JavaScript, and protobuf definitions.
+[Dash Platform](https://www.dash.org/platform/) is a decentralized application layer built on the Dash network. It provides decentralized data storage (Drive), a gRPC API layer (DAPI), user identities, data contracts (schema-defined documents stored on-chain), and a name service (DPNS). Developers build on it using the Rust SDK (`dash-sdk` + `dpp`) or the JS/TS SDK (`@dashevo/evo-sdk`). The entire stack lives in the [dashpay/platform](https://github.com/dashpay/platform) monorepo — 30+ packages spanning Rust, JavaScript, and protobuf definitions.
 
 ## The Problem
 
@@ -48,7 +48,7 @@ claudash ships a **lexicon** — pre-indexed lookup tables generated from actual
 |---------|---------|----------|
 | **Rust SDK** | ~2,900 | Every public type, function, and trait from `dash-sdk`, `dpp`, `rs-dapi-client`, `dapi-grpc` |
 | **Rust Patterns** | ~40 | Real-world SDK usage patterns and examples from `dash-evo-tool`, `yappr`, `dash-bridge` |
-| **JS/TS SDK** | ~500 | Types, options, facades, query interfaces from the `dash` npm package and `wasm-dpp` |
+| **JS/TS SDK** | ~500 | Types, options, facades, query interfaces from `@dashevo/evo-sdk` and `wasm-dpp` |
 | **Data Contracts** | ~240 | Contract types, document schemas, state transitions, token config, groups, voting |
 | **gRPC API** | ~320 | All 3 services, RPCs, request/response message types |
 
@@ -126,7 +126,7 @@ Contract structure, document types, JSON Schema properties, index design (compou
 ### Rust SDK (`dash-sdk` + `dpp`)
 Core types (`Sdk`, `Identity`, `DataContract`, `Document`, `Identifier`), CRUD via `Fetch`/`FetchMany` traits, query builders (`DriveQuery`, `DocumentQuery`), cryptographic proof verification, state transitions, token operations (mint, burn, freeze, transfer), document marketplace, group actions, contested resource voting.
 
-### JS/TS SDK (`dash` npm + `wasm-dpp`)
+### JS/TS SDK (`@dashevo/evo-sdk` + `wasm-dpp`)
 Client initialization, identity registration, contract creation and publishing, document CRUD, DPNS names, wallet (HD derivation, UTXO management), WASM-DPP for browser validation. Includes the critical note that **pure JS SDK lacks client-side proof verification** — use `wasm-sdk` for security-critical apps.
 
 ### gRPC API
