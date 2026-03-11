@@ -51,13 +51,13 @@ python3 scripts/gen-rust-lexicon.py "$DOC_DIR" --patterns lexicon/rust-patterns.
 
 ### Agent 2: `lexicon/contract.md`
 
-**Paths**: `.repos/platform/packages/rs-dpp/` (contract types, document types, validation), `.repos/platform/packages/wasm-dpp/` (WASM bindings), `.repos/platform/packages/js-dash-sdk/src/SDK/Client/Platform/methods/`, `.repos/yappr/contracts/` (contract examples), `.repos/dash-bridge/` (TS types).
+**Paths**: `.repos/platform/packages/rs-dpp/` (contract types, document types, validation), `.repos/platform/packages/wasm-dpp/` (WASM bindings), `.repos/yappr/contracts/` (contract examples), `.repos/dash-bridge/` (TS types).
 
 **Extract**: Every public type related to data contracts, document types, state transitions, validation, JSON Schema, token config, group actions. Every contract JSON example.
 
 ### Agent 3: `lexicon/js.md`
 
-**Paths**: `.repos/platform/packages/js-evo-sdk/`, `.repos/platform/packages/js-dash-sdk/`, `.repos/platform/packages/wasm-dpp/`, `.repos/platform/packages/wasm-dpp2/`, `.repos/platform/packages/wasm-sdk/`, `.repos/yappr/` (TS files), `.repos/dash-bridge/` (TS files), `.repos/evo-sdk-website/`.
+**Paths**: `.repos/platform/packages/js-evo-sdk/`, `.repos/platform/packages/wasm-dpp/`, `.repos/platform/packages/wasm-dpp2/`, `.repos/platform/packages/wasm-sdk/`, `.repos/yappr/` (TS files), `.repos/dash-bridge/` (TS files), `.repos/evo-sdk-website/`.
 
 **Extract**: Every exported class, function, type, interface, facade method. Usage patterns from example apps. WASM init patterns.
 
