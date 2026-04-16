@@ -34,6 +34,7 @@ Auto-generated keyword lookup tables in `lexicon/`. Skills grep these to find ty
 | `contract.md` | rs-dpp, wasm-dpp, yappr, dash-bridge | Agent-generated |
 | `js.md` | js-evo-sdk, wasm-sdk, yappr | Agent-generated |
 | `grpc.md` | dapi-grpc protos | Agent-generated |
+| `explorers.md` | insight-api, platform-explorer.com | Manually curated |
 
 **Do not edit lexicon files manually.** Run `/update-lexicon` to regenerate.
 
