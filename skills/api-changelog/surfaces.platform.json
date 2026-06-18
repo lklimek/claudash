@@ -19,7 +19,8 @@
     {"pkg": "wasm-sdk",                                      "paths": ["src/"],         "dts": ["**/*.d.ts"]},
     {"pkg": "wasm-dpp",                                      "paths": ["src/", "lib/"], "dts": ["**/*.d.ts"]},
     {"pkg": "wasm-dpp2",                                     "paths": ["src/"],         "dts": ["**/*.d.ts"]},
-    {"pkg": "wasm-drive-verify",                             "paths": ["src/"],         "dts": ["**/*.d.ts"]}
+    {"pkg": "wasm-drive-verify",                             "paths": ["src/"],         "dts": ["**/*.d.ts"]},
+    {"pkg": "js-dapi-client",   "npm": "@dashevo/dapi-client","paths": ["lib/", "src/"],"dts": ["**/*.d.ts"]}
   ],
   "swift": [
     {"pkg": "swift-sdk", "paths": ["Sources/"]}
