@@ -36,7 +36,6 @@
     "*-contract":           "data contracts — covered by lexicon/contract.md",
     "data-contracts":       "data contracts — covered by lexicon/contract.md",
     "rs-platform-value":    "internal value type; re-exported via rs-dpp surface",
-    "rs-drive-abci":        "node ABCI application, not client surface",
     "js-dpp":               "superseded by wasm-dpp / wasm-dpp2",
     "dpns-contract":        "data contract, see lexicon/contract.md",
     "dashpay-contract":     "data contract, see lexicon/contract.md",

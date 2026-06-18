@@ -244,7 +244,9 @@ def compute_plan(
 
     # Idempotency: mark existing files as skip
     worklist = []
-    for version, (base_tag, head_tag) in sorted(targets.items()):
+    for version, (base_tag, head_tag) in sorted(
+        targets.items(), key=lambda kv: _semver_key("v" + kv[0])
+    ):
         out_path = output_dir / f"{version}.md"
         action = "skip" if out_path.exists() else "generate"
         worklist.append({

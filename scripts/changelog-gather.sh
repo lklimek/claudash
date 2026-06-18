@@ -159,7 +159,6 @@ write_stream_b_missing() {
 try_stream_b_rust() {
     local work_dir="$1" base_tag="$2" head_tag="$3" crate="$4"
     local b_ok="${work_dir}/B.tool.cargo-public-api.txt"
-    local b_semver="${work_dir}/B.tool.cargo-semver-checks.txt"
     local b_missing="${work_dir}/B.tool.MISSING"
 
     # Check cargo itself is available.
@@ -212,16 +211,6 @@ try_stream_b_rust() {
     else
         write_stream_b_missing "$b_missing" \
             "cargo-public-api build failed for crate=${crate} (see R1 in design — build fragility on tags is expected)"
-    fi
-
-    # cargo-semver-checks (best-effort, separate output).
-    if command -v cargo-semver-checks >/dev/null 2>&1; then
-        cargo semver-checks \
-            --manifest-path "${clone_abs}/packages/${PKG_PATH}/Cargo.toml" \
-            --baseline-rev "$base_tag" \
-            2>/dev/null > "$b_semver" || \
-        printf "cargo-semver-checks exited non-zero (may indicate breaking changes)\n" \
-            >> "$b_semver"
     fi
 }
 

@@ -72,6 +72,7 @@ python3 scripts/gen-rust-lexicon.py "$DOC_DIR" --patterns lexicon/rust-patterns.
 After lexicon tables are regenerated, refresh the per-release API changelog. This step is **not optional** — the lexicon and the changelog are released together.
 
 ```bash
+mkdir -p .work/changelog
 python3 scripts/changelog-plan.py --repo dashpay/platform > .work/changelog/plan.json
 bash scripts/changelog-gather.sh .work/changelog/plan.json
 ```
