@@ -67,6 +67,19 @@ python3 scripts/gen-rust-lexicon.py "$DOC_DIR" --patterns lexicon/rust-patterns.
 
 **Extract**: Every service, RPC, message type, enum, field. Single package — be completely exhaustive. Every RPC must have a row.
 
+## Step 4: Generate API changelog (MANDATORY)
+
+After lexicon tables are regenerated, refresh the per-release API changelog. This step is **not optional** — the lexicon and the changelog are released together.
+
+```bash
+python3 scripts/changelog-plan.py --repo dashpay/platform > .work/changelog/plan.json
+bash scripts/changelog-gather.sh .work/changelog/plan.json
+```
+
+Then, for each `generate` entry in the plan, spawn one synthesis agent per changed surface (see `skills/api-changelog/SKILL.md` → "Synthesis"). Apply the plan's `prune` list (delete superseded prerelease files). Existing files are skipped (idempotent), so steady-state runs are cheap.
+
+`lexicon/changelog/platform/*.md` is produced by this step and committed alongside the rest of lexicon.
+
 ## Agent Prompt Template
 
 Include in each agent's prompt:

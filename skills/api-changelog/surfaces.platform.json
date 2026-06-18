@@ -51,6 +51,9 @@
     "rs-grovedb":           "storage layer, not client SDK surface",
     "rs-grovedb-costs":     "storage layer internals",
     "hpp":                  "node internal",
-    "json-schema-compatibility-validator": "tooling"
+    "json-schema-compatibility-validator": "tooling",
+    "js-grpc-common":                      "gRPC plumbing/shared types, not a public SDK surface",
+    "rs-platform-wallet-storage":          "internal storage backend for platform-wallet, not a direct client surface",
+    "rs-sdk-trusted-context-provider":     "SDK support crate (context provider), not a standalone client surface — exclude v1"
   }
 }

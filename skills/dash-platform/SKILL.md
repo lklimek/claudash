@@ -34,6 +34,16 @@ npm install dash
 | `lexicon/js.md` | JS SDK types, functions, patterns |
 | `lexicon/contract.md` | data contract types, JSON Schema, DPP, document types |
 | `lexicon/grpc.md` | gRPC services, messages, endpoints |
+| `lexicon/changelog/platform/*.md` | per-release public-API diffs + migration guidance (breaking changes, added/removed symbols) |
+
+### Version & migration questions
+
+When the user asks "what changed in `<version>`", "is X a breaking change", "how do I migrate from A to B", or mentions upgrading SDK versions:
+1. Grep `lexicon/changelog/platform/*.md` for the symbol/RPC keyword (same grep-first flow as the lexicon).
+2. Pick the file for the target version (newer release); read the matching row's Change + Migration columns.
+3. Expand the `Ref` link (`PR:` → `https://github.com/dashpay/platform/pull/`, `C:` → `https://github.com/dashpay/platform/commit/`) and WebFetch for the full rationale.
+
+Stable files are permanent; only the single most-recent prerelease file is kept.
 
 Link prefixes:
 
@@ -47,6 +57,8 @@ Link prefixes:
 | `Y:` | `https://github.com/PastaPastaPasta/yappr/blob/master/` |
 | `D:` | `https://github.com/PastaPastaPasta/dash-bridge/blob/master/` |
 | `E:` | `https://github.com/dashpay/evo-sdk-website/blob/master/` |
+| `PR:` | `https://github.com/dashpay/platform/pull/` |
+| `C:` | `https://github.com/dashpay/platform/commit/` |
 
 ---
 
