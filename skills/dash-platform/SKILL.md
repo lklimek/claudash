@@ -34,6 +34,7 @@ npm install @dashevo/evo-sdk
 | `lexicon/js.md` | JS SDK types, functions, patterns |
 | `lexicon/contract.md` | data contract types, JSON Schema, DPP, document types |
 | `lexicon/grpc.md` | gRPC services, messages, endpoints |
+| `lexicon/explorers.md` | Insight API + Platform Explorer endpoints, instances |
 
 Link prefixes:
 
