@@ -162,35 +162,47 @@ try_stream_b_rust() {
     local b_semver="${work_dir}/B.tool.cargo-semver-checks.txt"
     local b_missing="${work_dir}/B.tool.MISSING"
 
+    # Check cargo itself is available.
     if ! command -v cargo >/dev/null 2>&1; then
         write_stream_b_missing "$b_missing" "cargo not found — skipping Rust tool diff"
         return
     fi
 
+    # Check that cargo-public-api subcommand is installed.
+    if ! cargo +nightly public-api --version >/dev/null 2>&1; then
+        write_stream_b_missing "$b_missing" \
+            "cargo-public-api not installed — install: cargo install cargo-public-api (best-effort, Stream A is the backbone)"
+        return
+    fi
+
     # cargo-public-api needs rustdoc JSON which requires nightly.
-    # Run inside the CLONE_DIR with a worktree for the head tag.
-    local wt_base="${CLONE_DIR}/.wt-base-$$"
-    local wt_head="${CLONE_DIR}/.wt-head-$$"
+    # Use absolute paths for worktrees to avoid git-C vs bash-CWD mismatch.
+    local clone_abs
+    clone_abs=$(realpath "$CLONE_DIR")
+    local wt_base="${clone_abs}/.wt-base-$$"
+    local wt_head="${clone_abs}/.wt-head-$$"
+
+    # Cleanup trap: use absolute paths already expanded.
     # shellcheck disable=SC2064
-    trap "git -C ${CLONE_DIR@Q} worktree remove --force ${wt_base@Q} 2>/dev/null; \
-          git -C ${CLONE_DIR@Q} worktree remove --force ${wt_head@Q} 2>/dev/null" EXIT
+    trap "git -C ${clone_abs@Q} worktree remove --force ${wt_base@Q} 2>/dev/null; \
+          git -C ${clone_abs@Q} worktree remove --force ${wt_head@Q} 2>/dev/null" EXIT
 
     local b_out
     b_out=$(
-        git -C "$CLONE_DIR" worktree add --detach "$wt_base" "refs/tags/${base_tag}" 2>/dev/null &&
-        git -C "$CLONE_DIR" worktree add --detach "$wt_head" "refs/tags/${head_tag}" 2>/dev/null &&
-        cd "$wt_head/packages/${PKG_PATH}" &&
+        git -C "$clone_abs" worktree add --detach "$wt_base" "refs/tags/${base_tag}" 2>/dev/null &&
+        git -C "$clone_abs" worktree add --detach "$wt_head" "refs/tags/${head_tag}" 2>/dev/null &&
+        cd "${wt_head}/packages/${PKG_PATH}" &&
         cargo +nightly public-api \
             --manifest-path Cargo.toml \
             diff \
             --baseline-rustup-toolchain nightly \
-            --baseline-dir "../../../../${wt_base}/packages/${PKG_PATH}" \
+            --baseline-dir "${wt_base}/packages/${PKG_PATH}" \
             2>/dev/null
     ) || true
 
-    # Clean up worktrees regardless of success/failure
-    git -C "$CLONE_DIR" worktree remove --force "$wt_base" 2>/dev/null || true
-    git -C "$CLONE_DIR" worktree remove --force "$wt_head" 2>/dev/null || true
+    # Clean up worktrees regardless of success/failure.
+    git -C "$clone_abs" worktree remove --force "$wt_base" 2>/dev/null || true
+    git -C "$clone_abs" worktree remove --force "$wt_head" 2>/dev/null || true
     trap - EXIT
 
     if [ -n "$b_out" ]; then
@@ -202,10 +214,10 @@ try_stream_b_rust() {
             "cargo-public-api build failed for crate=${crate} (see R1 in design — build fragility on tags is expected)"
     fi
 
-    # cargo-semver-checks (best-effort, separate output)
+    # cargo-semver-checks (best-effort, separate output).
     if command -v cargo-semver-checks >/dev/null 2>&1; then
         cargo semver-checks \
-            --manifest-path "${CLONE_DIR}/packages/${PKG_PATH}/Cargo.toml" \
+            --manifest-path "${clone_abs}/packages/${PKG_PATH}/Cargo.toml" \
             --baseline-rev "$base_tag" \
             2>/dev/null > "$b_semver" || \
         printf "cargo-semver-checks exited non-zero (may indicate breaking changes)\n" \
@@ -284,6 +296,9 @@ write_stream_c() {
 
     # Process each commit — extract PR, fetch PR metadata.
     # We deduplicate by PR number to avoid redundant gh calls.
+    # Cap total gh pr view calls to keep runtime reasonable (design R2 mitigation).
+    local max_pr_lookups="${MAX_PR_LOOKUPS:-30}"
+    local pr_lookup_count=0
     declare -A seen_prs=()
 
     while IFS= read -r sha; do
@@ -314,9 +329,10 @@ write_stream_c() {
         # (pr_title/pr_body are external data — python3 json.dumps handles escaping safely)
         local pr_title="" pr_url="" labels_json="[]" issues_json="[]"
         if [ -n "$pr_num" ] && validate_pr_num "$pr_num" 2>/dev/null; then
-            # Skip if we already fetched this PR
-            if [[ -z "${seen_prs[$pr_num]+_}" ]]; then
+            # Skip if we already fetched this PR or hit the per-surface cap.
+            if [[ -z "${seen_prs[$pr_num]+_}" ]] && (( pr_lookup_count < max_pr_lookups )); then
                 seen_prs["$pr_num"]=1
+                pr_lookup_count=$(( pr_lookup_count + 1 ))
                 local pr_json
                 pr_json=$(gh pr view "$pr_num" \
                     --repo "$REPO" \
