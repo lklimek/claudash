@@ -1,0 +1,56 @@
+{
+  "_comment": "Allow-list of public API surfaces for dashpay/platform. Edit to add/exclude packages. Checked in — the source of truth for changelog-plan.py and changelog-gather.sh.",
+  "rust": [
+    {"pkg": "rs-sdk",                   "crate": "dash-sdk",          "paths": ["src/"]},
+    {"pkg": "rs-dpp",                   "crate": "dpp",               "paths": ["src/"]},
+    {"pkg": "rs-drive",                 "crate": "drive",             "paths": ["src/"]},
+    {"pkg": "rs-dapi-client",           "crate": "rs-dapi-client",    "paths": ["src/"]},
+    {"pkg": "rs-drive-proof-verifier",  "crate": "drive-proof-verifier","paths": ["src/"]},
+    {"pkg": "rs-sdk-ffi",               "crate": "dash-sdk-ffi",      "paths": ["src/"]},
+    {"pkg": "rs-unified-sdk-ffi",       "crate": "unified-sdk-ffi",   "paths": ["src/"]},
+    {"pkg": "rs-platform-wallet",       "crate": "platform-wallet",   "paths": ["src/"]},
+    {"pkg": "rs-platform-wallet-ffi",   "crate": "platform-wallet-ffi","paths": ["src/"]}
+  ],
+  "grpc": [
+    {"pkg": "dapi-grpc", "paths": ["protos/"]}
+  ],
+  "js": [
+    {"pkg": "js-evo-sdk",       "npm": "@dashevo/evo-sdk",  "paths": ["src/"],         "dts": ["dist/sdk.d.ts"]},
+    {"pkg": "wasm-sdk",                                      "paths": ["src/"],         "dts": ["**/*.d.ts"]},
+    {"pkg": "wasm-dpp",                                      "paths": ["src/", "lib/"], "dts": ["**/*.d.ts"]},
+    {"pkg": "wasm-dpp2",                                     "paths": ["src/"],         "dts": ["**/*.d.ts"]},
+    {"pkg": "wasm-drive-verify",                             "paths": ["src/"],         "dts": ["**/*.d.ts"]}
+  ],
+  "swift": [
+    {"pkg": "swift-sdk", "paths": ["Sources/"]}
+  ],
+  "exclude_reason": {
+    "js-dash-sdk":          "deprecated, replaced by js-evo-sdk (MemCan e6703e09)",
+    "rs-drive-abci":        "node (ABCI server), not client surface",
+    "rs-dapi":              "node gRPC server, not client surface",
+    "dapi":                 "node, not client surface",
+    "dashmate":             "orchestration tool, not an SDK",
+    "platform-test-suite":  "tests, not production surface",
+    "strategy-tests":       "tests, not production surface",
+    "*-contract":           "data contracts — covered by lexicon/contract.md",
+    "data-contracts":       "data contracts — covered by lexicon/contract.md",
+    "rs-platform-value":    "internal value type; re-exported via rs-dpp surface",
+    "rs-drive-abci":        "node ABCI application, not client surface",
+    "js-dpp":               "superseded by wasm-dpp / wasm-dpp2",
+    "dpns-contract":        "data contract, see lexicon/contract.md",
+    "dashpay-contract":     "data contract, see lexicon/contract.md",
+    "masternode-reward-shares-contract": "data contract, see lexicon/contract.md",
+    "feature-flags-contract": "data contract, see lexicon/contract.md",
+    "withdrawal-contract":  "data contract, see lexicon/contract.md",
+    "token-history-contract":"data contract, see lexicon/contract.md",
+    "simple-token-contract": "data contract, see lexicon/contract.md",
+    "platform-value":       "internal type, not a direct client surface",
+    "grovedb-grove-grpc":   "internal gRPC, not public API",
+    "check-platform-node":  "tooling/testing utility",
+    "bench-utils":          "benchmark utilities",
+    "rs-grovedb":           "storage layer, not client SDK surface",
+    "rs-grovedb-costs":     "storage layer internals",
+    "hpp":                  "node internal",
+    "json-schema-compatibility-validator": "tooling"
+  }
+}
