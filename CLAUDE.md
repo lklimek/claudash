@@ -33,8 +33,9 @@ Auto-generated keyword lookup tables in `lexicon/`. Skills grep these to find ty
 | `rust.md` | dash-sdk, dpp, rs-dapi-client, dapi-grpc | `cargo +nightly doc` → rustdoc JSON → `scripts/gen-rust-lexicon.py` |
 | `rust-patterns.md` | rs-sdk examples, dash-evo-tool | Agent-generated, appended to rust.md by script |
 | `contract.md` | rs-dpp, wasm-dpp, yappr, dash-bridge | Agent-generated |
-| `js.md` | js-evo-sdk, js-dash-sdk, wasm-sdk, yappr | Agent-generated |
+| `js.md` | js-evo-sdk, wasm-sdk, yappr | Agent-generated |
 | `grpc.md` | dapi-grpc protos | Agent-generated |
+| `explorers.md` | insight-api, platform-explorer.com | Manually curated |
 | `changelog/platform/*.md` | platform releases (gh) | api-changelog skill: plan → gather → synthesis agents |
 
 **Do not edit lexicon files manually.** Run `/update-lexicon` to regenerate.

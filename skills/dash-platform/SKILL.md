@@ -1,6 +1,6 @@
 ---
 name: dash-platform
-description: "Dash Platform development — data contracts, Rust SDK (dash-sdk, dpp), JS SDK (dash npm, wasm-dpp), gRPC, identities, documents. Use when working with Dash Platform in any language."
+description: "Dash Platform development — data contracts, Rust SDK (dash-sdk, dpp), JS SDK (@dashevo/evo-sdk, wasm-dpp), gRPC, identities, documents. Use when working with Dash Platform in any language."
 ---
 
 Assist with Dash Platform development: data contracts, Rust SDK, JS/TS SDK, identities, documents, and queries.
@@ -18,7 +18,7 @@ dpp = { git = "https://github.com/dashpay/platform", branch = "master" }
 
 **JS/TS**:
 ```bash
-npm install dash
+npm install @dashevo/evo-sdk
 ```
 
 ## Lexicon
@@ -34,6 +34,7 @@ npm install dash
 | `lexicon/js.md` | JS SDK types, functions, patterns |
 | `lexicon/contract.md` | data contract types, JSON Schema, DPP, document types |
 | `lexicon/grpc.md` | gRPC services, messages, endpoints |
+| `lexicon/explorers.md` | Insight API + Platform Explorer endpoints, instances |
 | `lexicon/changelog/platform/*.md` | per-release public-API diffs + migration guidance (breaking changes, added/removed symbols) |
 
 ### Version & migration questions
@@ -140,10 +141,14 @@ let docs = Document::fetch_many(&sdk, query).await?;
 
 ## JS/TS SDK
 
+> **Deprecated: js-dash-sdk / `dash` npm package** — The `js-dash-sdk` (npm: `dash`) is deprecated and unsupported, replaced by `js-evo-sdk` (npm: `@dashevo/evo-sdk`). If you encounter `require('dash')`, `new Dash.Client()`, or `js-dash-sdk` imports: alert the user, recommend migrating to `@dashevo/evo-sdk`, and do NOT generate new code using the legacy package.
+
 ### Client Init
 
 ```javascript
-const client = new (require('dash')).Client({
+import { EvoSDK } from '@dashevo/evo-sdk';
+
+const client = new EvoSDK({
   network: 'testnet',
   wallet: { mnemonic: '...' },
 });

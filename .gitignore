@@ -1,4 +1,4 @@
 .repos/
 .work/
 __pycache__/
-
+settings.local.json
