@@ -52,7 +52,9 @@ _SDK_ISH_PAT = re.compile(
 )
 
 # Allow-list for tag/version strings used in shell/URL calls (safety fence).
-_SAFE_TAG_RE = re.compile(r"^[a-zA-Z0-9._/-]+$")
+# Mirrors the Bash fence in changelog-gather.sh: permits SemVer build metadata
+# ('+') but forbids a leading '-'/'+' (option-injection safety).
+_SAFE_TAG_RE = re.compile(r"^[a-zA-Z0-9._/][a-zA-Z0-9._/+-]*$")
 
 
 # ── Semver (inline, §3.2 — no external deps) ─────────────────────────────────
@@ -226,6 +228,14 @@ def compute_plan(
         if _semver_key(tag) <= _semver_key(floor_tag):
             continue            # 3.0.0 itself = anchor, no file (locked decision)
         predecessors = [s for s in stable_sorted if _semver_key(s) < _semver_key(tag)]
+        if not predecessors:
+            print(
+                f"WARNING: no stable predecessor for {tag!r} in the releases list "
+                "— skipping (cannot determine a base tag; is the 3.0.0 anchor missing "
+                "from GitHub Releases?).",
+                file=sys.stderr,
+            )
+            continue
         base = max(predecessors, key=_semver_key)
         targets[_ver_str(tag)] = (base, tag)
 

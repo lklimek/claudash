@@ -200,6 +200,7 @@ try_stream_b_rust() {
         cd "${wt_head}/packages/${PKG_PATH}" &&
         cargo +nightly public-api \
             --manifest-path Cargo.toml \
+            --package "$crate" \
             diff \
             --baseline-rustup-toolchain nightly \
             --baseline-dir "${wt_base}/packages/${PKG_PATH}" \
