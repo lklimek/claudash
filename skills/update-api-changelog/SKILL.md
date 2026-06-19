@@ -10,7 +10,7 @@ Diff two Dash Platform releases across all SDK/client surfaces and emit a grep-r
 
 ```
 changelog-plan.py          →  worklist JSON  (which pairs need files, which skip, what to prune)
-changelog-gather.sh        →  .work/changelog/<ver>/<surface>/  (raw diff inputs, per surface)
+changelog-gather.sh        →  .work/changelog/<version>/<lang>/<pkg>/  (raw diff inputs, per surface)
 synthesis agent(s)         →  lexicon/changelog/platform/<version>.md
 ```
 

@@ -73,7 +73,12 @@ def _parse_semver(tag: str):
     normal version.  E.g. 1.0.0-alpha < 1.0.0.
     """
     raw = tag.lstrip("v")
-    m = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)(?:-(.+))?", raw)
+    # SemVer §10: optional build metadata ('+...') is matched and then ignored
+    # for precedence. The tag fence permits '+', so the parser must too — else
+    # tags like v4.0.0+build.7 would be dropped as "unparseable".
+    m = re.fullmatch(
+        r"(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?(?:\+[0-9A-Za-z.-]+)?", raw
+    )
     if not m:
         return None
     major, minor, patch = int(m.group(1)), int(m.group(2)), int(m.group(3))
@@ -194,11 +199,14 @@ def compute_plan(
         if parsed is None:
             continue                # skip unparseable tags (e.g. "1.0.0-pr.1694.7")
         major, minor, patch, pre_parts = parsed
-        if r["isPrerelease"]:
+        # Trust the parsed SemVer prerelease identifiers, OR-ed with GitHub's
+        # isPrerelease flag — resilient to release-metadata drift (e.g. a tag
+        # named '...-rc.1' mistakenly published with isPrerelease=false).
+        is_pre = bool(pre_parts) or r.get("isPrerelease", False)
+        if is_pre:
             prerelease.append(r["tagName"])
-        else:
-            if (major, minor, patch) >= FLOOR:
-                stable.append(r["tagName"])
+        elif (major, minor, patch) >= FLOOR:
+            stable.append(r["tagName"])
 
     stable_sorted = sorted(stable, key=_semver_key)        # ascending
     latest_stable = stable_sorted[-1] if stable_sorted else None
