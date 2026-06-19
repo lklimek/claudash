@@ -67,6 +67,14 @@ python3 scripts/gen-rust-lexicon.py "$DOC_DIR" --patterns lexicon/rust-patterns.
 
 **Extract**: Every service, RPC, message type, enum, field. Single package — be completely exhaustive. Every RPC must have a row.
 
+## Step 4: Generate API changelog (MANDATORY)
+
+After lexicon tables are regenerated, run the **`/update-api-changelog`** skill. This step is **not optional** — the lexicon and the changelog are released together.
+
+Invoke `/update-api-changelog` and follow its procedure (plan → gather → synthesis → prune); the full runnable commands and the synthesis-agent prompt live in `skills/update-api-changelog/SKILL.md`. Existing changelog files are skipped (idempotent), so steady-state runs are cheap.
+
+`lexicon/changelog/platform/*.md` is produced by this step and committed alongside the rest of lexicon.
+
 ## Agent Prompt Template
 
 Include in each agent's prompt:

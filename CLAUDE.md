@@ -22,6 +22,7 @@ scripts/            # Helper scripts for lexicon generation
 |-------|---------|
 | `dash-platform` | Data contracts, Rust SDK, JS/TS SDK, identities, documents, queries |
 | `update-lexicon` | Regenerate lexicon/ from source repos (user-invocable) |
+| `update-api-changelog` | Per-release public-API changelog/diff for SDK libraries (mandatory in regen) |
 
 ## Lexicon
 
@@ -35,6 +36,7 @@ Auto-generated keyword lookup tables in `lexicon/`. Skills grep these to find ty
 | `js.md` | js-evo-sdk, wasm-sdk, yappr | Agent-generated |
 | `grpc.md` | dapi-grpc protos | Agent-generated |
 | `explorers.md` | insight-api, platform-explorer.com | Manually curated |
+| `changelog/platform/*.md` | platform releases (gh) | update-api-changelog skill: plan → gather → synthesis agents |
 
 **Do not edit lexicon files manually.** Run `/update-lexicon` to regenerate.
 
@@ -52,6 +54,8 @@ Lexicon tables use short prefixes in Src/Docs columns:
 | `Y:` | `https://github.com/PastaPastaPasta/yappr/blob/master/` |
 | `D:` | `https://github.com/PastaPastaPasta/dash-bridge/blob/master/` |
 | `E:` | `https://github.com/dashpay/evo-sdk-website/blob/master/` |
+| `PR:` | `https://github.com/dashpay/platform/pull/` |
+| `C:` | `https://github.com/dashpay/platform/commit/` |
 
 ## Scripts
 
@@ -60,6 +64,8 @@ Lexicon tables use short prefixes in Src/Docs columns:
 | `scripts/clone-repos.sh` | Clone/update source repos to `.repos/` | git |
 | `scripts/gen-rustdoc-json.sh` | Generate rustdoc JSON for Rust crates | `cargo +nightly` |
 | `scripts/gen-rust-lexicon.py` | Parse rustdoc JSON → `lexicon/rust.md` | Python 3 |
+| `scripts/changelog-plan.py` | Enumerate releases, pair them, produce worklist JSON | Python 3, `gh` CLI |
+| `scripts/changelog-gather.sh` | Blobless clone + per-surface raw diff inputs (Streams A/B/C) | git, `gh` CLI, `cargo-public-api` / `buf` (best-effort) |
 
 ## Conventions
 
