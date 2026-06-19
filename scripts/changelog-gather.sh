@@ -35,7 +35,7 @@ set -euo pipefail
 REPO="dashpay/platform"
 REPO_URL="https://github.com/${REPO}.git"
 CLONE_DIR=".repos/platform-changelog"
-SURFACES_JSON="skills/api-changelog/surfaces.platform.json"
+SURFACES_JSON="skills/update-api-changelog/surfaces.platform.json"
 WORK_BASE=".work/changelog"
 
 # ── Validation helpers (security fence) ───────────────────────────────────────
@@ -167,8 +167,15 @@ try_stream_b_rust() {
         return
     fi
 
-    # Check that cargo-public-api subcommand is installed.
-    if ! cargo +nightly public-api --version >/dev/null 2>&1; then
+    # Check the nightly toolchain (cargo-public-api needs rustdoc JSON from nightly).
+    if ! cargo +nightly --version >/dev/null 2>&1; then
+        write_stream_b_missing "$b_missing" \
+            "rust nightly toolchain not installed — install: rustup toolchain install nightly (best-effort, Stream A is the backbone)"
+        return
+    fi
+
+    # Check the cargo-public-api subcommand is installed (toolchain-independent binary).
+    if ! cargo public-api --version >/dev/null 2>&1; then
         write_stream_b_missing "$b_missing" \
             "cargo-public-api not installed — install: cargo install cargo-public-api (best-effort, Stream A is the backbone)"
         return
@@ -609,7 +616,7 @@ PYEOF
     echo "gather complete: ${n_generate} generated, ${n_skip} skipped" >&2
     echo "raw inputs under: ${WORK_BASE}/" >&2
     echo "" >&2
-    echo "next step: run synthesis agent per changed surface (see skills/api-changelog/SKILL.md)" >&2
+    echo "next step: run synthesis agent per changed surface (see skills/update-api-changelog/SKILL.md)" >&2
 }
 
 main "$@"

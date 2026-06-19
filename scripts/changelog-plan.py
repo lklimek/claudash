@@ -31,7 +31,7 @@ from pathlib import Path
 DEFAULT_REPO = "dashpay/platform"
 FLOOR = (3, 0, 0)                    # baseline anchor — no file for 3.0.0 itself
 DEFAULT_OUTPUT_DIR = "lexicon/changelog/platform"
-DEFAULT_SURFACES = "skills/api-changelog/surfaces.platform.json"
+DEFAULT_SURFACES = "skills/update-api-changelog/surfaces.platform.json"
 
 # Patterns that look like SDK/client surface packages (drift detector).
 # Longest alternatives first to avoid regex shadowing.
@@ -299,8 +299,16 @@ def run_drift_detector(repo: str, check_tag: str, surfaces_path: Path) -> None:
     excluded: set = set()
 
     if surfaces_path.exists():
-        with surfaces_path.open() as fh:
-            surfaces = json.load(fh)
+        try:
+            with surfaces_path.open() as fh:
+                surfaces = json.load(fh)
+        except (json.JSONDecodeError, OSError) as exc:
+            print(
+                f"WARNING: drift detector could not parse {surfaces_path} "
+                f"({exc}) — skipping drift checks (non-fatal).",
+                file=sys.stderr,
+            )
+            return
         for lang, items in surfaces.items():
             if lang == "exclude_reason":
                 excluded.update(items.keys())

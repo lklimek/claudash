@@ -22,7 +22,7 @@ scripts/            # Helper scripts for lexicon generation
 |-------|---------|
 | `dash-platform` | Data contracts, Rust SDK, JS/TS SDK, identities, documents, queries |
 | `update-lexicon` | Regenerate lexicon/ from source repos (user-invocable) |
-| `api-changelog` | Per-release public-API changelog/diff for SDK libraries (mandatory in regen) |
+| `update-api-changelog` | Per-release public-API changelog/diff for SDK libraries (mandatory in regen) |
 
 ## Lexicon
 
@@ -36,7 +36,7 @@ Auto-generated keyword lookup tables in `lexicon/`. Skills grep these to find ty
 | `js.md` | js-evo-sdk, wasm-sdk, yappr | Agent-generated |
 | `grpc.md` | dapi-grpc protos | Agent-generated |
 | `explorers.md` | insight-api, platform-explorer.com | Manually curated |
-| `changelog/platform/*.md` | platform releases (gh) | api-changelog skill: plan → gather → synthesis agents |
+| `changelog/platform/*.md` | platform releases (gh) | update-api-changelog skill: plan → gather → synthesis agents |
 
 **Do not edit lexicon files manually.** Run `/update-lexicon` to regenerate.
 
