@@ -23,24 +23,26 @@ npm install @dashevo/evo-sdk
 
 ## Lexicon
 
-`lexicon/` contains keyword lookup tables for Dash Platform APIs. To answer questions:
-1. Grep the relevant `lexicon/*.md` file for keywords matching the user's query
+The `lexicon/` keyword tables ship **inside this plugin**, not in the working directory. They live under `$CLAUDE_PLUGIN_ROOT/lexicon/`, and `$CLAUDE_PLUGIN_ROOT` is expanded **only by the shell** — so you MUST read them with a **Bash** `grep`/`rg` command. A bare path like `lexicon/rust.md`, or the Grep tool, resolves against the working directory (which has no lexicon) and makes the tables wrongly appear empty.
+
+To answer questions:
+1. Bash-grep the relevant file, e.g. `grep -i "<keyword>" "$CLAUDE_PLUGIN_ROOT/lexicon/rust.md"`
 2. Find the `Src` or `Docs` column link in matching rows
 3. Expand the link prefix (see table below) to a full URL and WebFetch it for details
 
-| File | Content |
+| File (under `$CLAUDE_PLUGIN_ROOT/lexicon/`) | Content |
 |------|---------|
-| `lexicon/rust.md` | Rust SDK types, functions, patterns (2700+ entries, includes dapi-grpc bindings) |
-| `lexicon/js.md` | JS SDK types, functions, patterns |
-| `lexicon/contract.md` | data contract types, JSON Schema, DPP, document types |
-| `lexicon/grpc.md` | gRPC services, messages, endpoints |
-| `lexicon/explorers.md` | Insight API + Platform Explorer endpoints, instances |
-| `lexicon/changelog/platform/*.md` | per-release public-API diffs + migration guidance (breaking changes, added/removed symbols) |
+| `rust.md` | Rust SDK types, functions, patterns (2700+ entries, includes dapi-grpc bindings) |
+| `js.md` | JS SDK types, functions, patterns |
+| `contract.md` | data contract types, JSON Schema, DPP, document types |
+| `grpc.md` | gRPC services, messages, endpoints |
+| `explorers.md` | Insight API + Platform Explorer endpoints, instances |
+| `changelog/platform/*.md` | per-release public-API diffs + migration guidance (breaking changes, added/removed symbols) |
 
 ### Version & migration questions
 
 When the user asks "what changed in `<version>`", "is X a breaking change", "how do I migrate from A to B", or mentions upgrading SDK versions:
-1. Grep `lexicon/changelog/platform/*.md` for the symbol/RPC keyword (same grep-first flow as the lexicon).
+1. Bash-grep `$CLAUDE_PLUGIN_ROOT/lexicon/changelog/platform/*.md` for the symbol/RPC keyword (same grep-first flow as the lexicon).
 2. Pick the file for the target version (newer release); read the matching row's Change + Migration columns.
 3. Expand the `Ref` link (`PR:` → `https://github.com/dashpay/platform/pull/`, `C:` → `https://github.com/dashpay/platform/commit/`) and WebFetch for the full rationale.
 
