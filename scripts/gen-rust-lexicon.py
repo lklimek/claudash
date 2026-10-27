@@ -83,7 +83,8 @@ def load_items(json_path, pkg_label):
         line = span.get("begin", [0])[0]
         src = ""
         if filename.startswith("packages/"):
-            src = f"[P:{filename}#L{line}]"
+            # `P:` already expands to `.../packages/`; same backtick form as other lexicons.
+            src = f"`P:{filename.removeprefix('packages/')}#L{line}`"
 
         items.append(
             {
