@@ -78,7 +78,7 @@ The `dash-dev` skill activates automatically when your conversation involves Das
 To regenerate lookup tables from the latest source code:
 
 ```
-/dash-platform:update-lexicon
+/claudash:update-lexicon
 ```
 
 This clones the source repos, runs rustdoc, and spawns agents to re-index everything. Run this when Dash Platform releases a new version.
@@ -172,7 +172,7 @@ claude plugin validate .
 claude --plugin-dir .
 
 # Refresh lexicon from source
-/dash-platform:update-lexicon
+/claudash:update-lexicon
 ```
 
 ## Related
