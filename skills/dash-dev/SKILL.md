@@ -123,7 +123,7 @@ Maps names → identities:
 ### CRUD via Fetch Traits
 
 ```rust
-use dash_sdk::platform::{Document, DocumentQuery, Fetch, FetchMany, Identifier, Identity};
+use dash_sdk::platform::{Document, Fetch, FetchMany, Identifier, Identity};
 
 let identity = Identity::fetch(&sdk, id).await?;       // Ok(None) if missing
 let docs = Document::fetch_many(&sdk, query).await?;
