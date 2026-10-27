@@ -2,6 +2,7 @@
   "_comment": "Allow-list of public API surfaces for dashpay/platform. Edit to add/exclude packages. Checked in — the source of truth for changelog-plan.py and changelog-gather.sh.",
   "rust": [
     {"pkg": "rs-sdk",                   "crate": "dash-sdk",          "paths": ["src/"]},
+    {"pkg": "dash-platform-queries",    "crate": "dash-platform-queries","paths": ["src/"]},
     {"pkg": "rs-dpp",                   "crate": "dpp",               "paths": ["src/"]},
     {"pkg": "rs-drive",                 "crate": "drive",             "paths": ["src/"]},
     {"pkg": "rs-dapi-client",           "crate": "rs-dapi-client",    "paths": ["src/"]},

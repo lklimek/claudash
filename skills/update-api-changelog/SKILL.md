@@ -128,7 +128,7 @@ It concatenates `fragment.*.md` in surface order (rust…, grpc, js, swift), col
 >
 > ### Output format
 >
-> Write the surface H2 section using the format in `skills/update-api-changelog/SKILL.md → Output Format`. Keywords must be **exact symbol/RPC/type names** as they appear in the public API — grep-exact, backtick-wrapped. Every row needs a `Ref` column entry.
+> Write the surface H2 section using the format in `skills/update-api-changelog/SKILL.md → Output Format`. Keywords must be **exact symbol/RPC/type names** as they appear in the public API — grep-exact, backtick-wrapped; qualify a name that greps ambiguously (`sync::retry`, `Error::Variant`). Every row needs a `Ref` column entry. The H2 package list and your `SUMMARY:` label must both name exactly the packages in your rows' Pkg/Module column — never copy the template's example list.
 >
 > Emit `_No public API changes._` for surfaces where Stream A shows no public-visibility changes.
 
