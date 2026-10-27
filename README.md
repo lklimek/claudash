@@ -46,17 +46,19 @@ claudash ships a **lexicon** — pre-indexed lookup tables generated from actual
 
 | Lexicon | Entries | Coverage |
 |---------|---------|----------|
-| **Rust SDK** | ~2,900 | Every public type, function, and trait from `dash-sdk`, `dpp`, `rs-dapi-client`, `dapi-grpc` |
-| **Rust Patterns** | ~40 | Real-world SDK usage patterns and examples from `dash-evo-tool`, `yappr`, `dash-bridge` |
-| **JS/TS SDK** | ~500 | Types, options, facades, query interfaces from `@dashevo/evo-sdk` and `wasm-dpp` |
-| **Data Contracts** | ~240 | Contract types, document schemas, state transitions, token config, groups, voting |
-| **gRPC API** | ~320 | All 3 services, RPCs, request/response message types |
+| **Rust SDK** | ~4,700 | Every public type, function, and trait from `dash-sdk`, `dpp`, `rs-dapi-client`, `dapi-grpc` |
+| **Rust Patterns** | ~80 | Real-world SDK usage patterns and examples from `dash-evo-tool`, `yappr`, `dash-bridge` |
+| **JS/TS SDK** | ~850 | Types, options, facades, query interfaces from `@dashevo/evo-sdk`, `wasm-sdk` and `wasm-dpp2` |
+| **Data Contracts** | ~860 | Contract types, document schemas, state transitions, token config, groups, voting |
+| **gRPC API** | ~630 | All 3 services, 84 RPCs, every request/response message type and field |
+
+Generated from `dashpay/platform` **v5.0.0** (protocol version 14). Per-release API changelogs with migration notes cover every stable release from 3.0.1 to 5.0.0.
 
 This means Claude can help you:
 
 - **Write data contracts** with correct JSON Schema, indexes, and security settings
 - **Use the Rust SDK** — `Fetch`/`FetchMany` traits, `DocumentQuery` builders, proof verification, state transitions, token operations
-- **Use the JS SDK** — client initialization, identity/contract/document CRUD, DPNS registration, wallet management
+- **Use the JS SDK** — trusted client initialization, identity/contract/document CRUD, DPNS registration, key derivation
 - **Call gRPC endpoints** directly with correct message types
 - **Navigate the monorepo** — find the right package, type, or function instantly
 
@@ -93,7 +95,7 @@ User asks about Dash Platform
           │ grep lexicon/*.md for keywords
           ▼
 ┌─────────────────────┐
-│   Lexicon tables     │  ← ~4,000 entries with source links
+│   Lexicon tables     │  ← ~7,000 entries with source links
 │   rust.md            │
 │   js.md              │
 │   contract.md        │
@@ -124,10 +126,10 @@ Skills expand these to full URLs before fetching.
 Contract structure, document types, JSON Schema properties, index design (compound, unique, range), DPNS name service, security best practices, versioning rules.
 
 ### Rust SDK (`dash-sdk` + `dpp`)
-Core types (`Sdk`, `Identity`, `DataContract`, `Document`, `Identifier`), CRUD via `Fetch`/`FetchMany` traits, query builders (`DriveQuery`, `DocumentQuery`), cryptographic proof verification, state transitions, token operations (mint, burn, freeze, transfer), document marketplace, group actions, contested resource voting.
+Core types (`Sdk`, `Identity`, `DataContract`, `Document`, `Identifier`), CRUD via `Fetch`/`FetchMany` traits, query builders (`DriveDocumentQuery`, `DocumentQuery`), cryptographic proof verification, state transitions, token operations (mint, burn, freeze, transfer), document marketplace, group actions, contested resource voting.
 
-### JS/TS SDK (`@dashevo/evo-sdk` + `wasm-dpp`)
-Client initialization, identity registration, contract creation and publishing, document CRUD, DPNS names, wallet (HD derivation, UTXO management), WASM-DPP for browser validation. Includes the critical note that **pure JS SDK lacks client-side proof verification** — use `wasm-sdk` for security-critical apps.
+### JS/TS SDK (`@dashevo/evo-sdk` + `wasm-sdk` / `wasm-dpp2`)
+Trusted-mode client initialization (proof-verified queries), facades for identities, contracts, documents (incl. aggregate, ranked and chained queries), tokens, DPNS, addresses, shielded pool, encrypted properties and moderation charters; signer-based writes; wallet key-derivation utilities; hand-built transitions from re-exported `wasm-dpp2` classes.
 
 ### gRPC API
 Complete service definitions, all RPC endpoints, request/response message schemas, masternode voting, protocol upgrades, chain status, epoch info.
@@ -140,17 +142,23 @@ claudash/
 │   └── plugin.json          # Plugin manifest
 ├── skills/
 │   ├── dash-platform/       # Main development skill
-│   └── update-lexicon/      # Lexicon regeneration skill
+│   ├── dash-faucet/         # Testnet faucet skill
+│   ├── update-lexicon/      # Lexicon regeneration skill
+│   └── update-api-changelog/ # Per-release public-API changelog generator
 ├── lexicon/                 # Auto-generated lookup tables (do not edit)
 │   ├── rust.md              # Rust SDK entries
 │   ├── rust-patterns.md     # SDK usage patterns & examples
 │   ├── js.md                # JS/TS SDK types & patterns
 │   ├── contract.md          # Data contract types
-│   └── grpc.md              # gRPC services & RPCs
+│   ├── grpc.md              # gRPC services & RPCs
+│   ├── explorers.md         # Insight API + Platform Explorer endpoints
+│   └── changelog/platform/  # Per-release API changelogs (3.0.1 … 5.0.0)
 └── scripts/                 # Lexicon generation tooling
     ├── clone-repos.sh       # Clone source repos to .repos/
     ├── gen-rustdoc-json.sh  # Generate rustdoc JSON
-    └── gen-rust-lexicon.py  # Parse rustdoc JSON → lexicon tables
+    ├── gen-rust-lexicon.py  # Parse rustdoc JSON → lexicon tables
+    ├── changelog-plan.py    # Release pairing worklist for changelogs
+    └── changelog-gather.sh  # Raw per-surface diff inputs for changelogs
 ```
 
 ## Development

@@ -9,16 +9,16 @@ Assist with Dash Platform development: data contracts, Rust SDK, JS/TS SDK, iden
 
 In `dashpay/platform` repo: `bash scripts/setup-ai-agent-environment.sh`
 
-**Rust** — not on crates.io, use git dep:
+**Rust** — not on crates.io, use git dep pinned to a release tag (current stable: `v5.0.0`):
 ```toml
 [dependencies]
-dash-sdk = { git = "https://github.com/dashpay/platform", branch = "master" }
-dpp = { git = "https://github.com/dashpay/platform", branch = "master" }
+dash-sdk = { git = "https://github.com/dashpay/platform", tag = "v5.0.0" }
+dpp = { git = "https://github.com/dashpay/platform", tag = "v5.0.0" }
 ```
 
 **JS/TS**:
 ```bash
-npm install @dashevo/evo-sdk
+npm install @dashevo/evo-sdk   # 5.0.0; ESM-only, Node >= 18.18
 ```
 
 ## Lexicon
@@ -32,7 +32,7 @@ To answer questions:
 
 | File (under `$CLAUDE_PLUGIN_ROOT/lexicon/`) | Content |
 |------|---------|
-| `rust.md` | Rust SDK types, functions, patterns (2700+ entries, includes dapi-grpc bindings) |
+| `rust.md` | Rust SDK types, functions, patterns (4600+ entries, includes dapi-grpc bindings) |
 | `js.md` | JS SDK types, functions, patterns |
 | `contract.md` | data contract types, JSON Schema, DPP, document types |
 | `grpc.md` | gRPC services, messages, endpoints |
@@ -130,7 +130,7 @@ let docs = Document::fetch_many(&sdk, query).await?;
 ### Key Patterns
 
 - **Proofs**: All queries return cryptographic proofs, verified automatically (security advantage over JS SDK)
-- **Queries**: `DriveQuery` → where clauses, order, limit → convert to `DocumentQuery`
+- **Queries**: `DriveDocumentQuery` → where clauses, order, limit → convert to `DocumentQuery` via `From`
 - **GroveDB**: Hierarchical authenticated storage; SDK abstracts it — direct use rarely needed
 - **Async**: Fully async, use `tokio`
 - **Errors**: `dash_sdk::Error` — connection, proof failure, broadcast failure, query errors
@@ -147,57 +147,57 @@ let docs = Document::fetch_many(&sdk, query).await?;
 
 ### Client Init
 
-```javascript
+```typescript
 import { EvoSDK } from '@dashevo/evo-sdk';
 
-const client = new EvoSDK({
-  network: 'testnet',
-  wallet: { mnemonic: '...' },
-});
-await client.connect();
+const sdk = EvoSDK.testnetTrusted(); // or mainnetTrusted(), localTrusted(), devnetTrusted(name)
+await sdk.connect();                  // trusted mode pre-fetches quorum keys → proofs verified
 ```
 
 ### Operations
 
-```javascript
-// Identity
-const identity = await client.platform.identities.register();
-await client.platform.identities.get(identityId);
+Facades on the instance: `identities`, `documents`, `contracts`, `tokens`, `dpns`, `addresses`, `epoch`, `protocol`, `stateTransitions`, `system`, `group`, `voting`, `shielded`, `encryptedFor`, `moderationCharters`. Reads return `undefined` when missing; `*WithProof` variants also return proof metadata. Writes take an options object with `identityKey` (`IdentityPublicKey`) + `signer` (`IdentitySigner`, `addKeyFromWif`).
 
-// Contract
-const contract = await client.platform.contracts.create({
-  note: { type: 'object', properties: { message: { type: 'string', maxLength: 256 } }, additionalProperties: false }
-}, identity);
-await client.platform.contracts.publish(contract, identity);
+```typescript
+import { EvoSDK, Document, IdentitySigner } from '@dashevo/evo-sdk';
 
-// Document
-const doc = await client.platform.documents.create('contractId.note', identity, { message: 'Hello' });
-await client.platform.documents.broadcast({ create: [doc] }, identity);
-const docs = await client.platform.documents.get('contractId.note', {
-  where: [['$ownerId', '==', identity.getId()]], orderBy: [['$createdAt', 'desc']]
+const identity = await sdk.identities.fetch(identityId);
+const contract = await sdk.contracts.fetch(contractId);
+
+const signer = new IdentitySigner();
+signer.addKeyFromWif(wif);
+const identityKey = identity.getPublicKeyById(keyId);
+
+// Document create: fetches nonce, builds, signs, broadcasts, returns confirmed document
+const document = new Document({ properties: { message: 'Hello' }, documentTypeName: 'note', dataContractId: contractId, ownerId: identityId });
+await sdk.documents.create({ document, identityKey, signer });
+
+const docs = await sdk.documents.query({
+  dataContractId: contractId, documentTypeName: 'note',
+  where: [['$ownerId', '==', identityId]], orderBy: [['$createdAt', 'desc']], limit: 10,
 });
 
 // DPNS
-await client.platform.names.register('alice.dash', { dashUniqueIdentityId: identity.getId() }, identity);
-const name = await client.platform.names.resolve('alice.dash');
+await sdk.dpns.registerName({ label: 'alice', identity, identityKey, signer });
+const ownerId = await sdk.dpns.resolveName('alice.dash');
 ```
 
-### WASM-DPP (Browser)
+Grep `js.md` for exact option types (`ContractPublishOptions`, `IdentityCreateOptions`, …) before writing calls.
 
-```javascript
-import { DashPlatformProtocol } from '@dashevo/wasm-dpp';
-const dpp = new DashPlatformProtocol();
-```
+### Protocol v14 (Platform 5.0) notes
 
-Provides: contract/document validation, state transition creation/signing, identity key management.
+- Document IDs commit to the identity contract nonce of the create transition — `new Document({...})` without `identityContractNonce` has a placeholder id until the create transition derives it.
+- Contested documents must state a contest fund (`contestFund`, `sdk.documents.contestFundToJoin`).
+- New query kinds: aggregate `count`/`sum`/`average`, `ranked`/`having`, `chained`, `composite`.
+- New facades: `encryptedFor`, `moderationCharters`; contract moderation (`banUser`, `moderationStatus`, …) on `contracts`.
 
-### JS Security
+### Low-level bindings
 
-**Pure JS SDK has NO client-side proof verification.** For security-critical apps use `wasm-sdk` (has proofs) or validate server-side with Rust SDK.
+`@dashevo/evo-sdk` re-exports `@dashevo/wasm-sdk` (which bundles `wasm-dpp2` classes: `Document`, `DataContract`, `BatchTransition`, `DocumentCreateTransition`, …) — build/sign transitions by hand from these. Legacy `@dashevo/wasm-dpp` (`DashPlatformProtocol`) is a dev-only binding; prefer the re-exported `wasm-dpp2` classes.
 
 ### Wallet
 
-Built-in: HD derivation from mnemonic, UTXO management, tx creation/broadcasting, balance queries.
+`wallet` namespace export: BIP39 mnemonic generate/validate, BIP44/DIP9/DIP13 key derivation, `xprvToXpub`, `deriveChildPublicKey`, `generateKeyPair`, `keyPairFromWif`, address validation, message signing. No UTXO/L1 tx management — use `sdk.addresses` for Platform-address credits.
 
 ### JS Examples
 

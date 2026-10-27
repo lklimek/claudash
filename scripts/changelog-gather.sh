@@ -553,6 +553,7 @@ process_version() {
             rust)  process_surface_rust  "$version" "$base_tag" "$head_tag" "$pkg" "$crate" "${paths[@]}" ;;
             grpc)  process_surface_grpc  "$version" "$base_tag" "$head_tag" "$pkg"           "${paths[@]}" ;;
             js)    process_surface_js    "$version" "$base_tag" "$head_tag" "$pkg"           "${paths[@]}" ;;
+            # TODO: add a kotlin handler (packages/kotlin-sdk, source-diff only) — excluded in surfaces.platform.json until then
             swift) process_surface_swift "$version" "$base_tag" "$head_tag" "$pkg"           "${paths[@]}" ;;
             *)     echo "  WARNING: unknown lang=${lang} pkg=${pkg} — skipping" >&2 ;;
         esac

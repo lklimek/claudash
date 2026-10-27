@@ -24,11 +24,11 @@ python3 scripts/changelog-plan.py --repo dashpay/platform > .work/changelog/plan
 ```
 
 Options:
-- `--bootstrap` — emit exactly one target: latest stable 3.0.x → latest prerelease (use for first-run / PR seeding)
+- `--bootstrap` — emit exactly one target: latest stable → latest prerelease ahead of it (first-run / PR seeding; exits 1 when no such prerelease exists)
 - `--output-dir <path>` — override default `lexicon/changelog/platform`
 - `--surfaces <path>` — override default `skills/update-api-changelog/surfaces.platform.json`
 
-**Bootstrap vs steady-state.** Without `--bootstrap`, the plan covers **every stable release since 3.0 plus the latest prerelease** — by design (the changelog set is meant to span all stables). The first PR seeded only `4.0.0-rc.2.md` via `--bootstrap`; the first full (non-bootstrap) run backfills the missing stable files (`3.0.1.md`, `3.0.2.md`, …) and then idempotently skips them on every subsequent run. So the expanded worklist is intended one-time backfill, not churn.
+**Bootstrap vs steady-state.** Without `--bootstrap`, the plan covers **every stable release since 3.0 plus the latest prerelease ahead of the latest stable** (if any) — by design (the changelog set is meant to span all stables). The first PR seeded only `4.0.0-rc.2.md` via `--bootstrap`; the first full run (at `v5.0.0`) backfilled `3.0.1.md` … `5.0.0.md`. Existing files are skipped, so steady-state runs only generate the newest release(s).
 
 Output JSON shape:
 ```json
@@ -197,20 +197,20 @@ Example: `[PR:5421]` → `https://github.com/dashpay/platform/pull/5421`.
 - **Idempotency** — existing files are skipped. Forcing a regen requires deleting the file first.
 - **`v3.0.0`** is the baseline anchor — no changelog file (predecessor is cross-major).
 
-## Validation (dry-run bootstrap)
+## Validation (dry run)
 
 ```bash
-python3 scripts/changelog-plan.py --bootstrap > .work/changelog/plan.json
-# verify: exactly one "generate" entry: (v3.0.2, v4.0.0-rc.2)
+python3 scripts/changelog-plan.py > .work/changelog/plan.json
+# verify: "generate" only for releases without a file (e.g. a new stable or prerelease)
 
 bash scripts/changelog-gather.sh .work/changelog/plan.json
-# verify: .work/changelog/4.0.0-rc.2/{rust,grpc,js,swift}/ each contain A.source.diff
+# verify: .work/changelog/<version>/{rust,grpc,js,swift}/ each contain A.source.diff
 
 # spawn synthesis agents, then:
 git status
-# should show exactly: lexicon/changelog/platform/4.0.0-rc.2.md (new file)
+# should show only the new lexicon/changelog/platform/<version>.md file(s) and pruned prereleases
 
 # re-run to verify idempotency:
-python3 scripts/changelog-plan.py --bootstrap > .work/changelog/plan.json
-# verify: action="skip" for 4.0.0-rc.2
+python3 scripts/changelog-plan.py > .work/changelog/plan.json
+# verify: action="skip" for every entry
 ```

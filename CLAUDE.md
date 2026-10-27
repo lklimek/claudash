@@ -21,6 +21,7 @@ scripts/            # Helper scripts for lexicon generation
 | Skill | Purpose |
 |-------|---------|
 | `dash-platform` | Data contracts, Rust SDK, JS/TS SDK, identities, documents, queries |
+| `dash-faucet` | Request testnet DASH from Pasta's faucet |
 | `update-lexicon` | Regenerate lexicon/ from source repos (user-invocable) |
 | `update-api-changelog` | Per-release public-API changelog/diff for SDK libraries (mandatory in regen) |
 
@@ -61,7 +62,7 @@ Lexicon tables use short prefixes in Src/Docs columns:
 
 | Script | Purpose | Requirements |
 |--------|---------|--------------|
-| `scripts/clone-repos.sh` | Clone/update source repos to `.repos/` | git |
+| `scripts/clone-repos.sh` | Clone/update source repos to `.repos/` (`PLATFORM_REF=<tag>` pins platform) | git |
 | `scripts/gen-rustdoc-json.sh` | Generate rustdoc JSON for Rust crates | `cargo +nightly` |
 | `scripts/gen-rust-lexicon.py` | Parse rustdoc JSON → `lexicon/rust.md` | Python 3 |
 | `scripts/changelog-plan.py` | Enumerate releases, pair them, produce worklist JSON | Python 3, `gh` CLI |
