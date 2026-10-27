@@ -37,7 +37,7 @@ Auto-generated keyword lookup tables in `lexicon/`. Skills grep these to find ty
 | `js.md` | js-evo-sdk, wasm-sdk, yappr | Agent-generated |
 | `grpc.md` | dapi-grpc protos | Agent-generated |
 | `explorers.md` | insight-api, platform-explorer.com | Manually curated |
-| `changelog/platform/*.md` | platform releases (gh) | update-api-changelog skill: plan → gather → synthesis agents |
+| `changelog/platform/*.md` | platform releases (gh) | update-api-changelog skill: plan → gather → synthesis agents → assemble |
 
 **Do not edit lexicon files manually.** Run `/update-lexicon` to regenerate.
 
@@ -67,6 +67,7 @@ Lexicon tables use short prefixes in Src/Docs columns:
 | `scripts/gen-rust-lexicon.py` | Parse rustdoc JSON → `lexicon/rust.md` | Python 3 |
 | `scripts/changelog-plan.py` | Enumerate releases, pair them, produce worklist JSON | Python 3, `gh` CLI |
 | `scripts/changelog-gather.sh` | Blobless clone + per-surface raw diff inputs (Streams A/B/C) | git, `gh` CLI, `cargo-public-api` / `buf` (best-effort) |
+| `scripts/changelog-assemble.py` | Merge per-surface synthesis fragments into `lexicon/changelog/platform/<ver>.md` | Python 3 |
 
 ## Conventions
 
