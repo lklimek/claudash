@@ -2,6 +2,7 @@
 # Clone or update Dash Platform source repos into .repos/ for lexicon generation.
 # Usage: [PLATFORM_REF=<tag-or-branch>] bash scripts/clone-repos.sh
 #   PLATFORM_REF pins dashpay/platform to a release tag (e.g. v5.0.0); default: default branch.
+#   Existing clones are re-fetched and checked out detached at the remote ref; fetch errors abort.
 set -euo pipefail
 
 PLATFORM_REF="${PLATFORM_REF:-}"
@@ -19,22 +20,23 @@ mkdir -p "$REPOS_DIR"
 
 for repo in "${REPOS[@]}"; do
   dir="$REPOS_DIR/$(basename "$repo")"
+  ref="HEAD" # remote default branch
   if [ "$repo" = "dashpay/platform" ] && [ -n "$PLATFORM_REF" ]; then
-    if [ ! -d "$dir" ]; then
-      echo "clone $repo@$PLATFORM_REF → $dir"
-      git clone --depth 1 --branch "$PLATFORM_REF" "https://github.com/$repo.git" "$dir"
+    ref="$PLATFORM_REF"
+  fi
+  if [ ! -d "$dir" ]; then
+    echo "clone $repo@$ref → $dir"
+    if [ "$ref" = "HEAD" ]; then
+      git clone --depth 1 "https://github.com/$repo.git" "$dir"
     else
-      echo "checkout $dir@$PLATFORM_REF"
-      git -C "$dir" fetch --depth 1 origin "refs/tags/$PLATFORM_REF:refs/tags/$PLATFORM_REF" 2>/dev/null \
-        || git -C "$dir" fetch --depth 1 origin "$PLATFORM_REF"
-      git -C "$dir" checkout --detach "$PLATFORM_REF" 2>/dev/null || git -C "$dir" checkout --detach FETCH_HEAD
+      git clone --depth 1 --branch "$ref" "https://github.com/$repo.git" "$dir"
     fi
-  elif [ -d "$dir" ]; then
-    echo "pull $dir"
-    git -C "$dir" pull --ff-only 2>/dev/null || echo "  (pull failed, using existing)"
   else
-    echo "clone $repo → $dir"
-    git clone --depth 1 "https://github.com/$repo.git" "$dir"
+    # Always check out exactly what the remote has now: a local branch/tag of the
+    # same name may be stale, and a previous pinned run leaves HEAD detached.
+    echo "update $dir@$ref"
+    git -C "$dir" fetch --depth 1 origin "$ref"
+    git -C "$dir" checkout --quiet --detach FETCH_HEAD
   fi
 done
 
