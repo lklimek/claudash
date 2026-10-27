@@ -20,7 +20,7 @@ scripts/            # Helper scripts for lexicon generation
 
 | Skill | Purpose |
 |-------|---------|
-| `dash-platform` | Data contracts, Rust SDK, JS/TS SDK, identities, documents, queries |
+| `dash-dev` | Data contracts, Rust SDK, JS/TS SDK, identities, documents, queries |
 | `dash-faucet` | Request testnet DASH from Pasta's faucet |
 | `update-lexicon` | Regenerate lexicon/ from source repos (user-invocable) |
 | `update-api-changelog` | Per-release public-API changelog/diff for SDK libraries (mandatory in regen) |

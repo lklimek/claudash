@@ -126,7 +126,7 @@ Then, for each `generate` entry in the plan, inspect which surfaces have non-emp
 
 ## Output Format
 
-`lexicon/changelog/platform/<version>.md`. Per-surface H2 sections. Every entry is a table row whose **first column is a grep-exact, backtick-wrapped keyword** — identical to lexicon table conventions so `dash-platform` can grep it the same way.
+`lexicon/changelog/platform/<version>.md`. Per-surface H2 sections. Every entry is a table row whose **first column is a grep-exact, backtick-wrapped keyword** — identical to lexicon table conventions so `dash-dev` can grep it the same way.
 
 ### Template
 
@@ -171,7 +171,7 @@ _No public API changes._
 | `Document::fetch_many` | dash-sdk | ± | signature gained a `start_at` cursor param for pagination | replace `Document::fetch_many(&sdk, q)` with `Document::fetch_many(&sdk, q, None)`; pass `Some(cursor)` to page | [PR:5450] [C:a1b2c3d] |
 ```
 
-- **Keyword** `Document::fetch_many` is grep-exact → `dash-platform` finds it the moment a user mentions the method.
+- **Keyword** `Document::fetch_many` is grep-exact → `dash-dev` finds it the moment a user mentions the method.
 - **Migration** is concrete (old call → new call), sourced from the reconciled PR/code evidence.
 - **Ref** links the originating PR (and optionally commit) for the full story.
 

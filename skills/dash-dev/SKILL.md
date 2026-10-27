@@ -1,5 +1,5 @@
 ---
-name: dash-platform
+name: dash-dev
 description: "Dash Platform development — data contracts, Rust SDK (dash-sdk, dpp), JS SDK (@dashevo/evo-sdk, wasm-dpp), gRPC, identities, documents. Use when working with Dash Platform in any language."
 ---
 

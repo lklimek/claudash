@@ -64,7 +64,7 @@ This means Claude can help you:
 
 ## Usage
 
-The `dash-platform` skill activates automatically when your conversation involves Dash Platform development. Just ask:
+The `dash-dev` skill activates automatically when your conversation involves Dash Platform development. Just ask:
 
 ```
 > How do I fetch a document by owner ID using the Rust SDK?
@@ -90,7 +90,7 @@ User asks about Dash Platform
         │
         ▼
 ┌─────────────────────┐
-│  dash-platform skill │  ← activates on relevant context
+│  dash-dev skill     │  ← activates on relevant context
 └─────────┬───────────┘
           │ grep lexicon/*.md for keywords
           ▼
@@ -141,7 +141,7 @@ claudash/
 ├── .claude-plugin/
 │   └── plugin.json          # Plugin manifest
 ├── skills/
-│   ├── dash-platform/       # Main development skill
+│   ├── dash-dev/            # Main development skill
 │   ├── dash-faucet/         # Testnet faucet skill
 │   ├── update-lexicon/      # Lexicon regeneration skill
 │   └── update-api-changelog/ # Per-release public-API changelog generator
