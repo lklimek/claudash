@@ -4,7 +4,7 @@ description: "Use when the user wants testnet DASH/tDASH from a Dash testnet fau
 user-invocable: true
 ---
 
-Request testnet DASH from a funded faucet. Primary: `https://faucet.thepasta.org`. Fallback (if Pasta is down): `https://faucet.testnet.networks.dash.org` — same backend (`PastaPastaPasta/dash-faucet`) and API, but additionally sits behind an Anubis anti-bot PoW gate (see below).
+Request testnet DASH from a funded faucet. Primary: `https://faucet.thepasta.org`. Primary backend: `PastaPastaPasta/dash-faucet-cf`. Fallback (if Pasta is down): `https://faucet.testnet.networks.dash.org` — older backend `PastaPastaPasta/dash-faucet` with a compatible API, additionally behind an Anubis anti-bot PoW gate (see below).
 
 First check the live faucet settings:
 
@@ -25,8 +25,10 @@ Use the `capEndpoint` from `/api/status` to get the CAP token (see PoW below). T
 Handle the response:
 
 - **200** with `txid` → sent. **200 with `replay: true`** → nothing was sent: payouts are idempotent per (address, UTC day) and this returns the earlier `txid`. Use another address or wait until 00:00 UTC.
-- **503** `Chain providers unavailable` (`detailMessage` e.g. `stale coin view, please retry`, `broadcast could not be confirmed, please retry`) → transient payout failure; the server already discarded the bad coin, so retry right away with a **fresh** `capToken` (every attempt burns its token). Failed attempts do not count toward the rate limit. Give up after ~5 attempts and report.
-- **429** with `requiresHardCaptcha` (top level or under `detail`) → solve the same PoW against `hardCapEndpoint` and retry once, sending that token as `capToken`.
+- **503** `Chain providers unavailable` → check `detailMessage`:
+  - `broadcast could not be confirmed…` → the payout may still land. **Do not retry** (a retry can pay twice); report it and check the address on an explorer a few minutes later.
+  - anything else (e.g. `stale coin view, please retry`) → nothing was sent; the server already discarded the bad coin, so retry right away with a **fresh** `capToken` (every attempt burns its token). Failed attempts do not count toward the rate limit. Give up after ~5 attempts and report.
+- **429** with `requiresHardCaptcha` (top level or under `detail`) → solve the same PoW against `hardCapEndpoint` and retry once with `{"address":…,"hardCapToken":"HARD_CAP_TOKEN"}` (both backends accept `hardCapToken`; the fallback rejects a hard token sent as `capToken`).
 - **429** without it → rate-limited (`retryAfter` seconds, top level or under `detail`); stop and report.
 - Other errors: message is in `error` or `detail.error`.
 
