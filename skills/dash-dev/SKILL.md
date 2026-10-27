@@ -1,6 +1,6 @@
 ---
 name: dash-dev
-description: "Dash Platform development — data contracts, Rust SDK (dash-sdk, dpp), JS SDK (@dashevo/evo-sdk, wasm-dpp), gRPC, identities, documents. Use when working with Dash Platform in any language."
+description: "Use for any Dash Platform (Evolution) work in any language — Rust dash-sdk/dpp/drive, JS/TS @dashevo/evo-sdk/wasm-sdk, Swift/Kotlin SDKs, DAPI gRPC; data contracts, documents, identities, tokens, DPNS names, state transitions, credits, proofs; code importing dash_sdk/dpp or @dashevo/*; and 'what changed / how to migrate' between Platform versions."
 ---
 
 Assist with Dash Platform development: data contracts, Rust SDK, JS/TS SDK, identities, documents, and queries.
