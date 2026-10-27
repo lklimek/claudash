@@ -9,16 +9,16 @@ Assist with Dash Platform development: data contracts, Rust SDK, JS/TS SDK, iden
 
 In `dashpay/platform` repo: `bash scripts/setup-ai-agent-environment.sh`
 
-**Rust** — not on crates.io, use git dep pinned to a release tag (current stable: `v5.0.0`):
+**Rust** — not on crates.io, use git dep pinned to a release tag (current stable: `v5.0.1`; the lexicon is from `v5.0.0`, delta in `changelog/platform/5.0.1.md`):
 ```toml
 [dependencies]
-dash-sdk = { git = "https://github.com/dashpay/platform", tag = "v5.0.0" }
-dpp = { git = "https://github.com/dashpay/platform", tag = "v5.0.0" }
+dash-sdk = { git = "https://github.com/dashpay/platform", tag = "v5.0.1" }
+dpp = { git = "https://github.com/dashpay/platform", tag = "v5.0.1" }
 ```
 
 **JS/TS**:
 ```bash
-npm install @dashevo/evo-sdk   # 5.0.0; ESM-only, Node >= 18.18
+npm install @dashevo/evo-sdk   # 5.0.1; ESM-only, Node >= 18.18
 ```
 
 ## Lexicon

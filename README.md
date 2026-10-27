@@ -52,7 +52,7 @@ claudash ships a **lexicon** — pre-indexed lookup tables generated from actual
 | **Data Contracts** | ~860 | Contract types, document schemas, state transitions, token config, groups, voting |
 | **gRPC API** | ~630 | All 3 services, 84 RPCs, every request/response message type and field |
 
-Generated from `dashpay/platform` **v5.0.0** (protocol version 14). Per-release API changelogs with migration notes cover every stable release from 3.0.1 to 5.0.0.
+Generated from `dashpay/platform` **v5.0.0** (protocol version 14). Per-release API changelogs with migration notes cover every stable release from 3.0.1 to 5.0.1.
 
 This means Claude can help you:
 
@@ -152,7 +152,7 @@ claudash/
 │   ├── contract.md          # Data contract types
 │   ├── grpc.md              # gRPC services & RPCs
 │   ├── explorers.md         # Insight API + Platform Explorer endpoints
-│   └── changelog/platform/  # Per-release API changelogs (3.0.1 … 5.0.0)
+│   └── changelog/platform/  # Per-release API changelogs (3.0.1 … 5.0.1)
 └── scripts/                 # Lexicon generation tooling
     ├── clone-repos.sh       # Clone source repos to .repos/
     ├── gen-rustdoc-json.sh  # Generate rustdoc JSON
