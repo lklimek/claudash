@@ -364,7 +364,7 @@ def main() -> None:
     parser.add_argument("--repo", default=DEFAULT_REPO,
                         help="GitHub repo (owner/repo)")
     parser.add_argument("--bootstrap", action="store_true",
-                        help="Emit exactly one target: latest-stable-3.0.x → latest prerelease")
+                        help="Emit exactly one target: latest stable → latest prerelease")
     parser.add_argument("--output-dir", default=DEFAULT_OUTPUT_DIR,
                         help=f"Output .md directory (default: {DEFAULT_OUTPUT_DIR})")
     parser.add_argument("--surfaces", default=DEFAULT_SURFACES,

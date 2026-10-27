@@ -9,10 +9,10 @@ Regenerate `lexicon/*.md` keyword lookup tables from local clones of Dash Platfo
 ## Step 1: Clone repos
 
 ```bash
-bash scripts/clone-repos.sh
+PLATFORM_REF=v5.0.0 bash scripts/clone-repos.sh   # latest stable release tag (gh release list --repo dashpay/platform)
 ```
 
-Clones/updates all source repos into `.repos/` (gitignored). Note commit SHAs from output for lexicon headers.
+Clones/updates all source repos into `.repos/` (gitignored). Pin `dashpay/platform` to the latest stable release tag via `PLATFORM_REF` — `master` may carry unreleased work. Other repos use their default branch. Note commit SHAs (and the platform tag) from output for lexicon `Sources:` headers.
 
 All content at `dashpay.github.io/platform` is generated from `dashpay/platform` — read source directly, no WebFetch needed.
 
@@ -27,7 +27,8 @@ bash scripts/gen-rustdoc-json.sh
 Note the `DOC_DIR=...` line from output, then:
 
 ```bash
-python3 scripts/gen-rust-lexicon.py "$DOC_DIR" --patterns lexicon/rust-patterns.md > lexicon/rust.md
+python3 scripts/gen-rust-lexicon.py "$DOC_DIR" --patterns lexicon/rust-patterns.md \
+  --source-ref "platform@<sha> (<tag>)" > lexicon/rust.md
 ```
 
 Requires `cargo +nightly` (only for this step).
@@ -44,10 +45,7 @@ Spawn 4 agents in parallel (`subagent_type: "general-purpose"`). Each reads sour
 
 **Extract**: SDK usage patterns (trait conventions, builder patterns, error handling, async, proof verification, mock testing) and examples (every example file, every significant dash-evo-tool backend task). Output only `## Patterns` and `## Examples` tables — no Types/Functions (those come from the script). Aim for 15+ patterns and 20+ examples.
 
-After this agent completes, re-run the gen-rust-lexicon.py script to concatenate:
-```bash
-python3 scripts/gen-rust-lexicon.py "$DOC_DIR" --patterns lexicon/rust-patterns.md > lexicon/rust.md
-```
+After this agent completes, re-run the gen-rust-lexicon.py command from Step 2 to concatenate.
 
 ### Agent 2: `lexicon/contract.md`
 
