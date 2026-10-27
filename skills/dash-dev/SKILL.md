@@ -45,7 +45,7 @@ To answer questions:
 
 When the user asks "what changed in `<version>`", "is X a breaking change", "how do I migrate from A to B", or mentions upgrading SDK versions:
 1. Grep `${CLAUDE_PLUGIN_ROOT}/lexicon/changelog/platform/*.md` for the symbol/RPC keyword (same grep-first flow as the lexicon).
-2. Pick the file for the target version (newer release); read the matching row's Change + Migration columns.
+2. Each file is one release's public-API diff vs the preceding release, and stable files form a contiguous chain, so for a multi-version upgrade read every file from after the user's current version through the target — e.g. 4.1.1 → 5.0.1 reads 5.0.0.md then 5.0.1.md, not just the target. Read each matching row's Change + Migration columns.
 3. Expand the `Ref` link (`PR:` → `https://github.com/dashpay/platform/pull/`, `C:` → `https://github.com/dashpay/platform/commit/`) and WebFetch for the full rationale.
 
 Stable files are permanent; only the single most-recent prerelease file is kept.
