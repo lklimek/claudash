@@ -20,15 +20,19 @@ curl -X POST https://faucet.thepasta.org/api/core-faucet \
   -d '{"address":"TESTNET_DASH_ADDRESS","capToken":"CAP_TOKEN"}'
 ```
 
-Use the `capEndpoint` from `/api/status` to get the CAP token (see PoW below). If the faucet responds with HTTP `429` and asks for hard captcha, use `hardCapEndpoint` and retry once with:
+Use the `capEndpoint` from `/api/status` to get the CAP token (see PoW below). The website's default tier is Cloudflare Turnstile (`turnstileToken`), which an agent cannot solve; the PoW tier (`capToken`) has the lower `rateLimits.soft` hourly allowance.
 
-```json
-{"address":"TESTNET_DASH_ADDRESS","capToken":"CAP_TOKEN","hardCapToken":"HARD_CAP_TOKEN"}
-```
+Handle the response:
 
-Each successful `/api/core-faucet` request sends the live `coreFaucetAmount` from `/api/status` (currently 1 tDASH). For larger amounts, repeat normal requests until the target is reached or the faucet rate-limits/refuses (`rateLimitPerHour`).
+- **200** with `txid` → sent. **200 with `replay: true`** → nothing was sent: payouts are idempotent per (address, UTC day) and this returns the earlier `txid`. Use another address or wait until 00:00 UTC.
+- **503** (`Chain providers unavailable` / `stale coin view, please retry`) → transient: the faucet's chain backends (`providers[]` in `/api/status`) are unhealthy or out of sync. Wait ~30 s (back off on repeats), then retry with a **fresh** `capToken` — a token is spent by every attempt, failed or not. Give up after ~5 attempts and report the error.
+- **429** with `requiresHardCaptcha` (top level or under `detail`) → solve the same PoW against `hardCapEndpoint` and retry once, sending that token as `capToken`.
+- **429** without it → rate-limited (`retryAfter` seconds, top level or under `detail`); stop and report.
+- Other errors: message is in `error` or `detail.error`.
 
-Do not bypass rate limits, rotate IPs, fabricate captcha tokens, or use unsupported request fields such as `amount` or `promoCode`; the faucet API ignores/does not expose those for `/api/core-faucet`.
+Each payout sends the live `coreFaucetAmount` (currently 1 tDASH), once per address per UTC day; there is no way to request more per address.
+
+Do not bypass rate limits, rotate IPs, fabricate captcha tokens, or use unsupported request fields such as `amount` or `promoCode`.
 
 ## Solving the CAP.js v4 proof-of-work (`capToken`)
 
