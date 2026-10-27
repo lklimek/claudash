@@ -129,7 +129,7 @@ let docs = Document::fetch_many(&sdk, query).await?;
 
 ### Key Patterns
 
-- **Proofs**: All queries return cryptographic proofs, verified automatically (security advantage over JS SDK)
+- **Proofs**: All queries return cryptographic proofs, verified automatically (same in JS SDK trusted mode)
 - **Queries**: `DriveDocumentQuery` → where clauses, order, limit → convert to `DocumentQuery` via `From`
 - **GroveDB**: Hierarchical authenticated storage; SDK abstracts it — direct use rarely needed
 - **Async**: Fully async, use `tokio`
