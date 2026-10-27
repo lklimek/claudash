@@ -123,7 +123,7 @@ Maps names → identities:
 ### CRUD via Fetch Traits
 
 ```rust
-use dash_sdk::platform::{Fetch, FetchMany, Identifier};
+use dash_sdk::platform::{Document, DocumentQuery, Fetch, FetchMany, Identifier, Identity};
 
 let identity = Identity::fetch(&sdk, id).await?;       // Ok(None) if missing
 let docs = Document::fetch_many(&sdk, query).await?;
@@ -132,7 +132,7 @@ let docs = Document::fetch_many(&sdk, query).await?;
 ### Key Patterns
 
 - **Proofs**: All queries return cryptographic proofs, verified automatically (same in JS SDK trusted mode)
-- **Queries**: `DriveDocumentQuery` → where clauses, order, limit → convert to `DocumentQuery` via `From`
+- **Queries**: build `DocumentQuery::new(contract, "type")?` + `.with_where(..)`/`.with_order_by(..)`/`.with_limit(n)`; a `DriveDocumentQuery` converts via fallible `DocumentQuery::try_from(&drive_query)?` (no `From` in v5)
 - **GroveDB**: Hierarchical authenticated storage; SDK abstracts it — direct use rarely needed
 - **Async**: Fully async, use `tokio`
 - **Errors**: `dash_sdk::Error` — connection, proof failure, broadcast failure, query errors
@@ -156,19 +156,26 @@ const sdk = EvoSDK.testnetTrusted(); // or mainnetTrusted(), localTrusted(), dev
 await sdk.connect();                  // trusted mode pre-fetches quorum keys → proofs verified
 ```
 
+### JS Security
+
+- Proof verification trusts the quorum keys `connect()` fetches over HTTPS from `quorums.<network>.networks.dash.org`; override with `quorumUrl` only to a source you trust.
+- Use the `*Trusted()` factories: `new EvoSDK({...})` defaults to `trusted: false` (no quorum keys); never pass `proofs: false` for value-bearing reads.
+- Load WIFs/mnemonics from a secret store or env var — never literals in source.
+
 ### Operations
 
-Facades on the instance: `identities`, `documents`, `contracts`, `tokens`, `dpns`, `addresses`, `epoch`, `protocol`, `stateTransitions`, `system`, `group`, `voting`, `shielded`, `encryptedFor`, `moderationCharters`. Reads return `undefined` when missing; `*WithProof` variants also return proof metadata. Writes take an options object with `identityKey` (`IdentityPublicKey`) + `signer` (`IdentitySigner`, `addKeyFromWif`).
+Facades on the instance: `identities`, `documents`, `contracts`, `tokens`, `dpns`, `addresses`, `epoch`, `protocol`, `stateTransitions`, `system`, `group`, `contractGroups`, `voting`, `shielded`, `encryptedFor`, `moderationCharters`. Reads return `undefined` when missing; `*WithProof` variants also return proof metadata. Writes take an options object with `identityKey` (`IdentityPublicKey`) + `signer` (`IdentitySigner`, `addKeyFromWif`).
 
 ```typescript
 import { EvoSDK, Document, IdentitySigner } from '@dashevo/evo-sdk';
 
 const identity = await sdk.identities.fetch(identityId);
-const contract = await sdk.contracts.fetch(contractId);
+if (!identity) throw new Error('identity not found');
+const identityKey = identity.getPublicKeyById(keyId);
+if (!identityKey) throw new Error('key not found');
 
 const signer = new IdentitySigner();
-signer.addKeyFromWif(wif);
-const identityKey = identity.getPublicKeyById(keyId);
+signer.addKeyFromWif(wif); // wif from a secret store / env var, never a literal
 
 // Document create: fetches nonce, builds, signs, broadcasts, returns confirmed document
 const document = new Document({ properties: { message: 'Hello' }, documentTypeName: 'note', dataContractId: contractId, ownerId: identityId });
@@ -189,9 +196,9 @@ Grep `js.md` for exact option types (`ContractPublishOptions`, `IdentityCreateOp
 ### Protocol v14 (Platform 5.0) notes
 
 - Document IDs commit to the identity contract nonce of the create transition — `new Document({...})` without `identityContractNonce` has a placeholder id until the create transition derives it.
-- Contested documents must state a contest fund (`contestFund`, `sdk.documents.contestFundToJoin`).
+- Contested creates pay a contest fund (doubles at 250 contenders, again per 50 more). `documents.create` / `dpns.registerName` read it automatically; `contestFund` (credits) only caps it. Preview with `sdk.documents.contestFundToJoin`; hand-built `DocumentCreateTransition`s pass it as `prefundedVotingBalance`.
 - New query kinds: aggregate `count`/`sum`/`average`, `ranked`/`having`, `chained`, `composite`.
-- New facades: `encryptedFor`, `moderationCharters`; contract moderation (`banUser`, `moderationStatus`, …) on `contracts`.
+- New facades: `contractGroups`, `encryptedFor`, `moderationCharters`; contract moderation (`banUser`, `moderationStatus`, …) on `contracts`.
 
 ### Low-level bindings
 
@@ -206,3 +213,9 @@ Grep `js.md` for exact option types (`ContractPublishOptions`, `IdentityCreateOp
 - `PastaPastaPasta/yappr` — social app, document CRUD
 - `dashpay/dash-bridge` — bridge application
 - `dashpay/evo-sdk-website` — SDK docs with examples
+
+---
+
+## Swift / Kotlin SDKs
+
+No lexicon; read source. `P:swift-sdk/` (iOS, SwiftPM `SwiftDashSDK` over the `DashSDKFFI` xcframework that `build_ios.sh` builds from `rs-unified-sdk-ffi`) and `P:kotlin-sdk/` (Android, JNI shim `rs-unified-sdk-jni`) — start with each package's `README.md` / `BUILD_GUIDE_FOR_AI.md`. Swift API changes: `## Swift` sections in `changelog/platform/*.md`; Kotlin is not in the changelogs.

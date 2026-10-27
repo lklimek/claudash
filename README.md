@@ -47,7 +47,7 @@ claudash ships a **lexicon** — pre-indexed lookup tables generated from actual
 | Lexicon | Entries | Coverage |
 |---------|---------|----------|
 | **Rust SDK** | ~4,700 | Every public type, function, and trait from `dash-sdk`, `dpp`, `rs-dapi-client`, `dapi-grpc` |
-| **Rust Patterns** | ~80 | Real-world SDK usage patterns and examples from `dash-evo-tool`, `yappr`, `dash-bridge` |
+| **Rust Patterns** | ~80 | Real-world SDK usage patterns and examples from `rs-sdk` examples/tests and `dash-evo-tool` |
 | **JS/TS SDK** | ~850 | Types, options, facades, query interfaces from `@dashevo/evo-sdk`, `wasm-sdk` and `wasm-dpp2` |
 | **Data Contracts** | ~860 | Contract types, document schemas, state transitions, token config, groups, voting |
 | **gRPC API** | ~630 | All 3 services, 84 RPCs, every request/response message type and field |
@@ -158,7 +158,8 @@ claudash/
     ├── gen-rustdoc-json.sh  # Generate rustdoc JSON
     ├── gen-rust-lexicon.py  # Parse rustdoc JSON → lexicon tables
     ├── changelog-plan.py    # Release pairing worklist for changelogs
-    └── changelog-gather.sh  # Raw per-surface diff inputs for changelogs
+    ├── changelog-gather.sh  # Raw per-surface diff inputs for changelogs
+    └── changelog-assemble.py # Merge synthesis fragments into a changelog file
 ```
 
 ## Development
