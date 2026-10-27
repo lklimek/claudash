@@ -23,14 +23,16 @@ npm install @dashevo/evo-sdk   # 5.0.0; ESM-only, Node >= 18.18
 
 ## Lexicon
 
-The `lexicon/` keyword tables ship **inside this plugin**, not in the working directory. They live under `$CLAUDE_PLUGIN_ROOT/lexicon/`, and `$CLAUDE_PLUGIN_ROOT` is expanded **only by the shell** — so you MUST read them with a **Bash** `grep`/`rg` command. A bare path like `lexicon/rust.md`, or the Grep tool, resolves against the working directory (which has no lexicon) and makes the tables wrongly appear empty.
+The `lexicon/` keyword tables ship **inside this plugin**, not in the working directory. Their absolute location is `${CLAUDE_PLUGIN_ROOT}/lexicon/`. Always use that absolute path: a relative `lexicon/rust.md` resolves against the working directory, which has no lexicon.
+
+**Before answering any question about Dash Platform API names, types, methods, signatures or versions, you MUST grep the lexicon first — never answer from memory.** Pick the file from the table below.
 
 To answer questions:
-1. Bash-grep the relevant file, e.g. `grep -i "<keyword>" "$CLAUDE_PLUGIN_ROOT/lexicon/rust.md"`
+1. Grep the relevant file by absolute path, e.g. `grep -i "<keyword>" "${CLAUDE_PLUGIN_ROOT}/lexicon/rust.md"` (Bash grep or the Grep tool)
 2. Find the `Src` or `Docs` column link in matching rows
 3. Expand the link prefix (see table below) to a full URL and WebFetch it for details
 
-| File (under `$CLAUDE_PLUGIN_ROOT/lexicon/`) | Content |
+| File (under `${CLAUDE_PLUGIN_ROOT}/lexicon/`) | Content |
 |------|---------|
 | `rust.md` | Rust SDK types, functions, patterns (4600+ entries, includes dapi-grpc bindings) |
 | `js.md` | JS SDK types, functions, patterns |
@@ -42,7 +44,7 @@ To answer questions:
 ### Version & migration questions
 
 When the user asks "what changed in `<version>`", "is X a breaking change", "how do I migrate from A to B", or mentions upgrading SDK versions:
-1. Bash-grep `$CLAUDE_PLUGIN_ROOT/lexicon/changelog/platform/*.md` for the symbol/RPC keyword (same grep-first flow as the lexicon).
+1. Grep `${CLAUDE_PLUGIN_ROOT}/lexicon/changelog/platform/*.md` for the symbol/RPC keyword (same grep-first flow as the lexicon).
 2. Pick the file for the target version (newer release); read the matching row's Change + Migration columns.
 3. Expand the `Ref` link (`PR:` → `https://github.com/dashpay/platform/pull/`, `C:` → `https://github.com/dashpay/platform/commit/`) and WebFetch for the full rationale.
 
