@@ -20,7 +20,8 @@ scripts/            # Helper scripts for lexicon generation
 
 | Skill | Purpose |
 |-------|---------|
-| `dash-platform` | Data contracts, Rust SDK, JS/TS SDK, identities, documents, queries |
+| `dash-dev` | Data contracts, Rust SDK, JS/TS SDK, identities, documents, queries |
+| `dash-faucet` | Request testnet DASH from Pasta's faucet |
 | `update-lexicon` | Regenerate lexicon/ from source repos (user-invocable) |
 | `update-api-changelog` | Per-release public-API changelog/diff for SDK libraries (mandatory in regen) |
 
@@ -36,7 +37,7 @@ Auto-generated keyword lookup tables in `lexicon/`. Skills grep these to find ty
 | `js.md` | js-evo-sdk, wasm-sdk, yappr | Agent-generated |
 | `grpc.md` | dapi-grpc protos | Agent-generated |
 | `explorers.md` | insight-api, platform-explorer.com | Manually curated |
-| `changelog/platform/*.md` | platform releases (gh) | update-api-changelog skill: plan → gather → synthesis agents |
+| `changelog/platform/*.md` | platform releases (gh) | update-api-changelog skill: plan → gather → synthesis agents → assemble |
 
 **Do not edit lexicon files manually.** Run `/update-lexicon` to regenerate.
 
@@ -46,13 +47,13 @@ Lexicon tables use short prefixes in Src/Docs columns:
 
 | Pre | Expands to |
 |-----|-----------|
-| `P:` | `https://github.com/dashpay/platform/blob/master/packages/` |
+| `P:` | `https://github.com/dashpay/platform/blob/v5.0.0/packages/` |
 | `R:` | `https://dashpay.github.io/platform/api/rust/` |
 | `G:` | `https://dashpay.github.io/platform/api/grpc/` |
 | `B:` | `https://dashpay.github.io/platform/` |
-| `T:` | `https://github.com/dashpay/dash-evo-tool/blob/master/` |
+| `T:` | `https://github.com/dashpay/dash-evo-tool/blob/v1.0-dev/` |
 | `Y:` | `https://github.com/PastaPastaPasta/yappr/blob/master/` |
-| `D:` | `https://github.com/PastaPastaPasta/dash-bridge/blob/master/` |
+| `D:` | `https://github.com/dashpay/dash-bridge/blob/main/` |
 | `E:` | `https://github.com/dashpay/evo-sdk-website/blob/master/` |
 | `PR:` | `https://github.com/dashpay/platform/pull/` |
 | `C:` | `https://github.com/dashpay/platform/commit/` |
@@ -61,11 +62,12 @@ Lexicon tables use short prefixes in Src/Docs columns:
 
 | Script | Purpose | Requirements |
 |--------|---------|--------------|
-| `scripts/clone-repos.sh` | Clone/update source repos to `.repos/` | git |
+| `scripts/clone-repos.sh` | Clone/update source repos to `.repos/` (`PLATFORM_REF=<tag>` pins platform) | git |
 | `scripts/gen-rustdoc-json.sh` | Generate rustdoc JSON for Rust crates | `cargo +nightly` |
 | `scripts/gen-rust-lexicon.py` | Parse rustdoc JSON → `lexicon/rust.md` | Python 3 |
 | `scripts/changelog-plan.py` | Enumerate releases, pair them, produce worklist JSON | Python 3, `gh` CLI |
 | `scripts/changelog-gather.sh` | Blobless clone + per-surface raw diff inputs (Streams A/B/C) | git, `gh` CLI, `cargo-public-api` / `buf` (best-effort) |
+| `scripts/changelog-assemble.py` | Merge per-surface synthesis fragments into `lexicon/changelog/platform/<ver>.md` | Python 3 |
 
 ## Conventions
 

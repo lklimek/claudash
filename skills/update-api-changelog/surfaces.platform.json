@@ -6,8 +6,9 @@
     {"pkg": "rs-drive",                 "crate": "drive",             "paths": ["src/"]},
     {"pkg": "rs-dapi-client",           "crate": "rs-dapi-client",    "paths": ["src/"]},
     {"pkg": "rs-drive-proof-verifier",  "crate": "drive-proof-verifier","paths": ["src/"]},
-    {"pkg": "rs-sdk-ffi",               "crate": "dash-sdk-ffi",      "paths": ["src/"]},
-    {"pkg": "rs-unified-sdk-ffi",       "crate": "unified-sdk-ffi",   "paths": ["src/"]},
+    {"pkg": "rs-sdk-ffi",               "crate": "rs-sdk-ffi",        "paths": ["src/"]},
+    {"pkg": "rs-unified-sdk-ffi",       "crate": "rs-unified-sdk-ffi","paths": ["src/"]},
+    {"pkg": "rs-unified-sdk-jni",       "crate": "rs-unified-sdk-jni","paths": ["src/"]},
     {"pkg": "rs-platform-wallet",       "crate": "platform-wallet",   "paths": ["src/"]},
     {"pkg": "rs-platform-wallet-ffi",   "crate": "platform-wallet-ffi","paths": ["src/"]}
   ],
@@ -54,6 +55,7 @@
     "json-schema-compatibility-validator": "tooling",
     "js-grpc-common":                      "gRPC plumbing/shared types, not a public SDK surface",
     "rs-platform-wallet-storage":          "internal storage backend for platform-wallet, not a direct client surface",
-    "rs-sdk-trusted-context-provider":     "SDK support crate (context provider), not a standalone client surface — exclude v1"
+    "rs-sdk-trusted-context-provider":     "SDK support crate (context provider), not a standalone client surface — exclude v1",
+    "kotlin-sdk":                          "TODO: client SDK (Android), but changelog-gather.sh has no kotlin handler yet; its Rust bridge rs-unified-sdk-jni is covered"
   }
 }
