@@ -47,13 +47,13 @@ Lexicon tables use short prefixes in Src/Docs columns:
 
 | Pre | Expands to |
 |-----|-----------|
-| `P:` | `https://github.com/dashpay/platform/blob/master/packages/` |
+| `P:` | `https://github.com/dashpay/platform/blob/v5.0.0/packages/` |
 | `R:` | `https://dashpay.github.io/platform/api/rust/` |
 | `G:` | `https://dashpay.github.io/platform/api/grpc/` |
 | `B:` | `https://dashpay.github.io/platform/` |
-| `T:` | `https://github.com/dashpay/dash-evo-tool/blob/master/` |
+| `T:` | `https://github.com/dashpay/dash-evo-tool/blob/v1.0-dev/` |
 | `Y:` | `https://github.com/PastaPastaPasta/yappr/blob/master/` |
-| `D:` | `https://github.com/PastaPastaPasta/dash-bridge/blob/master/` |
+| `D:` | `https://github.com/dashpay/dash-bridge/blob/main/` |
 | `E:` | `https://github.com/dashpay/evo-sdk-website/blob/master/` |
 | `PR:` | `https://github.com/dashpay/platform/pull/` |
 | `C:` | `https://github.com/dashpay/platform/commit/` |

@@ -877,4 +877,4 @@
 | document_dpns (rs-dpp) | rs-dpp test payload: DPNS domain document JSON (`$id`, `$type`, `$dataContractId`, `$ownerId`, `$revision`, label, records) | `P:rs-dpp/src/tests/payloads/document_dpns.json` |
 | dash-bridge contract flow | Builds `$formatVersion: '1'` contract JSON from yappr-style source and publishes via evo-sdk | `D:src/platform/contract.ts` |
 
-Link prefixes: `P:`=https://github.com/dashpay/platform/blob/master/packages/  `R:`=https://dashpay.github.io/platform/api/rust/  `B:`=https://dashpay.github.io/platform/  `Y:`=https://github.com/PastaPastaPasta/yappr/blob/master/  `D:`=https://github.com/PastaPastaPasta/dash-bridge/blob/master/
+Link prefixes: `P:`=https://github.com/dashpay/platform/blob/v5.0.0/packages/  `R:`=https://dashpay.github.io/platform/api/rust/  `B:`=https://dashpay.github.io/platform/  `Y:`=https://github.com/PastaPastaPasta/yappr/blob/master/  `D:`=https://github.com/dashpay/dash-bridge/blob/main/

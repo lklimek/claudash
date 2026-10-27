@@ -9,10 +9,19 @@ Regenerate `lexicon/*.md` keyword lookup tables from local clones of Dash Platfo
 ## Step 1: Clone repos
 
 ```bash
-PLATFORM_REF=v5.0.0 bash scripts/clone-repos.sh   # latest stable release tag (gh release list --repo dashpay/platform)
+PLATFORM_REF="$(gh release view -R dashpay/platform --json tagName -q .tagName)"   # latest stable release
+export PLATFORM_REF
+bash scripts/clone-repos.sh
 ```
 
-Clones/updates all source repos into `.repos/` (gitignored). Pin `dashpay/platform` to the latest stable release tag via `PLATFORM_REF` — `master` may carry unreleased work. Other repos use their default branch. Note commit SHAs (and the platform tag) from output for lexicon `Sources:` headers.
+Clones/updates all source repos into `.repos/` (gitignored). `dashpay/platform` is pinned to `PLATFORM_REF` — its default branch carries unreleased work. Other repos use their default branch. Note commit SHAs (and the platform tag) from output for lexicon `Sources:` headers.
+
+`P:` links must resolve at the generated tag. If `PLATFORM_REF` changed, re-pin every link-prefix table:
+
+```bash
+grep -rlE 'dashpay/platform/blob/(master|v[0-9][^/]*)/packages/' CLAUDE.md README.md skills lexicon \
+  | xargs sed -i -E "s#dashpay/platform/blob/(master|v[0-9][^/]*)/packages/#dashpay/platform/blob/${PLATFORM_REF}/packages/#g"
+```
 
 All content at `dashpay.github.io/platform` is generated from `dashpay/platform` — read source directly, no WebFetch needed.
 
@@ -28,7 +37,7 @@ Note the `DOC_DIR=...` line from output, then:
 
 ```bash
 python3 scripts/gen-rust-lexicon.py "$DOC_DIR" --patterns lexicon/rust-patterns.md \
-  --source-ref "platform@<sha> (<tag>)" > lexicon/rust.md
+  --source-ref "platform@<sha> (<tag>), dash-evo-tool@<sha>" > lexicon/rust.md
 ```
 
 Requires `cargo +nightly` (only for this step).
@@ -69,7 +78,7 @@ After this agent completes, re-run the gen-rust-lexicon.py command from Step 2 t
 
 After lexicon tables are regenerated, run the **`/update-api-changelog`** skill. This step is **not optional** — the lexicon and the changelog are released together.
 
-Invoke `/update-api-changelog` and follow its procedure (plan → gather → synthesis → prune); the full runnable commands and the synthesis-agent prompt live in `skills/update-api-changelog/SKILL.md`. Existing changelog files are skipped (idempotent), so steady-state runs are cheap.
+Invoke `/update-api-changelog` and follow its procedure (plan → gather → prune → synthesis → assemble); the full runnable commands and the synthesis-agent prompt live in `skills/update-api-changelog/SKILL.md`. Existing changelog files are skipped (idempotent), so steady-state runs are cheap.
 
 `lexicon/changelog/platform/*.md` is produced by this step and committed alongside the rest of lexicon.
 
@@ -115,11 +124,11 @@ Include in each agent's prompt:
 
 | Pre | Expands to |
 |-----|-----------|
-| `P:` | `https://github.com/dashpay/platform/blob/master/packages/` |
+| `P:` | `https://github.com/dashpay/platform/blob/v5.0.0/packages/` |
 | `R:` | `https://dashpay.github.io/platform/api/rust/` |
 | `G:` | `https://dashpay.github.io/platform/api/grpc/` |
 | `B:` | `https://dashpay.github.io/platform/` |
-| `T:` | `https://github.com/dashpay/dash-evo-tool/blob/master/` |
+| `T:` | `https://github.com/dashpay/dash-evo-tool/blob/v1.0-dev/` |
 | `Y:` | `https://github.com/PastaPastaPasta/yappr/blob/master/` |
-| `D:` | `https://github.com/PastaPastaPasta/dash-bridge/blob/master/` |
+| `D:` | `https://github.com/dashpay/dash-bridge/blob/main/` |
 | `E:` | `https://github.com/dashpay/evo-sdk-website/blob/master/` |

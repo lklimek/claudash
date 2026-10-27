@@ -11,7 +11,7 @@ REPOS=(
   dashpay/platform
   dashpay/dash-evo-tool
   PastaPastaPasta/yappr
-  PastaPastaPasta/dash-bridge
+  dashpay/dash-bridge
   dashpay/evo-sdk-website
 )
 

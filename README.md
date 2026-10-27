@@ -113,10 +113,10 @@ The lexicon files use **abbreviated link prefixes** to save tokens:
 
 | Prefix | Points to |
 |--------|-----------|
-| `P:` | `github.com/dashpay/platform/blob/master/packages/…` |
+| `P:` | `github.com/dashpay/platform/blob/v5.0.0/packages/…` |
 | `R:` | `dashpay.github.io/platform/api/rust/…` |
 | `G:` | `dashpay.github.io/platform/api/grpc/…` |
-| `T:` | `github.com/dashpay/dash-evo-tool/blob/master/…` |
+| `T:` | `github.com/dashpay/dash-evo-tool/blob/v1.0-dev/…` |
 
 Skills expand these to full URLs before fetching.
 
