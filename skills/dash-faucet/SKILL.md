@@ -25,7 +25,7 @@ Use the `capEndpoint` from `/api/status` to get the CAP token (see PoW below). T
 Handle the response:
 
 - **200** with `txid` → sent. **200 with `replay: true`** → nothing was sent: payouts are idempotent per (address, UTC day) and this returns the earlier `txid`. Use another address or wait until 00:00 UTC.
-- **503** (`Chain providers unavailable` / `stale coin view, please retry`) → transient: the faucet's chain backends (`providers[]` in `/api/status`) are unhealthy or out of sync. Wait ~30 s (back off on repeats), then retry with a **fresh** `capToken` — a token is spent by every attempt, failed or not. Give up after ~5 attempts and report the error.
+- **503** `Chain providers unavailable` (`detailMessage` e.g. `stale coin view, please retry`, `broadcast could not be confirmed, please retry`) → transient payout failure; the server already discarded the bad coin, so retry right away with a **fresh** `capToken` (every attempt burns its token). Failed attempts do not count toward the rate limit. Give up after ~5 attempts and report.
 - **429** with `requiresHardCaptcha` (top level or under `detail`) → solve the same PoW against `hardCapEndpoint` and retry once, sending that token as `capToken`.
 - **429** without it → rate-limited (`retryAfter` seconds, top level or under `detail`); stop and report.
 - Other errors: message is in `error` or `detail.error`.
