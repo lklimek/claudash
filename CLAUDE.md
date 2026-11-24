@@ -12,7 +12,7 @@ Guidance for Claude Code working in this repository.
 .claude-plugin/
   plugin.json       # Plugin manifest (only `name` required; skills/ auto-discovered)
 skills/             # Skill definitions (directories with SKILL.md)
-lexicon/            # Auto-generated keyword lookup tables (do not edit manually)
+lexicon/            # Generated SDK tables and curated explorer reference
 scripts/            # Helper scripts for lexicon generation
 ```
 
@@ -27,7 +27,7 @@ scripts/            # Helper scripts for lexicon generation
 
 ## Lexicon
 
-Auto-generated keyword lookup tables in `lexicon/`. Skills grep these to find types, functions, and patterns, then WebFetch source links for details.
+Keyword lookup tables in `lexicon/`: generated SDK tables and a manually curated explorer reference. Skills grep these to find types, functions, patterns, and explorer endpoints, then fetch source links for details.
 
 | File | Source | Method |
 |------|--------|--------|
