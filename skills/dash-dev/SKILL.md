@@ -41,6 +41,8 @@ To answer questions:
 | `explorers.md` | Insight API + Platform Explorer endpoints, instances |
 | `changelog/platform/*.md` | per-release public-API diffs + migration guidance (breaking changes, added/removed symbols) |
 
+For Insight (Core/L1) and Platform Explorer (L2), use `explorers.md` to select the mainnet or testnet **API base URL**. UI and documentation URLs are separate. Confirm the network with Insight `status?q=getInfo` (`info.network`) or Platform Explorer `status` (`network`) before using the instance; do not infer it from documentation examples.
+
 ### Version & migration questions
 
 When the user asks "what changed in `<version>`", "is X a breaking change", "how do I migrate from A to B", or mentions upgrading SDK versions:

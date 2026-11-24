@@ -39,7 +39,7 @@ Auto-generated keyword lookup tables in `lexicon/`. Skills grep these to find ty
 | `explorers.md` | insight-api, platform-explorer.com | Manually curated |
 | `changelog/platform/*.md` | platform releases (gh) | update-api-changelog skill: plan → gather → synthesis agents → assemble |
 
-**Do not edit lexicon files manually.** Run `/update-lexicon` to regenerate.
+**Do not edit generated lexicon files manually.** Run `/update-lexicon` to regenerate them. Exception: `explorers.md` is manually curated from deployed explorer documentation; verify API base URLs and networks with read-only status requests when updating it.
 
 ### Link Prefixes
 
