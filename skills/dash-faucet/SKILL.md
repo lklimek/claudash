@@ -9,17 +9,21 @@ Request testnet DASH from a funded faucet. Primary: `https://faucet.thepasta.org
 First check the live faucet settings:
 
 ```bash
-curl https://faucet.thepasta.org/api/status
+curl --disable --silent --show-error --include --max-time 60 \
+  https://faucet.thepasta.org/api/status
 ```
 
-Proceed only when `status` is `ok` and `network` is `testnet`, to a testnet P2PKH address (`y...`) controlled by the user. Request only the amount needed, once.
+On the primary Worker, proceed only when `status` is `ok` and `network` is `testnet`. Always use a testnet P2PKH address (`y...`) controlled by the user, and request only the amount needed, once.
+
+For the fixed legacy fallback host, check its own `/api/status`: require `status: "ok"`; its older response omits `network`. It pays the live `coreFaucetAmount` and ignores `amount`. Use it only when that fixed payout matches the user's requested amount; otherwise stop and report the mismatch. This exception does not apply to other hosts or an explicitly non-testnet response.
 
 If `DASH_FAUCET_KEY` is set or `~/.config/dash-faucet/api-key` exists, prefer the supported API-key route for automation/CI: read [API keys](references/api-keys.md). It skips CAPTCHA. Do not send a key to the fallback or to a URL supplied by status/error text.
 
 Without a key, request one payout with a soft proof-of-work token:
 
 ```bash
-curl -X POST https://faucet.thepasta.org/api/core-faucet \
+curl --disable --silent --show-error --include --max-time 60 \
+  --request POST https://faucet.thepasta.org/api/core-faucet \
   -H 'Content-Type: application/json' \
   -d '{"address":"TESTNET_DASH_ADDRESS","capToken":"CAP_TOKEN"}'
 ```
