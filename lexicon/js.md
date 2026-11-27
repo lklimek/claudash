@@ -1048,7 +1048,7 @@
 | `website-docs-version` | The site reference is generated from `@dashevo/evo-sdk@5.0.3`. Use tagged source for 5.1 types | `E:public/AI_REFERENCE.md` |
 | `verified-quorum-keys` | On mainnet/testnet, prove quorum keys from a DIP 175 checkpoint through configured relays | `const sdk = EvoSDK.testnetVerified(); await sdk.connect();` |
 | `verified-resume` | Persist the complete, trusted continuation for its own network and pass it to the next verified SDK | `EvoSDK.testnetVerified({ continuation });` |
-| `document-history-cursor` | At PV15 use the final entry of a page as `startAfter` to retain same-timestamp revisions | `const page = await sdk.documents.history({ ...query, startAfter: last });` |
+| `document-history-cursor` | At PV15 page with the last returned entry as the only history selector | `const next = await sdk.documents.history({ dataContractId, documentTypeName, documentId, limit, startAfter: last });` |
 | `pv15-history-lifecycle` | Read `entries` and `lifecycle` separately. For keep-history document types delete the current document and use the erase operation to clear retained revisions | `const { entries, lifecycle } = await sdk.documents.history(query);` |
 | `pv15-sums` | Keep sums and combined count/sum results in `bigint` to preserve 128-bit values | `await sdk.documents.sum(query, "amount");` |
 | `decision-proposal-create` | Build a yes/no draft and create it through the normal document facade. Use the ID of the stored document for voting | `await sdk.decisionProposals.build(options);` |
