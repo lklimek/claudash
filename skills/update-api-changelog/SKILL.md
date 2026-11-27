@@ -193,7 +193,7 @@ All existing lexicon prefixes apply. Two additional prefixes for changelog refs:
 |-----|-----------|
 | `PR:` | `https://github.com/dashpay/platform/pull/` |
 | `C:` | `https://github.com/dashpay/platform/commit/` |
-| `P:` | `https://github.com/dashpay/platform/blob/v5.0.0/packages/` |
+| `P:` | `https://github.com/dashpay/platform/blob/v5.1.0/packages/` |
 | `R:` | `https://dashpay.github.io/platform/api/rust/` |
 | `G:` | `https://dashpay.github.io/platform/api/grpc/` |
 | `B:` | `https://dashpay.github.io/platform/` |

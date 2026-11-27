@@ -37,9 +37,10 @@ Keyword lookup tables in `lexicon/`: generated SDK tables and a manually curated
 | `js.md` | js-evo-sdk, wasm-sdk, yappr | Agent-generated |
 | `grpc.md` | dapi-grpc protos | Agent-generated |
 | `explorers.md` | insight-api, platform-explorer.com | Manually curated |
-| `changelog/platform/*.md` | platform releases (gh) | update-api-changelog skill: plan → gather → synthesis agents → assemble |
+| `changelog/platform/*.md` | Platform releases | update-api-changelog: plan → gather → synthesis → assemble |
+| `changelog/tenderdash/*.md` | Tenderdash releases and paired Platform tags | Curated from tagged source and upgrade notes |
 
-**Do not edit generated lexicon files manually.** Run `/update-lexicon` to regenerate them. Exception: `explorers.md` is manually curated from deployed explorer documentation; verify API base URLs and networks with read-only status requests when updating it.
+**Do not edit generated lexicon files manually.** Run `/update-lexicon` to regenerate them. Tenderdash migration notes are curated from tagged source. `explorers.md` is manually curated from deployed explorer documentation; verify API base URLs and networks with read-only status requests when updating it.
 
 ### Link Prefixes
 
@@ -47,7 +48,7 @@ Lexicon tables use short prefixes in Src/Docs columns:
 
 | Pre | Expands to |
 |-----|-----------|
-| `P:` | `https://github.com/dashpay/platform/blob/v5.0.0/packages/` |
+| `P:` | `https://github.com/dashpay/platform/blob/v5.1.0/packages/` |
 | `R:` | `https://dashpay.github.io/platform/api/rust/` |
 | `G:` | `https://dashpay.github.io/platform/api/grpc/` |
 | `B:` | `https://dashpay.github.io/platform/` |

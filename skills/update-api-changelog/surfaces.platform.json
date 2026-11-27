@@ -1,6 +1,9 @@
 {
   "_comment": "Allow-list of public API surfaces for dashpay/platform. Edit to add/exclude packages. Checked in — the source of truth for changelog-plan.py and changelog-gather.sh.",
   "rust": [
+    {"pkg": "rs-core-proof",            "crate": "dash-core-proof",   "paths": ["src/"]},
+    {"pkg": "rs-sdk-cxx",               "crate": "dash-sdk-cxx",      "paths": ["src/", "include/"]},
+    {"pkg": "rs-sdk-trusted-context-provider", "crate": "rs-sdk-trusted-context-provider", "paths": ["src/"]},
     {"pkg": "rs-sdk",                   "crate": "dash-sdk",          "paths": ["src/"]},
     {"pkg": "dash-platform-queries",    "crate": "dash-platform-queries","paths": ["src/"]},
     {"pkg": "rs-dpp",                   "crate": "dpp",               "paths": ["src/"]},
@@ -56,7 +59,6 @@
     "json-schema-compatibility-validator": "tooling",
     "js-grpc-common":                      "gRPC plumbing/shared types, not a public SDK surface",
     "rs-platform-wallet-storage":          "internal storage backend for platform-wallet, not a direct client surface",
-    "rs-sdk-trusted-context-provider":     "SDK support crate (context provider), not a standalone client surface — exclude v1",
     "kotlin-sdk":                          "TODO: client SDK (Android), but changelog-gather.sh has no kotlin handler yet; its Rust bridge rs-unified-sdk-jni is covered"
   }
 }

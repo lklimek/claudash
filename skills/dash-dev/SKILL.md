@@ -1,24 +1,24 @@
 ---
 name: dash-dev
-description: "Use for any Dash Platform (Evolution) work in any language — Rust dash-sdk/dpp/drive, JS/TS @dashevo/evo-sdk/wasm-sdk, Swift/Kotlin SDKs, DAPI gRPC; data contracts, documents, identities, tokens, DPNS names, state transitions, credits, proofs; code importing dash_sdk/dpp or @dashevo/*; and 'what changed / how to migrate' between Platform versions."
+description: "Use for any Dash Platform (Evolution) work in any language — Rust dash-sdk/dpp/drive, JS/TS @dashevo/evo-sdk/wasm-sdk, Swift/Kotlin SDKs, DAPI gRPC; data contracts, documents, identities, tokens, DPNS names, state transitions, credits, proofs, Tenderdash consensus and Drive ABCI integration; code importing dash_sdk/dpp or @dashevo/*; and 'what changed / how to migrate' between Platform versions."
 ---
 
-Assist with Dash Platform development: data contracts, Rust SDK, JS/TS SDK, identities, documents, and queries.
+Assist with Dash Platform development: data contracts, Rust SDK, JS/TS SDK, identities, documents, queries, and Tenderdash integration.
 
 ## Setup
 
 In `dashpay/platform` repo: `bash scripts/setup-ai-agent-environment.sh`
 
-**Rust** — not on crates.io, use git dep pinned to a release tag (current stable: `v5.0.1`; the lexicon is from `v5.0.0`, delta in `changelog/platform/5.0.1.md`):
+**Rust** — not on crates.io, use git dep pinned to a release tag (current stable and lexicon source: `v5.1.0`):
 ```toml
 [dependencies]
-dash-sdk = { git = "https://github.com/dashpay/platform", tag = "v5.0.1" }
-dpp = { git = "https://github.com/dashpay/platform", tag = "v5.0.1" }
+dash-sdk = { git = "https://github.com/dashpay/platform", tag = "v5.1.0" }
+dpp = { git = "https://github.com/dashpay/platform", tag = "v5.1.0" }
 ```
 
 **JS/TS**:
 ```bash
-npm install @dashevo/evo-sdk   # 5.0.1; ESM-only, Node >= 18.18
+npm install @dashevo/evo-sdk@5.1.0   # ESM-only, Node >= 22
 ```
 
 ## Lexicon
@@ -34,29 +34,29 @@ To answer questions:
 
 | File (under `${CLAUDE_PLUGIN_ROOT}/lexicon/`) | Content |
 |------|---------|
-| `rust.md` | Rust SDK types, functions, patterns (4600+ entries, includes dapi-grpc bindings) |
+| `rust.md` | Rust SDK types, functions, patterns (5400+ entries, includes dapi-grpc bindings) |
 | `js.md` | JS SDK types, functions, patterns |
 | `contract.md` | data contract types, JSON Schema, DPP, document types |
 | `grpc.md` | gRPC services, messages, endpoints |
 | `explorers.md` | Insight API + Platform Explorer endpoints, instances |
 | `changelog/platform/*.md` | per-release public-API diffs + migration guidance (breaking changes, added/removed symbols) |
+| `changelog/tenderdash/*.md` | Tenderdash consensus, ABCI, RPC, and configuration migration |
 
 For Insight (Core/L1) and Platform Explorer (L2), use `explorers.md` to select the mainnet or testnet **API base URL**. UI and documentation URLs are separate. Confirm the network with Insight `status?q=getInfo` (`info.network`) or Platform Explorer `status` (`network`) before using the instance; do not infer it from documentation examples.
 
 ### Version & migration questions
 
 When the user asks "what changed in `<version>`", "is X a breaking change", "how do I migrate from A to B", or mentions upgrading SDK versions:
-1. Grep `${CLAUDE_PLUGIN_ROOT}/lexicon/changelog/platform/*.md` for the symbol/RPC keyword (same grep-first flow as the lexicon).
-2. Each file is one release's public-API diff vs the preceding release, and stable files form a contiguous chain, so for a multi-version upgrade read every file from after the user's current version through the target — e.g. 4.1.1 → 5.0.1 reads 5.0.0.md then 5.0.1.md, not just the target. Read each matching row's Change + Migration columns.
-3. Expand the `Ref` link (`PR:` → `https://github.com/dashpay/platform/pull/`, `C:` → `https://github.com/dashpay/platform/commit/`) and WebFetch for the full rationale.
+- For Platform, grep `${CLAUDE_PLUGIN_ROOT}/lexicon/changelog/platform/*.md` for the symbol or RPC. Read the Change and Migration columns in every file from after the current version through the target. An upgrade from 5.0.1 to 5.1.0 uses 5.0.2.md, 5.0.3.md, and 5.1.0.md. Expand and fetch the `Ref` links for details.
+- For Tenderdash and its Drive integration, grep `${CLAUDE_PLUGIN_ROOT}/lexicon/changelog/tenderdash/*.md` and follow its links to tagged source and upgrade notes.
 
-Stable files are permanent; only the single most-recent prerelease file is kept.
+Stable Platform files are permanent. Keep only the newest prerelease file.
 
 Link prefixes:
 
 | Pre | URL |
 |-----|-----|
-| `P:` | `https://github.com/dashpay/platform/blob/v5.0.0/packages/` |
+| `P:` | `https://github.com/dashpay/platform/blob/v5.1.0/packages/` |
 | `R:` | `https://dashpay.github.io/platform/api/rust/` |
 | `G:` | `https://dashpay.github.io/platform/api/grpc/` |
 | `B:` | `https://dashpay.github.io/platform/` |
@@ -66,6 +66,14 @@ Link prefixes:
 | `E:` | `https://github.com/dashpay/evo-sdk-website/blob/master/` |
 | `PR:` | `https://github.com/dashpay/platform/pull/` |
 | `C:` | `https://github.com/dashpay/platform/commit/` |
+
+## Platform 5.1 and Tenderdash 2.0
+
+- Check the target network's protocol version. SDK 5.1 reads protocol 14 and 15. Upgrade 5.0.x clients before activation to retain access to DPNS, DashPay, newly stored contracts, document history, and 128-bit sums. [App upgrade guide](https://github.com/dashpay/platform/blob/v5.1.0/book/src/sdk/protocol-version-15-upgrade.md)
+- Protocol 15 adds private document types (`private.entrySize`), decision proposals, compiled contracts, and keep-history deletion and erasure (`canBeDeleted`, `canBeErased`). Read private entries with `getPrivateDocumentEntries` and submit them with `PrivateDocumentCreateFromShieldedPool`.
+- Use `GetDocumentHistoryRequestV1` at protocol 15. Let the SDK negotiate the request version for older networks. Use `i128` in Rust or `Int128` in Swift for proved document sums, and keep FFI decimal strings exact.
+- Upgrade Drive and Tenderdash together before activation. Platform protocol 15 sets Tenderdash consensus version 2, which requires Tenderdash 2.0+ on validators and full nodes. Tenderdash 2.0 also calls commit-level `VerifyVoteExtension` with an empty `validator_pro_tx_hash`. [Tenderdash migration](../../lexicon/changelog/tenderdash/2.0.0.md)
+- For Dashmate upgrades, follow the pinned instructions for Core 24, Tenderdash 2.0 and the Core RPC whitelist. Restart the full node so Core loads the new whitelist. [Platform upgrade guide](https://github.com/dashpay/platform/releases/tag/v5.1.0#upgrading)
 
 ---
 
@@ -97,8 +105,8 @@ Each type defines:
 
 Maps names → identities:
 - `domain` type: `label`, `normalizedLabel`, `normalizedParentDomainName`, `records`
-- `preorder` type: commit-reveal registration
-- Normalized (lowercase) for uniqueness
+- `preorder`: salted commit-reveal below protocol 15. At protocol 15, DPNS v3 requires the owner's unsalted preorder from an earlier block and consumes it on registration.
+- DPNS v3 generates labels with `homographSafeASCII`. Owners can delete uncontested names or permanently retire a name with a `tombstone`.
 
 ### Contract Security
 
@@ -166,7 +174,7 @@ await sdk.connect();                  // trusted mode pre-fetches quorum keys �
 
 ### Operations
 
-Facades on the instance: `identities`, `documents`, `contracts`, `tokens`, `dpns`, `addresses`, `epoch`, `protocol`, `stateTransitions`, `system`, `group`, `contractGroups`, `voting`, `shielded`, `encryptedFor`, `moderationCharters`. Reads return `undefined` when missing; `*WithProof` variants also return proof metadata. Writes take an options object with `identityKey` (`IdentityPublicKey`) + `signer` (`IdentitySigner`, `addKeyFromWif`).
+Facades on the instance: `identities`, `documents`, `contracts`, `tokens`, `dpns`, `addresses`, `epoch`, `protocol`, `stateTransitions`, `system`, `group`, `contractGroups`, `voting`, `shielded`, `encryptedFor`, `moderationCharters`, `decisionProposals`. Reads return `undefined` when missing; `*WithProof` variants also return proof metadata. Writes take an options object with `identityKey` (`IdentityPublicKey`) + `signer` (`IdentitySigner`, `addKeyFromWif`).
 
 ```typescript
 import { EvoSDK, Document, IdentitySigner } from '@dashevo/evo-sdk';
@@ -202,6 +210,12 @@ Grep `js.md` for exact option types (`ContractPublishOptions`, `IdentityCreateOp
 - New query kinds: aggregate `count`/`sum`/`average`, `ranked`/`having`, `chained`, `composite`.
 - New facades: `contractGroups`, `encryptedFor`, `moderationCharters`; contract moderation (`banUser`, `moderationStatus`, …) on `contracts`.
 
+### Platform 5.1 JS changes
+
+- `documents.history` returns `{ entries, lifecycle }` on every network. `documents.historyWithProof` wraps that result with proof metadata. `startAtMs` is inclusive. Drop `offset` and use `startAfter` for cursor pagination at protocol 15.
+- Use `dpns.deleteName` or `dpns.tombstoneName` according to the desired name lifecycle. Use the `decisionProposals` facade for yes/no and multiple-choice proposals.
+- The opt-in Core quorum proof provider verifies DIP 175 proofs from a trusted checkpoint. Check `js.md` for provider constructors and WASM features. Mainnet verified mode requires reachable proof relays supplied by the app.
+
 ### Low-level bindings
 
 `@dashevo/evo-sdk` re-exports `@dashevo/wasm-sdk` (which bundles `wasm-dpp2` classes: `Document`, `DataContract`, `BatchTransition`, `DocumentCreateTransition`, …) — build/sign transitions by hand from these. Legacy `@dashevo/wasm-dpp` (`DashPlatformProtocol`) is a dev-only binding; prefer the re-exported `wasm-dpp2` classes.
@@ -218,6 +232,8 @@ Grep `js.md` for exact option types (`ContractPublishOptions`, `IdentityCreateOp
 
 ---
 
-## Swift / Kotlin SDKs
+## C++ / Swift / Kotlin SDKs
 
-No lexicon; read source. `P:swift-sdk/` (iOS, SwiftPM `SwiftDashSDK` over the `DashSDKFFI` xcframework that `build_ios.sh` builds from `rs-unified-sdk-ffi`) and `P:kotlin-sdk/` (Android, JNI shim `rs-unified-sdk-jni`) — start with each package's `README.md` / `BUILD_GUIDE_FOR_AI.md`. Swift API changes: `## Swift` sections in `changelog/platform/*.md`; Kotlin is not in the changelogs.
+For C++ embedders, use `P:rs-sdk-cxx/`. The C++ binding expects host-provided DAPI endpoints, quorum keys and signing callbacks. Build the archive and generated headers together.
+
+For Swift and Kotlin, read the tagged SDK source. `P:swift-sdk/` (iOS, SwiftPM `SwiftDashSDK` over the `DashSDKFFI` xcframework that `build_ios.sh` builds from `rs-unified-sdk-ffi`) and `P:kotlin-sdk/` (Android, JNI shim `rs-unified-sdk-jni`) — start with each package's `README.md` / `BUILD_GUIDE_FOR_AI.md`. Swift API changes: `## Swift` sections in `changelog/platform/*.md`; Kotlin is not in the changelogs.

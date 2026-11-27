@@ -124,7 +124,7 @@ Include in each agent's prompt:
 
 | Pre | Expands to |
 |-----|-----------|
-| `P:` | `https://github.com/dashpay/platform/blob/v5.0.0/packages/` |
+| `P:` | `https://github.com/dashpay/platform/blob/v5.1.0/packages/` |
 | `R:` | `https://dashpay.github.io/platform/api/rust/` |
 | `G:` | `https://dashpay.github.io/platform/api/grpc/` |
 | `B:` | `https://dashpay.github.io/platform/` |
