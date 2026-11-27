@@ -46,13 +46,13 @@ claudash ships a **lexicon** — pre-indexed lookup tables generated from actual
 
 | Lexicon | Entries | Coverage |
 |---------|---------|----------|
-| **Rust SDK** | ~4,700 | Every public type, function, and trait from `dash-sdk`, `dpp`, `rs-dapi-client`, `dapi-grpc` |
-| **Rust Patterns** | ~80 | Real-world SDK usage patterns and examples from `rs-sdk` examples/tests and `dash-evo-tool` |
-| **JS/TS SDK** | ~850 | Types, options, facades, query interfaces from `@dashevo/evo-sdk`, `wasm-sdk` and `wasm-dpp2` |
-| **Data Contracts** | ~860 | Contract types, document schemas, state transitions, token config, groups, voting |
-| **gRPC API** | ~630 | All 3 services, 84 RPCs, every request/response message type and field |
+| **Rust SDK** | ~5,400 | Every public type, function, and trait from `dash-sdk`, `dpp`, `rs-dapi-client`, `dapi-grpc` |
+| **Rust Patterns** | ~100 | Real-world SDK usage patterns and examples from `rs-sdk` examples/tests and `dash-evo-tool` |
+| **JS/TS SDK** | ~1,100 | Types, options, facades, query interfaces from `@dashevo/evo-sdk`, `wasm-sdk` and `wasm-dpp2` |
+| **Data Contracts** | ~1,060 | Contract types, document schemas, state transitions, token config, groups, voting |
+| **gRPC API** | ~690 | All 3 services, 90 RPCs, every request/response message type and field |
 
-Generated from `dashpay/platform` **v5.0.0** (protocol version 14). Per-release API changelogs with migration notes cover every stable release from 3.0.1 to 5.0.1.
+Generated from [Dash Platform v5.1.0](https://github.com/dashpay/platform/releases/tag/v5.1.0) (protocol version 15). [Platform API changelogs](lexicon/changelog/platform/) cover every stable release from 3.0.1 to 5.1.0. The [Tenderdash 2.0.0 changelog](lexicon/changelog/tenderdash/2.0.0.md) covers the paired Drive/ABCI upgrade, RPC, consensus, and configuration.
 
 This means Claude can help you:
 
@@ -95,7 +95,7 @@ User asks about Dash Platform
           │ grep lexicon/*.md for keywords
           ▼
 ┌─────────────────────┐
-│   Lexicon tables     │  ← ~7,000 entries with source links
+│   Lexicon tables     │  ← 7,000+ entries with source links
 │   rust.md            │
 │   js.md              │
 │   contract.md        │
@@ -113,7 +113,7 @@ The lexicon files use **abbreviated link prefixes** to save tokens:
 
 | Prefix | Points to |
 |--------|-----------|
-| `P:` | `github.com/dashpay/platform/blob/v5.0.0/packages/…` |
+| `P:` | `github.com/dashpay/platform/blob/v5.1.0/packages/…` |
 | `R:` | `dashpay.github.io/platform/api/rust/…` |
 | `G:` | `dashpay.github.io/platform/api/grpc/…` |
 | `T:` | `github.com/dashpay/dash-evo-tool/blob/v1.0-dev/…` |
@@ -152,7 +152,7 @@ claudash/
 │   ├── contract.md          # Data contract types
 │   ├── grpc.md              # gRPC services & RPCs
 │   ├── explorers.md         # Insight API + Platform Explorer endpoints
-│   └── changelog/platform/  # Per-release API changelogs (3.0.1 … 5.0.1)
+│   └── changelog/           # Platform API and Tenderdash migration notes
 └── scripts/                 # Lexicon generation tooling
     ├── clone-repos.sh       # Clone source repos to .repos/
     ├── gen-rustdoc-json.sh  # Generate rustdoc JSON

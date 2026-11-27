@@ -1,6 +1,6 @@
 {
   "name": "claudash",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "description": "Skills for Dash Platform developers — data contracts, Rust SDK, JS SDK, and API lexicon",
   "license": "GPL-3.0",
   "author": {
