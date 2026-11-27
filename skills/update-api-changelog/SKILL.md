@@ -6,6 +6,10 @@ user-invocable: true
 
 Diff two Dash Platform releases across all SDK/client surfaces and emit a grep-ready `lexicon/changelog/platform/<version>.md` file. The skill splits into deterministic fact-gathering (scripts) and interpretation (synthesis agents).
 
+## Ad hoc comparisons
+
+For a question about two refs, resolve the requested tags or branches to commit SHAs in `dashpay/platform`. Compare those snapshots with `git diff <base-sha> <head-sha> -- <paths>` using the public surfaces in `surfaces.platform.json`. Verify which changes are publicly reachable, count distinct changes per surface, and cite the compared SHAs. Report the findings in the response. Use the workflow below to generate or backfill release files.
+
 ## Overview: plan → gather → synthesis → assemble
 
 ```
