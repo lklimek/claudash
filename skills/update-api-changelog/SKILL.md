@@ -1,10 +1,14 @@
 ---
 name: update-api-changelog
-description: "Generate per-release public-API changelogs for Dash Platform SDK/client libraries by diffing two releases. Use to refresh lexicon/changelog/ or answer 'what changed / how do I migrate between versions X and Y'. Runs as a mandatory step of update-lexicon."
+description: "Use for Dash Platform public SDK or DAPI changes between two versions (release tags or development branches), even for a single method. Count API changes, identify breaking changes, explain SDK migrations, and generate or backfill release API changelogs. Use dash-dev for single-version SDK usage and node upgrades."
 user-invocable: true
 ---
 
 Diff two Dash Platform releases across all SDK/client surfaces and emit a grep-ready `lexicon/changelog/platform/<version>.md` file. The skill splits into deterministic fact-gathering (scripts) and interpretation (synthesis agents).
+
+## Ad hoc comparisons
+
+For a question about two refs, resolve the requested tags or branches to commit SHAs in `dashpay/platform`. Compare those snapshots with `git diff <base-sha> <head-sha> -- <paths>` using the public surfaces in `surfaces.platform.json`. Verify which changes are publicly reachable, count distinct changes per surface, and cite the compared SHAs. Report the findings in the response. Use the workflow below to generate or backfill release files.
 
 ## Overview: plan → gather → synthesis → assemble
 
