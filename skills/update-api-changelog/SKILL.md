@@ -1,6 +1,6 @@
 ---
 name: update-api-changelog
-description: "Generate per-release public-API changelogs for Dash Platform SDK/client libraries by diffing two releases. Use to refresh lexicon/changelog/ or answer 'what changed / how do I migrate between versions X and Y'. Runs as a mandatory step of update-lexicon."
+description: "Use for Dash Platform public SDK or DAPI changes between two versions (release tags or development branches), even for a single method. Count API changes, identify breaking changes, explain SDK migrations, and generate or backfill release API changelogs. Use dash-dev for single-version SDK usage and node upgrades."
 user-invocable: true
 ---
 

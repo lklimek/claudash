@@ -1,6 +1,6 @@
 ---
 name: dash-dev
-description: "Use for any Dash Platform (Evolution) work in any language — Rust dash-sdk/dpp/drive, JS/TS @dashevo/evo-sdk/wasm-sdk, Swift/Kotlin SDKs, DAPI gRPC; data contracts, documents, identities, tokens, DPNS names, state transitions, credits, proofs, Tenderdash consensus and Drive ABCI integration; code importing dash_sdk/dpp or @dashevo/*; and 'what changed / how to migrate' between Platform versions."
+description: "Load for any Tenderdash task, including quick RPC questions and reading a single field from a live or saved response (status, sync, net_info, connected peers). Load before planning or implementing changes in dash-evo-tool or dash-cli that use Dash Platform, or checking the active Platform protocol version. Use for Dash Platform (Evolution) SDK and DAPI work: Rust dash-sdk/dpp/Drive, JS/TS @dashevo SDKs, Swift/Kotlin, gRPC, data contracts, documents, identities, tokens, DPNS, state transitions, credits, proofs, SDK compatibility, Tenderdash consensus, Drive ABCI, and node upgrades."
 ---
 
 Assist with Dash Platform development: data contracts, Rust SDK, JS/TS SDK, identities, documents, queries, and Tenderdash integration.
